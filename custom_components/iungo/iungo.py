@@ -9,8 +9,7 @@ async def async_get_object_info(session, host: str):
     try:
         async with session.get(url) as response:
             response.raise_for_status()
-            data = await response.json()
-            # The actual object info is in data["rv"]
+            data = await response.json(content_type=None)  # Accept any content type
             return data.get("rv", {})
     except Exception as e:
         _LOGGER.error(f"Error fetching object info from {url}: {e}")
@@ -22,8 +21,7 @@ async def async_get_object_values(session, host: str):
     try:
         async with session.get(url) as response:
             response.raise_for_status()
-            data = await response.json()
-            # The actual values are in data["rv"]
+            data = await response.json(content_type=None)  # Accept any content type
             return data.get("rv", {})
     except Exception as e:
         _LOGGER.error(f"Error fetching object values from {url}: {e}")
