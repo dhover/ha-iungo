@@ -83,11 +83,38 @@ class IungoSensor(SensorEntity):
     async def async_update(self):
         await self.coordinator.async_request_refresh()
 
+class IungoBreakoutEnergySensor(IungoSensor):
+    def __init__(self, coordinator, object_id, object_name):
+        unique_id = f"{object_id}_calculated_energy"
+        name = f"{object_name} Calculated Energy"
+        super().__init__(
+            coordinator,
+            unique_id,
+            name,
+            "kWh",  # Aangenomen eenheid
+            object_id,
+            object_name,
+            "breakout",
+        )
+
+    @property
+    def state(self):
+        values = self.coordinator.data.get("object_values", {})
+        obj = values.get(self._object_id, {})
+        try:
+            offset = float(obj.get("offset", 0))
+            totalimport = float(obj.get("pulstotal", 0))
+            pulses = float(obj.get("ppkwh", 1))
+            if pulses == 0:
+                return None
+            return round(offset + totalimport / pulses, 3)
+        except Exception:
+            return None
+
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry, async_add_entities) -> None:
     coordinator = hass.data["iungo"][entry.entry_id]
     object_info = coordinator.data.get("object_info", {})
     sensor_defs = extract_sensors_from_object_info(object_info)
-    _LOGGER.warning("Iungo sensor_defs: %s", sensor_defs)
     sensors = []
     for sensor_def in sensor_defs:
         unique_id = f"{sensor_def['object_id']}_{sensor_def['prop_id']}"
@@ -103,5 +130,16 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry, async_add_e
                 sensor_def['object_type'],
             )
         )
-    _LOGGER.warning("Iungo sensors2: %s", sensors)
+    # Voeg breakout energy sensor toe als breakout aanwezig is
+    for sensor_def in sensor_defs:
+        if sensor_def["object_type"] == "breakout":
+            sensors.append(
+                IungoBreakoutEnergySensor(
+                    coordinator,
+                    sensor_def["object_id"],
+                    sensor_def["object_name"],
+                )
+            )
+            break  # één per breakout
+
     async_add_entities(sensors)
