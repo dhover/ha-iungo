@@ -60,7 +60,8 @@ class IungoSensor(Entity):
 
     @property
     def native_unit_of_measurement(self):
-        return self._unit
+       _LOGGER.debug("Sensor %s unit: %s", self._unique_id, self._unit)
+       return self._unit
 
     @property
     def device_class(self):
@@ -83,7 +84,9 @@ class IungoSensor(Entity):
     def state(self):
         object_id, prop_id = self._unique_id.split("_", 1)
         values = self.coordinator.data.get("object_values", {})
-        return values.get(object_id, {}).get(prop_id)
+        value = values.get(object_id, {}).get(prop_id)
+        _LOGGER.debug("Sensor %s state: %s", self._unique_id, value)
+        return value
 
     async def async_update(self):
         await self.coordinator.async_request_refresh()

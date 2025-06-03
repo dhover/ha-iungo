@@ -48,6 +48,7 @@ def extract_sensors_from_object_info(object_info: dict):
         props = driver.get("props", {})
         obj_type = info.get("type", "unknown")
         obj_name = driver.get("name", obj_id)
+        obj_description = driver.get("description", None)
         seen_ids = set()
         for prop_key, prop in props.items():
             # Skip numeric keys (only use named keys)
@@ -63,6 +64,7 @@ def extract_sensors_from_object_info(object_info: dict):
                     "object_id": obj_id,
                     "object_type": obj_type,
                     "object_name": obj_name,
+                    "object_description": obj_description,
                     "prop_id": prop_id,
                     "prop_label": prop.get("label", prop_key),
                     "unit": prop.get("unit"),
