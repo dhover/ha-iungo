@@ -47,8 +47,6 @@ class IungoSensor(Entity):
         self._object_id = object_id
         self._object_name = object_name
         self._object_type = object_type
-
-        # Guess device_class and state_class from unit
         self._device_class = DEVICE_CLASS_MAP.get(unit)
         self._state_class = STATE_CLASS_MAP.get(unit)
 
@@ -93,7 +91,6 @@ class IungoSensor(Entity):
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry, async_add_entities) -> None:
     coordinator = hass.data["iungo"][entry.entry_id]
     object_info = coordinator.data.get("object_info", {})
-    _LOGGER.warning("Iungo object_info: %s", object_info)
     sensor_defs = extract_sensors_from_object_info(object_info)
     _LOGGER.warning("Iungo sensor_defs: %s", sensor_defs)
     sensors = []
