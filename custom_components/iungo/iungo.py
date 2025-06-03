@@ -40,7 +40,7 @@ def parse_object_values(values_json: dict) -> dict:
     return lookup
 
 def extract_sensors_from_object_info(object_info: dict):
-    """Extract sensor definitions from Iungo object_info JSON."""
+    """Extract sensor definitions from Iungo object_info JSON, avoiding duplicates and skipping numeric keys."""
     sensors = []
     for obj_id, obj in object_info.items():
         info = obj.get("info", {})
@@ -48,14 +48,22 @@ def extract_sensors_from_object_info(object_info: dict):
         props = driver.get("props", {})
         obj_type = info.get("type", "unknown")
         obj_name = driver.get("name", obj_id)
+        seen_ids = set()
         for prop_key, prop in props.items():
+            # Skip numeric keys (only use named keys)
+            if prop_key.isdigit():
+                continue
+            prop_id = prop.get("id", prop_key)
+            if prop_id in seen_ids:
+                continue  # Skip duplicate
+            seen_ids.add(prop_id)
             # Only add properties with type 'number' or log == True
             if prop.get("type") == "number" or prop.get("log") is True:
                 sensor = {
                     "object_id": obj_id,
                     "object_type": obj_type,
                     "object_name": obj_name,
-                    "prop_id": prop.get("id", prop_key),
+                    "prop_id": prop_id,
                     "prop_label": prop.get("label", prop_key),
                     "unit": prop.get("unit"),
                 }
