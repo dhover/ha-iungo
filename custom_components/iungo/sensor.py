@@ -103,5 +103,5 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry, async_add_e
                 sensor_def['object_type'],
             )
         )
-    _LOGGER.warning("Iungo sensors: %s", sensors)
+    _LOGGER.warning("Iungo sensors2: %s", sensors)
     async_add_entities(sensors)

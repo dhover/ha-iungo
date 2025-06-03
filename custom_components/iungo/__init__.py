@@ -1,4 +1,5 @@
 from .const import DOMAIN
+from .coordinator import IungoDataUpdateCoordinator
 
 async def async_setup(hass, config):
     """Set up the iungo integration."""
@@ -6,7 +7,6 @@ async def async_setup(hass, config):
 
 async def async_setup_entry(hass, entry):
     """Set up a config entry for iungo."""
-    from .coordinator import IungoDataUpdateCoordinator
 
     coordinator = IungoDataUpdateCoordinator(hass, entry)
     await coordinator.async_initialize()  # Fetch object_info once at startup

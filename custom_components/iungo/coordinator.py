@@ -2,7 +2,7 @@ from homeassistant.helpers.update_coordinator import DataUpdateCoordinator
 from homeassistant.core import HomeAssistant
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
-from .const import CONF_HOST, DEFAULT_UPDATE_INTERVAL
+from .const import DOMAIN, CONF_HOST, DEFAULT_UPDATE_INTERVAL
 from .iungo import async_get_object_info, async_get_object_values, parse_object_values
 from datetime import timedelta
 import logging
@@ -10,14 +10,12 @@ import logging
 _LOGGER = logging.getLogger(__name__)
 
 class IungoDataUpdateCoordinator(DataUpdateCoordinator):
-    def __init__(self, hass: HomeAssistant, entry: ConfigEntry, update_interval=None):
-        if update_interval is None:
-            update_interval = timedelta(seconds=DEFAULT_UPDATE_INTERVAL)
+    def __init__(self, hass: HomeAssistant, entry: ConfigEntry):
         super().__init__(
             hass,
             _LOGGER,
-            name="iungo",
-            update_interval=update_interval,
+            name=DOMAIN,
+            update_interval=timedelta(seconds=DEFAULT_UPDATE_INTERVAL),
         )
         self.entry = entry
         self.object_info = None  # Store object_info here

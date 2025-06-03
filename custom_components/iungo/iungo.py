@@ -5,9 +5,8 @@ _LOGGER = logging.getLogger(__name__)
 
 async def async_get_object_info(session, host: str):
     """Fetch object info from the Iungo device."""
-    url = OBJECT_INFO_URL.format(host=host)
     try:
-        async with session.get(url) as response:
+        async with session.get( OBJECT_INFO_URL.format(host=host)) as response:
             response.raise_for_status()
             data = await response.json(content_type=None)  # Accept any content type
             return data.get("rv", {})
@@ -17,9 +16,8 @@ async def async_get_object_info(session, host: str):
 
 async def async_get_object_values(session, host: str):
     """Fetch object values from the Iungo device."""
-    url = OBJECT_VALUES_URL.format(host=host)
     try:
-        async with session.get(url) as response:
+        async with session.get(OBJECT_VALUES_URL.format(host=host)) as response:
             response.raise_for_status()
             data = await response.json(content_type=None)  # Accept any content type
             return data.get("rv", {})
