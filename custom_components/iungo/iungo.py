@@ -1,10 +1,11 @@
 import logging
+from .const import OBJECT_INFO_URL, OBJECT_VALUES_URL
 
 _LOGGER = logging.getLogger(__name__)
 
 async def async_get_object_info(session, host: str):
     """Fetch object info from the Iungo device."""
-    url = f"http://{host}/iungo/api_request/object_info"
+    url = OBJECT_INFO_URL.format(host=host)
     try:
         async with session.get(url) as response:
             response.raise_for_status()
@@ -17,7 +18,7 @@ async def async_get_object_info(session, host: str):
 
 async def async_get_object_values(session, host: str):
     """Fetch object values from the Iungo device."""
-    url = f"http://{host}/iungo/api_request/objmgr_list_objects_props_values"
+    url = OBJECT_VALUES_URL.format(host=host)
     try:
         async with session.get(url) as response:
             response.raise_for_status()
@@ -50,8 +51,8 @@ def extract_sensors_from_object_info(object_info: dict):
         obj_type = info.get("type", "unknown")
         obj_name = driver.get("name", obj_id)
         for prop_id, prop in props.items():
-            # Only add number properties (or extend as needed)
-            if prop.get("type") == "number":
+            # Only add properties with type 'number' or log == True
+            if prop.get("type") == "number" or prop.get("log") is True:
                 sensor = {
                     "object_id": obj_id,
                     "object_type": obj_type,
