@@ -29,7 +29,7 @@ class IungoDataUpdateCoordinator(DataUpdateCoordinator):
             return
         session = async_get_clientsession(self.hass)
         self.object_info = await async_get_object_info(session, host)
-        _LOGGER.warning("Fetched object_info: %s", self.object_info)
+        _LOGGER.debug("Fetched object_info: %s", self.object_info)
 
     async def _async_update_data(self):
         host = self.entry.data.get(CONF_HOST)
@@ -42,7 +42,7 @@ class IungoDataUpdateCoordinator(DataUpdateCoordinator):
             await self.async_initialize()
         raw_object_values = await async_get_object_values(session, host)
         object_values = parse_object_values(raw_object_values)
-        _LOGGER.warning("Fetched object_values: %s", object_values)
+        _LOGGER.debug("Fetched object_values: %s", object_values)
         return {
             "object_info": self.object_info,
             "object_values": object_values,
