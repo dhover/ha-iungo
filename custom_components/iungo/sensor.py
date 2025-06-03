@@ -2,7 +2,7 @@ from homeassistant.helpers.entity import Entity
 from homeassistant.helpers.device_registry import DeviceInfo
 from homeassistant.core import HomeAssistant
 from homeassistant.config_entries import ConfigEntry
-from homeassistant.components.sensor import SensorDeviceClass, SensorStateClass
+from homeassistant.components.sensor import SensorDeviceClass, SensorStateClass, SensorEntity
 from .coordinator import IungoDataUpdateCoordinator
 from .iungo import extract_sensors_from_object_info
 import logging
@@ -38,7 +38,7 @@ STATE_CLASS_MAP = {
     "l/min": SensorStateClass.MEASUREMENT,
 }
 
-class IungoSensor(Entity):
+class IungoSensor(SensorEntity):
     def __init__(self, coordinator, unique_id, name, unit, object_id, object_name, object_type):
         super().__init__()
         self.coordinator = coordinator
