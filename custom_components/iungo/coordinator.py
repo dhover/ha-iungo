@@ -31,6 +31,8 @@ class IungoDataUpdateCoordinator(DataUpdateCoordinator):
         object_info = await async_get_object_info(session, host)
         raw_object_values = await async_get_object_values(session, host)
         object_values = parse_object_values(raw_object_values)
+        _LOGGER.warning("Fetched object_info: %s", object_info)
+        _LOGGER.warning("Fetched object_values: %s", object_values)
         return {
             "object_info": object_info,
             "object_values": object_values,

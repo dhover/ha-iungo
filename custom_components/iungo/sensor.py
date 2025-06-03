@@ -50,9 +50,11 @@ class IungoSensor(Entity):
 
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry, async_add_entities) -> None:
     coordinator = hass.data["iungo"][entry.entry_id]
-    sensors = []
     object_info = coordinator.data.get("object_info", {})
+    _LOGGER.warning("Iungo object_info: %s", object_info)
     sensor_defs = extract_sensors_from_object_info(object_info)
+    _LOGGER.warning("Iungo sensor_defs: %s", sensor_defs)
+    sensors = []
     for sensor_def in sensor_defs:
         unique_id = f"{sensor_def['object_id']}_{sensor_def['prop_id']}"
         name = f"{sensor_def['object_name']} {sensor_def['prop_label']}"
@@ -67,4 +69,5 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry, async_add_e
                 sensor_def['object_type'],
             )
         )
+    _LOGGER.warning("Iungo sensors: %s", sensors)
     async_add_entities(sensors)

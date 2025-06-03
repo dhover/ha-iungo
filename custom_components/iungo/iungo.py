@@ -48,15 +48,15 @@ def extract_sensors_from_object_info(object_info: dict):
         props = driver.get("props", {})
         obj_type = info.get("type", "unknown")
         obj_name = driver.get("name", obj_id)
-        for prop_id, prop in props.items():
+        for prop_key, prop in props.items():
             # Only add properties with type 'number' or log == True
             if prop.get("type") == "number" or prop.get("log") is True:
                 sensor = {
                     "object_id": obj_id,
                     "object_type": obj_type,
                     "object_name": obj_name,
-                    "prop_id": prop.get("id", prop_id),
-                    "prop_label": prop.get("label", prop_id),
+                    "prop_id": prop.get("id", prop_key),
+                    "prop_label": prop.get("label", prop_key),
                     "unit": prop.get("unit"),
                 }
                 sensors.append(sensor)
