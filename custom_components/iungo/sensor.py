@@ -124,6 +124,11 @@ class IungoBreakoutWaterSensor(IungoSensor):
             object_name,
             "breakout_water",
         )
+        self._device_class = "water"  # Forceer device_class voor water
+
+    @property
+    def device_class(self):
+        return self._device_class
 
     @property
     def state(self):
