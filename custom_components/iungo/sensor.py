@@ -40,28 +40,21 @@ STATE_CLASS_MAP = {
 
 class IungoSensor(Entity):
     def __init__(self, coordinator, unique_id, name, unit, object_id, object_name, object_type):
+        super().__init__()
         self.coordinator = coordinator
         self._unique_id = unique_id
-        self._name = name
         self._unit = unit
         self._object_id = object_id
         self._object_name = object_name
         self._object_type = object_type
         self._device_class = DEVICE_CLASS_MAP.get(unit)
         self._state_class = STATE_CLASS_MAP.get(unit)
-
-    @property
-    def name(self):
-        return self._name
-
-    @property
-    def unique_id(self):
-        return self._unique_id
+        self._attr_name = name
+        self._attr_unique_id = unique_id
 
     @property
     def native_unit_of_measurement(self):
-       _LOGGER.debug("Sensor %s unit: %s", self._unique_id, self._unit)
-       return self._unit
+        return self._unit
 
     @property
     def device_class(self):
@@ -85,7 +78,6 @@ class IungoSensor(Entity):
         object_id, prop_id = self._unique_id.split("_", 1)
         values = self.coordinator.data.get("object_values", {})
         value = values.get(object_id, {}).get(prop_id)
-        _LOGGER.debug("Sensor %s state: %s", self._unique_id, value)
         return value
 
     async def async_update(self):
