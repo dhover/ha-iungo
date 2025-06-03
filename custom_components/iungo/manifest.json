@@ -6,5 +6,6 @@
   "dependencies": [],
   "codeowners": [
     "@dhover"
-  ]
+  ],
+  "config_flow": true
 }
