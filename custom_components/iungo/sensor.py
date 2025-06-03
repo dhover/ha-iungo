@@ -2,11 +2,41 @@ from homeassistant.helpers.entity import Entity
 from homeassistant.helpers.device_registry import DeviceInfo
 from homeassistant.core import HomeAssistant
 from homeassistant.config_entries import ConfigEntry
+from homeassistant.components.sensor import SensorDeviceClass, SensorStateClass
 from .coordinator import IungoDataUpdateCoordinator
 from .iungo import extract_sensors_from_object_info
 import logging
 
 _LOGGER = logging.getLogger(__name__)
+
+# Simple mapping for device_class and state_class based on unit/label/id
+DEVICE_CLASS_MAP = {
+    "W": SensorDeviceClass.POWER,
+    "kWh": SensorDeviceClass.ENERGY,
+    "V": SensorDeviceClass.VOLTAGE,
+    "A": SensorDeviceClass.CURRENT,
+    "°C": SensorDeviceClass.TEMPERATURE,
+    "m³": SensorDeviceClass.GAS,
+    "m³/h": SensorDeviceClass.GAS,
+    "%": SensorDeviceClass.HUMIDITY,
+    "hPa": SensorDeviceClass.PRESSURE,
+    "mm/h": SensorDeviceClass.PRECIPITATION,
+    "l/min": SensorDeviceClass.WATER,
+}
+
+STATE_CLASS_MAP = {
+    "kWh": SensorStateClass.TOTAL_INCREASING,
+    "m³": SensorStateClass.TOTAL_INCREASING,
+    "m³/h": SensorStateClass.MEASUREMENT,
+    "W": SensorStateClass.MEASUREMENT,
+    "V": SensorStateClass.MEASUREMENT,
+    "A": SensorStateClass.MEASUREMENT,
+    "°C": SensorStateClass.MEASUREMENT,
+    "%": SensorStateClass.MEASUREMENT,
+    "hPa": SensorStateClass.MEASUREMENT,
+    "mm/h": SensorStateClass.MEASUREMENT,
+    "l/min": SensorStateClass.MEASUREMENT,
+}
 
 class IungoSensor(Entity):
     def __init__(self, coordinator, unique_id, name, unit, object_id, object_name, object_type):
@@ -17,6 +47,10 @@ class IungoSensor(Entity):
         self._object_id = object_id
         self._object_name = object_name
         self._object_type = object_type
+
+        # Guess device_class and state_class from unit
+        self._device_class = DEVICE_CLASS_MAP.get(unit)
+        self._state_class = STATE_CLASS_MAP.get(unit)
 
     @property
     def name(self):
@@ -29,6 +63,14 @@ class IungoSensor(Entity):
     @property
     def native_unit_of_measurement(self):
         return self._unit
+
+    @property
+    def device_class(self):
+        return self._device_class
+
+    @property
+    def state_class(self):
+        return self._state_class
 
     @property
     def device_info(self):
@@ -66,7 +108,12 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry, async_add_e
                 sensor_def['unit'],
                 sensor_def['object_id'],
                 sensor_def['object_name'],
-                sensor_def['object_type'],
+
+
+
+
+
+    async_add_entities(sensors)    _LOGGER.warning("Iungo sensors: %s", sensors)        )            )                sensor_def['object_type'],                sensor_def['object_type'],
             )
         )
     _LOGGER.warning("Iungo sensors: %s", sensors)
