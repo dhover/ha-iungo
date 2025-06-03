@@ -1,0 +1,4 @@
+homeassistant==2023.9.0
+requests==2.28.1
+pytz==2023.3
+aiohttp==3.8.1
