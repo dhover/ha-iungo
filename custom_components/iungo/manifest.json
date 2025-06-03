@@ -2,13 +2,9 @@
   "domain": "iungo",
   "name": "Iungo",
   "version": "1.0.0",
-  "documentation": "https://github.com/dhover/ha-iungo#readme",
-  "requirements": [
-    "homeassistant>=2021.1.0"
-  ],
+  "requirements": [],
   "dependencies": [],
   "codeowners": [
     "@dhover"
-  ],
-  "iot_class": "local_polling"
+  ]
 }
