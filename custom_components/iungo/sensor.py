@@ -196,22 +196,27 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry, async_add_e
     # Voeg breakout energy sensor toe als breakout aanwezig is
     for sensor_def in sensor_defs:
         if sensor_def["object_type"] == "breakout":
+            obj_val = object_values.get(sensor_def["object_id"], {})
+            friendly_name = obj_val.get("name") or sensor_def["object_name"]
             sensors.append(
                 IungoBreakoutEnergySensor(
                     coordinator,
                     sensor_def["object_id"],
-                    sensor_def["object_name"],
+                    friendly_name,  # Gebruik de friendly name
                 )
             )
             break  # één per breakout
+
     # Voeg breakout water sensor toe als water-breakout aanwezig is
     for sensor_def in sensor_defs:
         if sensor_def["object_type"] == "water":
+            obj_val = object_values.get(sensor_def["object_id"], {})
+            friendly_name = obj_val.get("name") or sensor_def["object_name"]
             sensors.append(
                 IungoBreakoutWaterSensor(
                     coordinator,
                     sensor_def["object_id"],
-                    sensor_def["object_name"],
+                    friendly_name,  # Gebruik de friendly name
                 )
             )
             break  # één per water-breakout
