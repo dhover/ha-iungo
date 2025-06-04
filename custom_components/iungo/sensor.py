@@ -54,6 +54,9 @@ DISPLAY_PRECISION_MAP = {
     "x": 0,
     "sec": 0,
     "puls/m³": 0,
+    "€/kwh": 3,
+    "€/m³": 3,
+    "m³/h": 3,
 }
 
 class IungoSensor(SensorEntity):
@@ -181,8 +184,10 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry, async_add_e
         obj_val = object_values.get(sensor_def['object_id'], {})
         friendly_name = obj_val.get("name") or sensor_def['object_name']
         name = f"{friendly_name} {sensor_def['prop_label']}"
-        # Fix unit: replace ¤ with €
-        unit = sensor_def['unit'].replace("¤", "€") if sensor_def['unit'] else None
+        # Fix unit: replace ¤ with € and m3 by m³
+        unit = sensor_def['unit']
+        if unit:
+            unit = unit.replace("¤", "€").replace("m3", "m³")
         # Skip sensors with unknown or missing values
         value = object_values.get(sensor_def['object_id'], {}).get(sensor_def['prop_id'])
         if value is None or value == "unknown":
