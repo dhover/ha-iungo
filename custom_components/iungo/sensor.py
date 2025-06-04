@@ -64,7 +64,7 @@ class IungoSensor(SensorEntity):
         super().__init__()
         self.coordinator = coordinator
         self._unique_id = unique_id
-        self._unit = unit
+        self._unit = unit.replace("¤", "€").replace("m3", "m³")
         self._object_id = object_id
         self._object_name = object_name
         self._object_type = object_type
