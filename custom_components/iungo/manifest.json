@@ -1,10 +1,12 @@
 {
   "domain": "iungo",
   "name": "Iungo",
-  "version": "1.0.6",
-  "icon": "branding/logo.png",
+  "version": "1.0.7",
+  "icon": "branding/icon.png",
   "requirements": [],
   "dependencies": [],
+  "documentation": "https://github.com/dhover/ha-iungo",
+  "issue_tracker": "https://github.com/dhover/ha-iungo/issues",
   "codeowners": [
     "@dhover"
   ],
