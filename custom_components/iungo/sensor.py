@@ -49,6 +49,11 @@ DISPLAY_PRECISION_MAP = {
     "hPa": 1,
     "mm/h": 1,
     "l/min": 2,
+    "puls/kWh": 0,
+    "puls": 0,
+    "x": 0,
+    "sec": 0,
+    "puls/m³": 0,
 }
 
 class IungoSensor(SensorEntity):
