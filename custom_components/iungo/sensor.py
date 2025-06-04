@@ -54,7 +54,7 @@ DISPLAY_PRECISION_MAP = {
     "x": 0,
     "sec": 0,
     "puls/m³": 0,
-    "€/kwh": 3,
+    "€/kWh": 3,
     "€/m³": 3,
     "m³/h": 3,
 }
