@@ -178,10 +178,13 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry, async_add_e
     object_values = coordinator.data.get("object_values", {})
     for sensor_def in sensor_defs:
         unique_id = f"{sensor_def['object_id']}_{sensor_def['prop_id']}"
-        # Prefer name from object_values if available
         obj_val = object_values.get(sensor_def['object_id'], {})
         friendly_name = obj_val.get("name") or sensor_def['object_name']
         name = f"{friendly_name} {sensor_def['prop_label']}"
+        # Skip sensors with unknown or missing values
+        value = object_values.get(sensor_def['object_id'], {}).get(sensor_def['prop_id'])
+        if value is None or value == "unknown":
+            continue
         sensors.append(
             IungoSensor(
                 coordinator,
@@ -189,7 +192,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry, async_add_e
                 name,
                 sensor_def['unit'],
                 sensor_def['object_id'],
-                friendly_name,  # Pass the friendly name as object_name
+                friendly_name,
                 sensor_def['object_type'],
             )
         )
