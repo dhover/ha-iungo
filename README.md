@@ -1,36 +1,69 @@
 # Iungo Home Assistant Integration
 
-## Overview
-The Iungo integration for Home Assistant allows users to connect and manage their Iungo devices seamlessly within the Home Assistant ecosystem.
+[![hacs_badge](https://img.shields.io/badge/HACS-Custom-orange.svg)](https://hacs.xyz/)
+
+This is a custom integration for [Home Assistant](https://www.home-assistant.io/) to connect with your Iungo energy monitor.
+
+---
+
+## Features
+
+- Adds sensors for all Iungo objects and properties
+- Supports calculated sensors for breakout energy and water
+- Friendly names from your Iungo configuration
+- Device classes, units, and display precision mapping
+
+---
 
 ## Installation
-1. Clone this repository to your Home Assistant `custom_components` directory:
-   ```
-   git clone https://github.com/yourusername/ha-iungo.git
-   ```
-2. Ensure that the `ha-iungo` folder is located in your Home Assistant `custom_components` directory:
-   ```
-   /config/custom_components/iungo
-   ```
 
-3. Install the required Python packages listed in `requirements.txt`:
+### 1. Add this repository to HACS
+
+1. Go to **HACS > Integrations** in Home Assistant.
+2. Click the three dots (upper right) and select **Custom repositories**.
+3. Add the URL of this repository:
    ```
-   pip install -r requirements.txt
+   https://github.com/dhover/ha-iungo
    ```
+   as type **Integration**.
+4. Search for "Iungo" in HACS and install.
+
+### 2. Restart Home Assistant
+
+After installation, restart Home Assistant to load the integration.
+
+### 3. Add the Integration
+
+- Go to **Settings > Devices & Services > Add Integration**.
+- Search for **Iungo** and follow the setup flow.
+
+---
 
 ## Configuration
-To set up the Iungo integration, add the following to your `configuration.yaml` file:
 
-```yaml
-iungo:
-  # Add your configuration options here
-```
+- Enter the host/IP address of your Iungo device.
+- Sensors will be automatically discovered and added.
 
-## Usage
-Once the integration is installed and configured, you can start using the Iungo sensors and other features within Home Assistant. The integration will automatically discover your Iungo devices.
+---
 
-## Contributing
-If you would like to contribute to the Iungo integration, please fork the repository and submit a pull request. We welcome contributions that improve functionality, fix bugs, or enhance documentation.
+## Updating
 
-## License
-This project is licensed under the MIT License. See the LICENSE file for more details.
+- Update via HACS when a new version is available.
+
+---
+
+## Support
+
+- Issues and feature requests: [GitHub Issues](https://github.com/dhover/ha-iungo/issues)
+
+---
+
+## Credits
+
+- [@dhover](https://github.com/dhover)
+
+---
+
+## Disclaimer
+
+This integration is not affiliated with or endorsed by Iungo. Use at your own risk.
