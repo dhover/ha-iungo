@@ -38,6 +38,19 @@ STATE_CLASS_MAP = {
     "l/min": SensorStateClass.MEASUREMENT,
 }
 
+DISPLAY_PRECISION_MAP = {
+    "kWh": 3,
+    "m³": 3,
+    "W": 0,
+    "V": 1,
+    "A": 2,
+    "°C": 1,
+    "%": 1,
+    "hPa": 1,
+    "mm/h": 1,
+    "l/min": 2,
+}
+
 class IungoSensor(SensorEntity):
     def __init__(self, coordinator, unique_id, name, unit, object_id, object_name, object_type):
         super().__init__()
@@ -52,6 +65,7 @@ class IungoSensor(SensorEntity):
         self._attr_name = name
         self._attr_unique_id = unique_id
         self._attr_has_entity_name = True
+        self._attr_suggested_display_precision = DISPLAY_PRECISION_MAP.get(unit, 2)
         
     @property
     def native_unit_of_measurement(self):
@@ -99,6 +113,7 @@ class IungoBreakoutEnergySensor(IungoSensor):
             "breakout",
         )
         self._attr_has_entity_name = True
+        self._attr_suggested_display_precision = 3
 
     @property
     def state(self):
@@ -130,6 +145,7 @@ class IungoBreakoutWaterSensor(IungoSensor):
         )
         self._device_class = SensorDeviceClass.WATER  # Forceer device_class voor water
         self._attr_has_entity_name = True
+        self._attr_suggested_display_precision = 3
 
     @property
     def device_class(self):
