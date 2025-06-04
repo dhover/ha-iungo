@@ -181,6 +181,8 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry, async_add_e
         obj_val = object_values.get(sensor_def['object_id'], {})
         friendly_name = obj_val.get("name") or sensor_def['object_name']
         name = f"{friendly_name} {sensor_def['prop_label']}"
+        # Fix unit: replace ¤ with €
+        unit = sensor_def['unit'].replace("¤", "€") if sensor_def['unit'] else None
         # Skip sensors with unknown or missing values
         value = object_values.get(sensor_def['object_id'], {}).get(sensor_def['prop_id'])
         if value is None or value == "unknown":
@@ -190,7 +192,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry, async_add_e
                 coordinator,
                 unique_id,
                 name,
-                sensor_def['unit'],
+                unit,
                 sensor_def['object_id'],
                 friendly_name,
                 sensor_def['object_type'],
