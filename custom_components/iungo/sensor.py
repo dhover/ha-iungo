@@ -51,7 +51,8 @@ class IungoSensor(SensorEntity):
         self._state_class = STATE_CLASS_MAP.get(unit)
         self._attr_name = name
         self._attr_unique_id = unique_id
-
+        self._attr_has_entity_name = True
+        
     @property
     def native_unit_of_measurement(self):
         return self._unit
@@ -96,6 +97,7 @@ class IungoBreakoutEnergySensor(IungoSensor):
             object_name,
             "breakout",
         )
+        self._attr_has_entity_name = True
 
     @property
     def state(self):
@@ -124,7 +126,8 @@ class IungoBreakoutWaterSensor(IungoSensor):
             object_name,
             "breakout_water",
         )
-        self._device_class = "water"  # Forceer device_class voor water
+        self._device_class = SensorDeviceClass.WATER  # Forceer device_class voor water
+        self._attr_has_entity_name = True
 
     @property
     def device_class(self):
