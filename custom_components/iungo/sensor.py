@@ -45,10 +45,11 @@ DISPLAY_PRECISION_MAP = {
     "V": 1,
     "A": 2,
     "°C": 1,
-    "%": 1,
+    "°": 0,
+    "%": 0,
     "hPa": 1,
     "mm/h": 1,
-    "l/min": 2,
+    "l/min": 3,
     "puls/kWh": 0,
     "puls": 0,
     "x": 0,
@@ -57,6 +58,8 @@ DISPLAY_PRECISION_MAP = {
     "€/kWh": 3,
     "€/m³": 3,
     "m³/h": 3,
+    "m/s": 1,
+    "W/m²": 0,
 }
 
 class IungoSensor(SensorEntity):
@@ -64,7 +67,7 @@ class IungoSensor(SensorEntity):
         super().__init__()
         self.coordinator = coordinator
         self._unique_id = unique_id
-        self._unit = unit.replace("¤", "€").replace("m3", "m³") if unit else None
+        self._unit = unit.replace("¤", "€").replace("m3", "m³").replace("m2","m²") if unit else None
         self._object_id = object_id
         self._object_name = object_name
         self._object_type = object_type
@@ -187,7 +190,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry, async_add_e
         # Fix unit: replace ¤ with € and m3 by m³
         unit = sensor_def['unit']
         if unit:
-            unit = unit.replace("¤", "€").replace("m3", "m³")
+            unit = unit.replace("¤", "€").replace("m3", "m³").replace("m2", "m²")
         # Skip sensors with unknown or missing values
         value = object_values.get(sensor_def['object_id'], {}).get(sensor_def['prop_id'])
         if value is None or value == "unknown":
