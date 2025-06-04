@@ -1,8 +1,7 @@
 {
   "domain": "iungo",
   "name": "Iungo",
-  "version": "1.0.7",
-  "icon": "branding/icon.png",
+  "version": "1.0.8",
   "requirements": [],
   "dependencies": [],
   "documentation": "https://github.com/dhover/ha-iungo",
