@@ -96,8 +96,8 @@ class IungoSensor(SensorEntity):
     @property
     def state(self):
         object_id, prop_id = self._unique_id.split("_", 1)
-        values = self.coordinator.data.get("object_values", {})
-        value = values.get(object_id, {}).get(prop_id)
+        object_values = self.coordinator.data.get("object_values", {})
+        value = object_values.get(object_id, {}).get(prop_id)
         return value
 
     async def async_update(self):
@@ -122,8 +122,8 @@ class IungoBreakoutEnergySensor(IungoSensor):
 
     @property
     def state(self):
-        values = self.coordinator.data.get("object_values", {})
-        obj = values.get(self._object_id, {})
+        object_values = self.coordinator.data.get("object_values", {})
+        obj = object_values.get(self._object_id, {})
         try:
             offset = float(obj.get("offset", 0))
             totalimport = float(obj.get("pulstotal", 0))
@@ -158,8 +158,8 @@ class IungoBreakoutWaterSensor(IungoSensor):
 
     @property
     def state(self):
-        values = self.coordinator.data.get("object_values", {})
-        obj = values.get(self._object_id, {})
+        object_values = self.coordinator.data.get("object_values", {})
+        obj = object_values.get(self._object_id, {})
         try:
             offset = float(obj.get("offset", 0))
             totalwater = float(obj.get("pulstotal", 0))
@@ -175,10 +175,13 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry, async_add_e
     object_info = coordinator.data.get("object_info", {})
     sensor_defs = extract_sensors_from_object_info(object_info)
     sensors = []
+    object_values = coordinator.data.get("object_values", {})
     for sensor_def in sensor_defs:
         unique_id = f"{sensor_def['object_id']}_{sensor_def['prop_id']}"
-        #name = f"{sensor_def['object_name']} {sensor_def['prop_label']}"
-        name = f"{sensor_def['prop_label']}"
+        # Prefer name from object_values if available
+        obj_val = object_values.get(sensor_def['object_id'], {})
+        friendly_name = obj_val.get("name") or sensor_def['object_name']
+        name = f"{friendly_name} {sensor_def['prop_label']}"
         sensors.append(
             IungoSensor(
                 coordinator,
@@ -186,7 +189,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry, async_add_e
                 name,
                 sensor_def['unit'],
                 sensor_def['object_id'],
-                sensor_def['object_name'],
+                friendly_name,  # Pass the friendly name as object_name
                 sensor_def['object_type'],
             )
         )
