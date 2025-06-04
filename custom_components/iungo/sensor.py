@@ -87,7 +87,8 @@ class IungoSensor(SensorEntity):
 class IungoBreakoutEnergySensor(IungoSensor):
     def __init__(self, coordinator, object_id, object_name):
         unique_id = f"{object_id}_calculated_energy"
-        name = f"{object_name} Calculated Energy"
+        #name = f"{object_name} Calculated Energy"
+        name = "Calculated Energy"
         super().__init__(
             coordinator,
             unique_id,
@@ -116,7 +117,8 @@ class IungoBreakoutEnergySensor(IungoSensor):
 class IungoBreakoutWaterSensor(IungoSensor):
     def __init__(self, coordinator, object_id, object_name):
         unique_id = f"{object_id}_calculated_water"
-        name = f"{object_name} Calculated Water"
+        #name = f"{object_name} Calculated Water"
+        name = "Calculated Water"
         super().__init__(
             coordinator,
             unique_id,
@@ -154,7 +156,8 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry, async_add_e
     sensors = []
     for sensor_def in sensor_defs:
         unique_id = f"{sensor_def['object_id']}_{sensor_def['prop_id']}"
-        name = f"{sensor_def['object_name']} {sensor_def['prop_label']}"
+        #name = f"{sensor_def['object_name']} {sensor_def['prop_label']}"
+        name = f"{sensor_def['prop_label']}"
         sensors.append(
             IungoSensor(
                 coordinator,
