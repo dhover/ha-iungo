@@ -71,7 +71,11 @@ class IungoSensor(SensorEntity):
         self._object_id = object_id
         self._object_name = object_name
         self._object_type = object_type
+        # Default mapping
         self._device_class = DEVICE_CLASS_MAP.get(unit)
+        # Override for water meters
+        if unit == "m³" and object_type == "water":
+            self._device_class = SensorDeviceClass.WATER
         self._state_class = STATE_CLASS_MAP.get(unit)
         self._attr_name = name
         self._attr_unique_id = unique_id
