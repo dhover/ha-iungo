@@ -1,7 +1,7 @@
 {
   "domain": "iungo",
   "name": "Iungo",
-  "version": "1.1.0",
+  "version": "1.1.2",
   "requirements": [],
   "dependencies": [],
   "documentation": "https://github.com/dhover/ha-iungo",
