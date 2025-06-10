@@ -71,6 +71,7 @@ TARIFF_LABEL_MAP = {
     "€ -T1": "Cost Tariff 1 (Returned)",
     "€ T2": "Cost Tariff 2",
     "€ -T2": "Cost Tariff 2 (Returned)",
+    "€ Gas": "Cost Gas",
 }
 
 class IungoSensor(SensorEntity):
