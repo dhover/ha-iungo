@@ -203,10 +203,10 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry, async_add_e
         friendly_name = obj_val.get("name") or sensor_def['object_name']
         prop_label = sensor_def['prop_label']
         # Map tariff labels to friendly names if present
-        prop_label = TARIFF_LABEL_MAP.get(prop_label, prop_label)
+        name = TARIFF_LABEL_MAP.get(prop_label, prop_label)
 
         #name = f"{friendly_name} {sensor_def['prop_label']}"
-        name = sensor_def['prop_label']
+        #name = sensor_def['prop_label']
         # Fix unit: replace ¤ with € and m3 by m³
         unit = sensor_def['unit']
         if unit:
