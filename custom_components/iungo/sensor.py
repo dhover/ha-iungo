@@ -190,7 +190,8 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry, async_add_e
         unique_id = f"{sensor_def['object_id']}_{sensor_def['prop_id']}"
         obj_val = object_values.get(sensor_def['object_id'], {})
         friendly_name = obj_val.get("name") or sensor_def['object_name']
-        name = f"{friendly_name} {sensor_def['prop_label']}"
+        #name = f"{friendly_name} {sensor_def['prop_label']}"
+        name = sensor_def['prop_label']
         # Fix unit: replace ¤ with € and m3 by m³
         unit = sensor_def['unit']
         if unit:
