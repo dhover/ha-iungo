@@ -62,6 +62,17 @@ DISPLAY_PRECISION_MAP = {
     "W/m²": 0,
 }
 
+TARIFF_LABEL_MAP = {
+    "T1": "Tariff 1",
+    "-T1": "Tariff 1 (Returned)",
+    "T2": "Tariff 2",
+    "-T2": "Tariff 2 (Returned)",
+    "€ T1": "Cost Tariff 1",
+    "€ -T1": "Cost Tariff 1 (Returned)",
+    "€ T2": "Cost Tariff 2",
+    "€ -T2": "Cost Tariff 2 (Returned)",
+}
+
 class IungoSensor(SensorEntity):
     def __init__(self, coordinator, unique_id, name, unit, object_id, object_name, object_type):
         super().__init__()
@@ -190,6 +201,10 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry, async_add_e
         unique_id = f"{sensor_def['object_id']}_{sensor_def['prop_id']}"
         obj_val = object_values.get(sensor_def['object_id'], {})
         friendly_name = obj_val.get("name") or sensor_def['object_name']
+        prop_label = sensor_def['prop_label']
+        # Map tariff labels to friendly names if present
+        prop_label = TARIFF_LABEL_MAP.get(prop_label, prop_label)
+
         #name = f"{friendly_name} {sensor_def['prop_label']}"
         name = sensor_def['prop_label']
         # Fix unit: replace ¤ with € and m3 by m³
