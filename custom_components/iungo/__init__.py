@@ -1,5 +1,11 @@
+import voluptuous as vol
+
+from homeassistant.helpers import config_validation as cv
+
 from .const import DOMAIN
 from .coordinator import IungoDataUpdateCoordinator
+
+CONFIG_SCHEMA = cv.config_entry_only_config_schema(DOMAIN)
 
 async def async_setup(hass, config):
     """Set up the iungo integration."""
