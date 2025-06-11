@@ -1,7 +1,6 @@
 {
   "domain": "iungo",
   "name": "Iungo",
-  "version": "1.1.4",
   "requirements": [],
   "dependencies": [],
   "documentation": "https://github.com/dhover/ha-iungo",
@@ -10,5 +9,6 @@
     "@dhover"
   ],
   "iot_class": "local_polling",
-  "config_flow": true
+  "config_flow": true,
+  "version": "1.1.4"
 }
