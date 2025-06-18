@@ -1,28 +1,62 @@
+import aiohttp
+import async_timeout
 import logging
-from .const import OBJECT_INFO_URL, OBJECT_VALUES_URL
+from .const import OBJECT_INFO_URL, OBJECT_VALUES_URL, OBJECT_SYSINFO_URL, OBJECT_HWINFO_URL
 
 _LOGGER = logging.getLogger(__name__)
 
 async def async_get_object_info(session, host: str):
-    """Fetch object info from the Iungo device."""
+    """Fetch object info from the Iungo."""
     try:
-        async with session.get( OBJECT_INFO_URL.format(host=host)) as response:
+        url = OBJECT_INFO_URL.format(host=host)
+        async with session.get(url) as response:
             response.raise_for_status()
             data = await response.json(content_type=None)  # Accept any content type
+            _LOGGER.debug("Fetched object info: %s", data)
             return data.get("rv", {})
-    except Exception as e:
-        _LOGGER.error(f"Error fetching object info from {url}: {e}")
+    except Exception as err:
+        _LOGGER.error(f"Error fetching object info from {url}: {err}")
         return {}
 
 async def async_get_object_values(session, host: str):
-    """Fetch object values from the Iungo device."""
+    """Fetch object values from the Iungo."""
     try:
-        async with session.get(OBJECT_VALUES_URL.format(host=host)) as response:
+        url = OBJECT_VALUES_URL.format(host=host)
+        async with session.get(url) as response:
             response.raise_for_status()
             data = await response.json(content_type=None)  # Accept any content type
+            _LOGGER.debug("Fetched object values: %s", data)
             return data.get("rv", {})
-    except Exception as e:
-        _LOGGER.error(f"Error fetching object values from {url}: {e}")
+    except Exception as err:
+        _LOGGER.error(f"Error fetching object values from {url}: {err}")
+        return {}
+
+async def async_get_sysinfo(session: aiohttp.ClientSession, host: str):
+    """Fetch system info from Iungo."""
+    try:
+        url = OBJECT_SYSINFO_URL.format(host=host)
+        #async with async_timeout.timeout(10):
+        async with session.get(url) as response:
+            response.raise_for_status()
+            data = await response.json(content_type=None)  # Accept any content type
+            _LOGGER.debug("Fetched sysinfo: %s", data)
+            return data.get("rv", {})
+    except Exception as err:
+        _LOGGER.error(f"Error fetching sysinfo values from {url}: {err}")
+        return {}
+
+async def async_get_hwinfo(session: aiohttp.ClientSession, host: str):
+    """Fetch system info from Iungo."""
+    try:
+        url = OBJECT_HWINFO_URL.format(host=host)
+        #async with async_timeout.timeout(10):
+        async with session.get(url) as response:
+            response.raise_for_status()
+            data = await response.json(content_type=None)  # Accept any content type
+            _LOGGER.debug("Fetched sysinfo: %s", data)
+            return data.get("rv", {})
+    except Exception as err:
+        _LOGGER.error(f"Error fetching hardware info values from {url}: {err}")
         return {}
 
 def parse_object_values(values_json: dict) -> dict:

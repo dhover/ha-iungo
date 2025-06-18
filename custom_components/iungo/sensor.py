@@ -109,12 +109,28 @@ class IungoSensor(SensorEntity):
 
     @property
     def device_info(self):
-        return DeviceInfo(
-            identifiers = {("iungo", self._object_id)},
-            name = self._object_name,
-            manufacturer = "Iungo",
-            model = self._object_type,
+        sysinfo = getattr(self.coordinator, "sysinfo", {}) or {}
+        version = sysinfo.get("version", {})
+        sw_version = version.get("version") or ""
+        build = version.get("build") or ""
+        serial_number = version.get("serial") or ""
+        hwinfo = getattr(self.coordinator, "hwinfo", {}) or {}
+        hardware= hwinfo.get("hardware", {})
+        revision = hardware.get("revision") or ""
+        identifiers = {("iungo", self._object_id)}
+        info = DeviceInfo(
+            identifiers=identifiers,
+            name=self._object_name,
+            manufacturer="Iungo",
+            model=self._object_type,
         )
+        if sw_version or build:
+            info["sw_version"] = f"{sw_version} build {build}".strip()
+        if serial_number:
+            info["serial_number"] = serial_number
+        if revision:
+            info["hw_version"] = revision 
+        return info
 
     @property
     def state(self):
