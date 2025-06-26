@@ -20,6 +20,7 @@ class IungoDataUpdateCoordinator(DataUpdateCoordinator):
         self.entry = entry
         self.object_info = None  # Store object_info here
         self.sysinfo = None
+        self.hwinfo = None
 
     async def async_initialize(self):
         host = self.entry.data.get(CONF_HOST)

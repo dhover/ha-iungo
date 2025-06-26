@@ -20,8 +20,11 @@ DEVICE_CLASS_MAP = {
     "m³/h": SensorDeviceClass.GAS,
     "%": SensorDeviceClass.HUMIDITY,
     "hPa": SensorDeviceClass.PRESSURE,
-    "mm/h": SensorDeviceClass.PRECIPITATION,
+    "mm/h": SensorDeviceClass.PRECIPITATION_INTENSITY,
     "l/min": SensorDeviceClass.WATER,
+    "W/m²": SensorDeviceClass.IRRADIANCE,
+    "m/s": SensorDeviceClass.WINDSPEED,
+    "°": SensorStateClass.WIND_DIRECTION,
 }
 
 STATE_CLASS_MAP = {
@@ -36,6 +39,9 @@ STATE_CLASS_MAP = {
     "hPa": SensorStateClass.MEASUREMENT,
     "mm/h": SensorStateClass.MEASUREMENT,
     "l/min": SensorStateClass.MEASUREMENT,
+    "W/m²": SensorDeviceClass.MEASUREMENT,
+    "m/s": SensorDeviceClass.MEASUREMENT,
+    "°": SensorStateClass.MEASUREMENT_ANGLE,
 }
 
 DISPLAY_PRECISION_MAP = {
@@ -75,12 +81,14 @@ TARIFF_LABEL_MAP = {
     "Pulses / kW·h": "Pulses/kWh",
 }
 
+
 class IungoSensor(SensorEntity):
     def __init__(self, coordinator, unique_id, name, unit, object_id, object_name, object_type):
         super().__init__()
         self.coordinator = coordinator
         self._unique_id = unique_id
-        self._unit = unit.replace("¤", "€").replace("m3", "m³").replace("m2","m²") if unit else None
+        self._unit = unit.replace("¤", "€").replace(
+            "m3", "m³").replace("m2", "m²") if unit else None
         self._object_id = object_id
         self._object_name = object_name
         self._object_type = object_type
@@ -93,8 +101,9 @@ class IungoSensor(SensorEntity):
         self._attr_name = name
         self._attr_unique_id = unique_id
         self._attr_has_entity_name = True
-        self._attr_suggested_display_precision = DISPLAY_PRECISION_MAP.get(unit, 2)
-        
+        self._attr_suggested_display_precision = DISPLAY_PRECISION_MAP.get(
+            unit, 2)
+
     @property
     def native_unit_of_measurement(self):
         return self._unit
@@ -115,7 +124,7 @@ class IungoSensor(SensorEntity):
         build = version.get("build") or ""
         serial_number = version.get("serial") or ""
         hwinfo = getattr(self.coordinator, "hwinfo", {}) or {}
-        hardware= hwinfo.get("hardware", {})
+        hardware = hwinfo.get("hardware", {})
         revision = hardware.get("revision") or ""
         identifiers = {("iungo", self._object_id)}
         info = DeviceInfo(
@@ -129,7 +138,7 @@ class IungoSensor(SensorEntity):
         if serial_number:
             info["serial_number"] = serial_number
         if revision:
-            info["hw_version"] = revision 
+            info["hw_version"] = revision
         return info
 
     @property
@@ -142,10 +151,11 @@ class IungoSensor(SensorEntity):
     async def async_update(self):
         await self.coordinator.async_request_refresh()
 
+
 class IungoBreakoutEnergySensor(IungoSensor):
     def __init__(self, coordinator, object_id, object_name):
         unique_id = f"{object_id}_calculated_energy"
-        #name = f"{object_name} Calculated Energy"
+        # name = f"{object_name} Calculated Energy"
         name = "Calculated Energy"
         super().__init__(
             coordinator,
@@ -173,10 +183,11 @@ class IungoBreakoutEnergySensor(IungoSensor):
         except Exception:
             return None
 
+
 class IungoBreakoutWaterSensor(IungoSensor):
     def __init__(self, coordinator, object_id, object_name):
         unique_id = f"{object_id}_calculated_water"
-        #name = f"{object_name} Calculated Water"
+        # name = f"{object_name} Calculated Water"
         name = "Calculated Water"
         super().__init__(
             coordinator,
@@ -209,6 +220,7 @@ class IungoBreakoutWaterSensor(IungoSensor):
         except Exception:
             return None
 
+
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry, async_add_entities) -> None:
     coordinator = hass.data["iungo"][entry.entry_id]
     object_info = coordinator.data.get("object_info", {})
@@ -223,14 +235,16 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry, async_add_e
         # Map tariff labels to friendly names if present
         name = TARIFF_LABEL_MAP.get(prop_label, prop_label)
 
-        #name = f"{friendly_name} {sensor_def['prop_label']}"
-        #name = sensor_def['prop_label']
+        # name = f"{friendly_name} {sensor_def['prop_label']}"
+        # name = sensor_def['prop_label']
         # Fix unit: replace ¤ with € and m3 by m³
         unit = sensor_def['unit']
         if unit:
-            unit = unit.replace("¤", "€").replace("m3", "m³").replace("m2", "m²")
+            unit = unit.replace("¤", "€").replace(
+                "m3", "m³").replace("m2", "m²")
         # Skip sensors with unknown or missing values
-        value = object_values.get(sensor_def['object_id'], {}).get(sensor_def['prop_id'])
+        value = object_values.get(
+            sensor_def['object_id'], {}).get(sensor_def['prop_id'])
         if value is None or value == "unknown":
             continue
         sensors.append(
