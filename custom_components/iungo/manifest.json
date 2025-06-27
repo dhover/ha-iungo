@@ -1,6 +1,7 @@
 {
   "domain": "iungo",
   "name": "Iungo",
+  "brand": "iungo",
   "codeowners": [
     "@dhover"
   ],
@@ -10,5 +11,5 @@
   "iot_class": "local_polling",
   "issue_tracker": "https://github.com/dhover/ha-iungo/issues",
   "requirements": [],
-  "version": "1.1.6"
+  "version": "1.1.7"
 }
