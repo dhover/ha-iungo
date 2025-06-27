@@ -23,8 +23,8 @@ DEVICE_CLASS_MAP = {
     "mm/h": SensorDeviceClass.PRECIPITATION_INTENSITY,
     "l/min": SensorDeviceClass.WATER,
     "W/m²": SensorDeviceClass.IRRADIANCE,
-    "m/s": SensorDeviceClass.WINDSPEED,
-    "°": SensorStateClass.WIND_DIRECTION,
+    "m/s": SensorDeviceClass.WIND_SPEED,
+    "°": SensorDeviceClass.WIND_DIRECTION,
 }
 
 STATE_CLASS_MAP = {
@@ -39,8 +39,8 @@ STATE_CLASS_MAP = {
     "hPa": SensorStateClass.MEASUREMENT,
     "mm/h": SensorStateClass.MEASUREMENT,
     "l/min": SensorStateClass.MEASUREMENT,
-    "W/m²": SensorDeviceClass.MEASUREMENT,
-    "m/s": SensorDeviceClass.MEASUREMENT,
+    "W/m²": SensorStateClass.MEASUREMENT,
+    "m/s": SensorStateClass.MEASUREMENT,
     "°": SensorStateClass.MEASUREMENT_ANGLE,
 }
 
