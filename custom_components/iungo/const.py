@@ -1,5 +1,5 @@
 DOMAIN = "iungo"
-VERSION = "1.1.3"
+VERSION = "1.1.7"
 
 CONF_HOST = "host"
 
