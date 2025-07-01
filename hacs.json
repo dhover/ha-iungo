@@ -1,4 +1,5 @@
 {
   "name": "Iungo",
-  "country": "NL"
+  "country": "NL",
+  "homeassistant": "2025.2.5"
 }
