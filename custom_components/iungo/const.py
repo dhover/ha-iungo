@@ -1,8 +1,6 @@
 DOMAIN = "iungo"
-VERSION = "1.1.7"
 
 CONF_HOST = "host"
-
 DEFAULT_UPDATE_INTERVAL = 30
 
 OBJECT_INFO_URL = "http://{host}/iungo/api_request/object_info"
