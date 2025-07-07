@@ -5,18 +5,21 @@ from .const import OBJECT_INFO_URL, OBJECT_VALUES_URL, OBJECT_SYSINFO_URL, OBJEC
 
 _LOGGER = logging.getLogger(__name__)
 
+
 async def async_get_object_info(session, host: str):
     """Fetch object info from the Iungo."""
     try:
         url = OBJECT_INFO_URL.format(host=host)
         async with session.get(url) as response:
             response.raise_for_status()
-            data = await response.json(content_type=None)  # Accept any content type
+            # Accept any content type
+            data = await response.json(content_type=None)
             _LOGGER.debug("Fetched object info: %s", data)
             return data.get("rv", {})
     except Exception as err:
         _LOGGER.error(f"Error fetching object info from {url}: {err}")
         return {}
+
 
 async def async_get_object_values(session, host: str):
     """Fetch object values from the Iungo."""
@@ -24,40 +27,46 @@ async def async_get_object_values(session, host: str):
         url = OBJECT_VALUES_URL.format(host=host)
         async with session.get(url) as response:
             response.raise_for_status()
-            data = await response.json(content_type=None)  # Accept any content type
+            # Accept any content type
+            data = await response.json(content_type=None)
             _LOGGER.debug("Fetched object values: %s", data)
             return data.get("rv", {})
     except Exception as err:
         _LOGGER.error(f"Error fetching object values from {url}: {err}")
         return {}
 
+
 async def async_get_sysinfo(session: aiohttp.ClientSession, host: str):
     """Fetch system info from Iungo."""
     try:
         url = OBJECT_SYSINFO_URL.format(host=host)
-        #async with async_timeout.timeout(10):
+        # async with async_timeout.timeout(10):
         async with session.get(url) as response:
             response.raise_for_status()
-            data = await response.json(content_type=None)  # Accept any content type
+            # Accept any content type
+            data = await response.json(content_type=None)
             _LOGGER.debug("Fetched sysinfo: %s", data)
             return data.get("rv", {})
     except Exception as err:
         _LOGGER.error(f"Error fetching sysinfo values from {url}: {err}")
         return {}
 
+
 async def async_get_hwinfo(session: aiohttp.ClientSession, host: str):
     """Fetch system info from Iungo."""
     try:
         url = OBJECT_HWINFO_URL.format(host=host)
-        #async with async_timeout.timeout(10):
+        # async with async_timeout.timeout(10):
         async with session.get(url) as response:
             response.raise_for_status()
-            data = await response.json(content_type=None)  # Accept any content type
+            # Accept any content type
+            data = await response.json(content_type=None)
             _LOGGER.debug("Fetched sysinfo: %s", data)
             return data.get("rv", {})
     except Exception as err:
         _LOGGER.error(f"Error fetching hardware info values from {url}: {err}")
         return {}
+
 
 def parse_object_values(values_json: dict) -> dict:
     """Convert the values JSON to {object_id: {prop_id: value}} format."""
@@ -68,8 +77,10 @@ def parse_object_values(values_json: dict) -> dict:
         propsval = obj.get("propsval", [])
         if not oid:
             continue
-        lookup[oid] = {prop["id"]: prop["value"] for prop in propsval if "id" in prop and "value" in prop}
+        lookup[oid] = {prop["id"]: prop["value"]
+                       for prop in propsval if "id" in prop and "value" in prop}
     return lookup
+
 
 def extract_sensors_from_object_info(object_info: dict):
     """Extract sensor definitions from Iungo object_info JSON, avoiding duplicates and skipping numeric keys."""
@@ -91,7 +102,7 @@ def extract_sensors_from_object_info(object_info: dict):
                 continue  # Skip duplicate
             seen_ids.add(prop_id)
             # Only add properties with type 'number' or log == True
-            if prop.get("type") == "number" or prop.get("log") is True:
+            if prop.get("type") == "number" and prop.get("unit", None) != None:
                 sensor = {
                     "object_id": obj_id,
                     "object_type": obj_type,
