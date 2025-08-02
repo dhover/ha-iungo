@@ -1,7 +1,7 @@
 import aiohttp
 import async_timeout
 import logging
-from .const import OBJECT_INFO_URL, OBJECT_VALUES_URL, OBJECT_SYSINFO_URL, OBJECT_HWINFO_URL
+from .const import OBJECT_INFO_URL, OBJECT_VALUES_URL, OBJECT_SYSINFO_URL, OBJECT_HWINFO_URL, OBJECT_LATEST_VERSION
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -61,11 +61,25 @@ async def async_get_hwinfo(session: aiohttp.ClientSession, host: str):
             response.raise_for_status()
             # Accept any content type
             data = await response.json(content_type=None)
-            _LOGGER.debug("Fetched sysinfo: %s", data)
+            _LOGGER.debug("Fetched hw info: %s", data)
             return data.get("rv", {})
     except Exception as err:
         _LOGGER.error(f"Error fetching hardware info values from {url}: {err}")
         return {}
+
+
+async def async_get_latest_version(session: aiohttp.ClientSession, host: str) -> str | None:
+    """Fetch the latest firmware version from the Iungo."""
+    try:
+        url = OBJECT_LATEST_VERSION.format(host=host)
+        async with session.get(url) as response:
+            response.raise_for_status()
+            data = await response.json(content_type=None)
+            _LOGGER.debug("Fetched latest version: %s", data)
+            return data.get("rv", {})
+    except Exception as err:
+        _LOGGER.error(f"Error fetching latest version from {url}: {err}")
+        return None
 
 
 def parse_object_values(values_json: dict) -> dict:
