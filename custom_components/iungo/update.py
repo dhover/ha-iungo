@@ -36,7 +36,7 @@ class IungoUpdateEntity(UpdateEntity):
         hwinfo = self.coordinator.hwinfo.get("hardware", {}) if self.coordinator.hwinfo else {}
         return {
             "identifiers": {(DOMAIN, self.coordinator.entry.entry_id)},
-            "name": "Iungo",
+            "name": "Iungo Hub",
             "manufacturer": "Iungo",
             "model": "Iungo",
             "hw_version": hwinfo.get("revision", ""),
