@@ -26,14 +26,11 @@ class IungoDataUpdateCoordinator(DataUpdateCoordinator):
         super().__init__(
             hass,
             _LOGGER,
-            name=DOMAIN,
+            name=f"{DOMAIN}_data",
             update_interval=timedelta(seconds=DEFAULT_UPDATE_INTERVAL),
         )
         self.entry = entry
         self.object_info = None
-        self.sysinfo = None
-        self.hwinfo = None
-        self.latest_version = None
 
     async def async_initialize(self):
         host = self.entry.data.get(CONF_HOST)
@@ -43,9 +40,6 @@ class IungoDataUpdateCoordinator(DataUpdateCoordinator):
         session = async_get_clientsession(self.hass)
         try:
             self.object_info = await async_get_object_info(session, host)
-            self.sysinfo = await async_get_sysinfo(session, host)
-            self.hwinfo = await async_get_hwinfo(session, host)
-            self.latest_version = await async_get_latest_version(session, host)
         except IungoError as err:
             raise ConfigEntryNotReady from err
 
@@ -60,11 +54,38 @@ class IungoDataUpdateCoordinator(DataUpdateCoordinator):
                 await self.async_initialize()
             raw_object_values = await async_get_object_values(session, host)
             object_values = parse_object_values(raw_object_values)
-            self.latest_version = await async_get_latest_version(session, host)
             return {
                 "object_info": self.object_info,
                 "object_values": object_values,
-                "latest_version": self.latest_version,
+            }
+        except IungoError as err:
+            raise UpdateFailed(f"Error communicating with API: {err}") from err
+
+
+class IungoFirmwareUpdateCoordinator(DataUpdateCoordinator):
+    def __init__(self, hass: HomeAssistant, entry: ConfigEntry):
+        super().__init__(
+            hass,
+            _LOGGER,
+            name=f"{DOMAIN}_firmware",
+            update_interval=timedelta(hours=1),
+        )
+        self.entry = entry
+
+    async def _async_update_data(self):
+        host = self.entry.data.get(CONF_HOST)
+        if not host:
+            raise UpdateFailed("No host configured for Iungo integration")
+
+        session = async_get_clientsession(self.hass)
+        try:
+            sysinfo = await async_get_sysinfo(session, host)
+            hwinfo = await async_get_hwinfo(session, host)
+            latest_version = await async_get_latest_version(session, host)
+            return {
+                "sysinfo": sysinfo,
+                "hwinfo": hwinfo,
+                "latest_version": latest_version,
             }
         except IungoError as err:
             raise UpdateFailed(f"Error communicating with API: {err}") from err
