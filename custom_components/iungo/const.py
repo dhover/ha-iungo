@@ -4,6 +4,7 @@ CONF_HOST = "host"
 
 DEFAULT_HOST = "192.168.x.x"
 DEFAULT_UPDATE_INTERVAL = 30
+DEFAULT_FIRMWARE_UPDATE_INTERVAL = 3600
 
 OBJECT_INFO_URL = "http://{host}/iungo/api_request/object_info"
 OBJECT_VALUES_URL = "http://{host}/iungo/api_request/objmgr_list_objects_props_values"

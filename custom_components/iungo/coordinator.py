@@ -7,7 +7,7 @@ from homeassistant.exceptions import ConfigEntryNotReady
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, UpdateFailed
 
-from .const import DOMAIN, CONF_HOST, DEFAULT_UPDATE_INTERVAL
+from .const import DOMAIN, CONF_HOST, DEFAULT_UPDATE_INTERVAL, DEFAULT_FIRMWARE_UPDATE_INTERVAL
 from .iungo import (
     IungoError,
     async_get_object_info,
@@ -68,7 +68,7 @@ class IungoFirmwareUpdateCoordinator(DataUpdateCoordinator):
             hass,
             _LOGGER,
             name=f"{DOMAIN}_firmware",
-            update_interval=timedelta(hours=1),
+            update_interval=timedelta(seconds=DEFAULT_FIRMWARE_UPDATE_INTERVAL),
         )
         self.entry = entry
 
