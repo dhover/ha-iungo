@@ -1,40 +1,45 @@
-from homeassistant import config_entries
+
+from datetime import timedelta
+import logging
+
+from homeassistant.config_entries import ConfigEntry
+from homeassistant.core import HomeAssistant
+from homeassistant.exceptions import ConfigEntryNotReady
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
-import voluptuous as vol
+from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, UpdateFailed
 
-from .const import DOMAIN, CONF_HOST, DEFAULT_HOST
-from .iungo import async_test_connection, CannotConnect
+from .const import DOMAIN, CONF_HOST, DEFAULT_UPDATE_INTERVAL
+from .iungo import (
+    IungoError,
+    async_get_object_info,
+    async_get_object_values,
+    parse_object_values,
+    async_get_sysinfo,
+    async_get_hwinfo,
+    async_get_latest_version
+)
+
+_LOGGER = logging.getLogger(__name__)
 
 
-class IungoConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
-    """Handle a config flow for the Iungo integration."""
-
-    VERSION = 1
-
-    async def async_step_user(self, user_input=None):
-        errors = {}
-        if user_input is not None:
-            session = async_get_clientsession(self.hass)
-            try:
-                can_connect = await async_test_connection(session, user_input[CONF_HOST])
-                if not can_connect:
-                    errors["base"] = "cannot_connect"
-            except CannotConnect:
-                errors["base"] = "cannot_connect"
-            except Exception:
-                errors["base"] = "unknown"
-
-            if not errors:
-                await self.async_set_unique_id(user_input[CONF_HOST])
-                self._abort_if_unique_id_configured()
-                return self.async_create_entry(
-                    title=user_input[CONF_HOST], data=user_input
-                )
-
-        data_schema = vol.Schema({
-            vol.Required(CONF_HOST, default=DEFAULT_HOST): str,
-        })
-
-        return self.async_show_form(
-            step_id="user", data_schema=data_schema, errors=errors
+class IungoDataUpdateCoordinator(DataUpdateCoordinator):
+    def __init__(self, hass: HomeAssistant, entry: ConfigEntry):
+        super().__init__(
+            hass,
+            _LOGGER,
+            name=f"{DOMAIN}_data",
+            update_interval=timedelta(seconds=DEFAULT_UPDATE_INTERVAL),
         )
+        self.entry = entry
+        self.object_info = None
+
+    async def async_initialize(self):
+        host = self.entry.data.get(CONF_HOST)
+        if not host:
+            raise ConfigEntryNotReady("No host configured for Iungo integration")
+
+        session = async_get_clientsession(self.hass)
+        try:
+            self.object_info = await async_get_object_info(session, host)
+        except IungoError as err:
+            raise ConfigEntryNotReady from err
