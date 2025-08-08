@@ -1,12 +1,19 @@
-from homeassistant.helpers.entity import Entity
-from homeassistant.helpers.device_registry import DeviceInfo
-from homeassistant.core import HomeAssistant
+import logging
+
+from homeassistant.components.sensor import (
+    SensorDeviceClass,
+    SensorEntity,
+    SensorStateClass,
+)
 from homeassistant.config_entries import ConfigEntry
-from homeassistant.components.sensor import SensorDeviceClass, SensorStateClass, SensorEntity
+from homeassistant.core import HomeAssistant
+from homeassistant.helpers.device_registry import DeviceInfo
+from homeassistant.helpers.entity_platform import AddEntitiesCallback
+from homeassistant.helpers.update_coordinator import CoordinatorEntity
+
+from .const import DOMAIN
 from .coordinator import IungoDataUpdateCoordinator
 from .iungo import extract_sensors_from_object_info
-from .const import DOMAIN
-import logging
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -83,10 +90,9 @@ TARIFF_LABEL_MAP = {
 }
 
 
-class IungoSensor(SensorEntity):
+class IungoSensor(CoordinatorEntity, SensorEntity):
     def __init__(self, coordinator, unique_id, name, unit, object_id, object_name, object_type):
-        super().__init__()
-        self.coordinator = coordinator
+        super().__init__(coordinator)
         self._unique_id = unique_id
         self._unit = unit.replace("¤", "€").replace(
             "m3", "m³").replace("m2", "m²") if unit else None
@@ -119,14 +125,12 @@ class IungoSensor(SensorEntity):
 
     @property
     def device_info(self):
-        identifiers = {(DOMAIN, self._object_id)}
-        info = DeviceInfo(
-            identifiers=identifiers,
+        return DeviceInfo(
+            identifiers={(DOMAIN, self._object_id)},
             name=self._object_name,
             manufacturer="Iungo",
             model=self._object_type,
         )
-        return info
 
     @property
     def state(self):
@@ -135,20 +139,16 @@ class IungoSensor(SensorEntity):
         value = object_values.get(object_id, {}).get(prop_id)
         return value
 
-    async def async_update(self):
-        await self.coordinator.async_request_refresh()
-
 
 class IungoBreakoutEnergySensor(IungoSensor):
     def __init__(self, coordinator, object_id, object_name):
         unique_id = f"{object_id}_calculated_energy"
-        # name = f"{object_name} Calculated Energy"
         name = "Calculated Energy"
         super().__init__(
             coordinator,
             unique_id,
             name,
-            "kWh",  # Aangenomen eenheid
+            "kWh",
             object_id,
             object_name,
             "breakout",
@@ -167,25 +167,24 @@ class IungoBreakoutEnergySensor(IungoSensor):
             if pulses == 0:
                 return None
             return round(offset + totalimport / pulses, 3)
-        except Exception:
+        except (ValueError, TypeError):
             return None
 
 
 class IungoBreakoutWaterSensor(IungoSensor):
     def __init__(self, coordinator, object_id, object_name):
         unique_id = f"{object_id}_calculated_water"
-        # name = f"{object_name} Calculated Water"
         name = "Calculated Water"
         super().__init__(
             coordinator,
             unique_id,
             name,
-            "m³",  # Eenheid voor water
+            "m³",
             object_id,
             object_name,
             "breakout_water",
         )
-        self._device_class = SensorDeviceClass.WATER  # Forceer device_class voor water
+        self._device_class = SensorDeviceClass.WATER
         self._attr_has_entity_name = True
         self._attr_suggested_display_precision = 3
 
@@ -204,34 +203,33 @@ class IungoBreakoutWaterSensor(IungoSensor):
             if pulses == 0:
                 return None
             return round(offset + totalwater / pulses, 3)
-        except Exception:
+        except (ValueError, TypeError):
             return None
 
 
-async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry, async_add_entities) -> None:
-    coordinator = hass.data["iungo"][entry.entry_id]
+async def async_setup_entry(
+    hass: HomeAssistant,
+    entry: ConfigEntry,
+    async_add_entities: AddEntitiesCallback,
+) -> None:
+    coordinator: IungoDataUpdateCoordinator = hass.data[DOMAIN][entry.entry_id]
     object_info = coordinator.data.get("object_info", {})
     sensor_defs = extract_sensors_from_object_info(object_info)
     sensors = []
     object_values = coordinator.data.get("object_values", {})
+    breakout_energy_added = False
+    breakout_water_added = False
+
     for sensor_def in sensor_defs:
         unique_id = f"{sensor_def['object_id']}_{sensor_def['prop_id']}"
         obj_val = object_values.get(sensor_def['object_id'], {})
         friendly_name = obj_val.get("name") or sensor_def['object_name']
         prop_label = sensor_def['prop_label']
-        # Map tariff labels to friendly names if present
         name = TARIFF_LABEL_MAP.get(prop_label, prop_label)
-
-        # name = f"{friendly_name} {sensor_def['prop_label']}"
-        # name = sensor_def['prop_label']
-        # Fix unit: replace ¤ with € and m3 by m³
         unit = sensor_def['unit']
         if unit:
-            unit = unit.replace("¤", "€").replace(
-                "m3", "m³").replace("m2", "m²")
-        # Skip sensors with unknown or missing values
-        value = object_values.get(
-            sensor_def['object_id'], {}).get(sensor_def['prop_id'])
+            unit = unit.replace("¤", "€").replace("m3", "m³").replace("m2", "m²")
+        value = object_values.get(sensor_def['object_id'], {}).get(sensor_def['prop_id'])
         if value is None or value == "unknown":
             continue
         sensors.append(
@@ -245,32 +243,23 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry, async_add_e
                 sensor_def['object_type'],
             )
         )
-    # Voeg breakout energy sensor toe als breakout aanwezig is
-    for sensor_def in sensor_defs:
-        if sensor_def["object_type"] == "breakout":
-            obj_val = object_values.get(sensor_def["object_id"], {})
-            friendly_name = obj_val.get("name") or sensor_def["object_name"]
+        if sensor_def["object_type"] == "breakout" and not breakout_energy_added:
             sensors.append(
                 IungoBreakoutEnergySensor(
                     coordinator,
                     sensor_def["object_id"],
-                    friendly_name,  # Gebruik de friendly name
+                    friendly_name,
                 )
             )
-            break  # één per breakout
-
-    # Voeg breakout water sensor toe als water-breakout aanwezig is
-    for sensor_def in sensor_defs:
-        if sensor_def["object_type"] == "water":
-            obj_val = object_values.get(sensor_def["object_id"], {})
-            friendly_name = obj_val.get("name") or sensor_def["object_name"]
+            breakout_energy_added = True
+        if sensor_def["object_type"] == "water" and not breakout_water_added:
             sensors.append(
                 IungoBreakoutWaterSensor(
                     coordinator,
                     sensor_def["object_id"],
-                    friendly_name,  # Gebruik de friendly name
+                    friendly_name,
                 )
             )
-            break  # één per water-breakout
+            breakout_water_added = True
 
     async_add_entities(sensors)
