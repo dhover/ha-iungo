@@ -21,7 +21,7 @@ async def async_setup_entry(
 class IungoUpdateEntity(CoordinatorEntity, UpdateEntity):
     """Defines an Iungo update entity."""
 
-    _attr_supported_features = UpdateEntityFeature.LATEST_VERSION
+    #_attr_supported_features = UpdateEntityFeature.LATEST_VERSION
 
     def __init__(
         self,
@@ -66,7 +66,7 @@ class IungoUpdateEntity(CoordinatorEntity, UpdateEntity):
 
         return DeviceInfo(
             identifiers={(DOMAIN, self.coordinator.entry.entry_id)},
-            name="Iungo",
+            name="Iungo Hub",
             manufacturer="Iungo",
             model="Iungo",
             hw_version=hardware.get("revision", ""),

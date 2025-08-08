@@ -212,13 +212,15 @@ async def async_setup_entry(
     entry: ConfigEntry,
     async_add_entities: AddEntitiesCallback,
 ) -> None:
-    coordinator: IungoDataUpdateCoordinator = hass.data[DOMAIN][entry.entry_id]
-    object_info = coordinator.data.get("object_info", {})
+    data_coordinator: IungoDataUpdateCoordinator = hass.data[DOMAIN][entry.entry_id]["data"]
+    object_info = data_coordinator.data.get("object_info", {})
     sensor_defs = extract_sensors_from_object_info(object_info)
     sensors = []
-    object_values = coordinator.data.get("object_values", {})
+    object_values = data_coordinator.data.get("object_values", {})
     breakout_energy_added = False
     breakout_water_added = False
+
+
 
     for sensor_def in sensor_defs:
         unique_id = f"{sensor_def['object_id']}_{sensor_def['prop_id']}"
@@ -234,7 +236,7 @@ async def async_setup_entry(
             continue
         sensors.append(
             IungoSensor(
-                coordinator,
+                data_coordinator,
                 unique_id,
                 name,
                 unit,
@@ -246,7 +248,7 @@ async def async_setup_entry(
         if sensor_def["object_type"] == "breakout" and not breakout_energy_added:
             sensors.append(
                 IungoBreakoutEnergySensor(
-                    coordinator,
+                    data_coordinator,
                     sensor_def["object_id"],
                     friendly_name,
                 )
@@ -255,7 +257,7 @@ async def async_setup_entry(
         if sensor_def["object_type"] == "water" and not breakout_water_added:
             sensors.append(
                 IungoBreakoutWaterSensor(
-                    coordinator,
+                    data_coordinator,
                     sensor_def["object_id"],
                     friendly_name,
                 )
