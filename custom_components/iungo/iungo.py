@@ -1,85 +1,113 @@
 import aiohttp
-import async_timeout
+import asyncio
 import logging
 from .const import OBJECT_INFO_URL, OBJECT_VALUES_URL, OBJECT_SYSINFO_URL, OBJECT_HWINFO_URL, OBJECT_LATEST_VERSION
 
 _LOGGER = logging.getLogger(__name__)
 
 
-async def async_get_object_info(session, host: str):
-    """Fetch object info from the Iungo."""
+class IungoError(Exception):
+    """Base class for other exceptions"""
+    pass
+
+
+class CannotConnect(IungoError):
+    """Raised when unable to connect to the Iungo box."""
+    pass
+
+
+class InvalidAuth(IungoError):
+    """Raised when authentication fails."""
+    pass
+
+
+async def async_test_connection(session: aiohttp.ClientSession, host: str) -> bool:
+    """Test connection to the Iungo box."""
     try:
-        url = OBJECT_INFO_URL.format(host=host)
-        async with session.get(url) as response:
+        await async_get_sysinfo(session, host)
+    except (CannotConnect, InvalidAuth):
+        return False
+    return True
+
+
+async def async_get_object_info(session: aiohttp.ClientSession, host: str):
+    """Fetch object info from the Iungo."""
+    url = OBJECT_INFO_URL.format(host=host)
+    try:
+        async with asyncio.timeout(10):
+            response = await session.get(url)
             response.raise_for_status()
-            # Accept any content type
             data = await response.json(content_type=None)
             _LOGGER.debug("Fetched object info: %s", data)
             return data.get("rv", {})
-    except Exception as err:
-        _LOGGER.error(f"Error fetching object info from {url}: {err}")
-        return {}
+    except asyncio.TimeoutError as exc:
+        raise CannotConnect(f"Timeout while connecting to {url}") from exc
+    except aiohttp.ClientError as exc:
+        raise CannotConnect(f"Error connecting to {url}: {exc}") from exc
 
 
-async def async_get_object_values(session, host: str):
+async def async_get_object_values(session: aiohttp.ClientSession, host: str):
     """Fetch object values from the Iungo."""
+    url = OBJECT_VALUES_URL.format(host=host)
     try:
-        url = OBJECT_VALUES_URL.format(host=host)
-        async with session.get(url) as response:
+        async with asyncio.timeout(10):
+            response = await session.get(url)
             response.raise_for_status()
-            # Accept any content type
             data = await response.json(content_type=None)
             _LOGGER.debug("Fetched object values: %s", data)
             return data.get("rv", {})
-    except Exception as err:
-        _LOGGER.error(f"Error fetching object values from {url}: {err}")
-        return {}
+    except asyncio.TimeoutError as exc:
+        raise CannotConnect(f"Timeout while connecting to {url}") from exc
+    except aiohttp.ClientError as exc:
+        raise CannotConnect(f"Error connecting to {url}: {exc}") from exc
 
 
 async def async_get_sysinfo(session: aiohttp.ClientSession, host: str):
     """Fetch system info from Iungo."""
+    url = OBJECT_SYSINFO_URL.format(host=host)
     try:
-        url = OBJECT_SYSINFO_URL.format(host=host)
-        # async with async_timeout.timeout(10):
-        async with session.get(url) as response:
+        async with asyncio.timeout(10):
+            response = await session.get(url)
             response.raise_for_status()
-            # Accept any content type
             data = await response.json(content_type=None)
             _LOGGER.debug("Fetched sysinfo: %s", data)
             return data.get("rv", {})
-    except Exception as err:
-        _LOGGER.error(f"Error fetching sysinfo values from {url}: {err}")
-        return {}
+    except asyncio.TimeoutError as exc:
+        raise CannotConnect(f"Timeout while connecting to {url}") from exc
+    except aiohttp.ClientError as exc:
+        raise CannotConnect(f"Error connecting to {url}: {exc}") from exc
 
 
 async def async_get_hwinfo(session: aiohttp.ClientSession, host: str):
     """Fetch system info from Iungo."""
+    url = OBJECT_HWINFO_URL.format(host=host)
     try:
-        url = OBJECT_HWINFO_URL.format(host=host)
-        # async with async_timeout.timeout(10):
-        async with session.get(url) as response:
+        async with asyncio.timeout(10):
+            response = await session.get(url)
             response.raise_for_status()
-            # Accept any content type
             data = await response.json(content_type=None)
             _LOGGER.debug("Fetched hw info: %s", data)
             return data.get("rv", {})
-    except Exception as err:
-        _LOGGER.error(f"Error fetching hardware info values from {url}: {err}")
-        return {}
+    except asyncio.TimeoutError as exc:
+        raise CannotConnect(f"Timeout while connecting to {url}") from exc
+    except aiohttp.ClientError as exc:
+        raise CannotConnect(f"Error connecting to {url}: {exc}") from exc
 
 
 async def async_get_latest_version(session: aiohttp.ClientSession, host: str) -> str | None:
     """Fetch the latest firmware version from the Iungo."""
+    url = OBJECT_LATEST_VERSION.format(host=host)
     try:
-        url = OBJECT_LATEST_VERSION.format(host=host)
-        async with session.get(url) as response:
+        async with asyncio.timeout(10):
+            response = await session.get(url)
             response.raise_for_status()
             data = await response.json(content_type=None)
             _LOGGER.debug("Fetched latest version: %s", data)
             return data.get("rv", {})
-    except Exception as err:
-        _LOGGER.error(f"Error fetching latest version from {url}: {err}")
-        return None
+    except asyncio.TimeoutError as exc:
+        raise CannotConnect(f"Timeout while connecting to {url}") from exc
+    except aiohttp.ClientError as exc:
+        raise CannotConnect(f"Error connecting to {url}: {exc}") from exc
 
 
 def parse_object_values(values_json: dict) -> dict:
