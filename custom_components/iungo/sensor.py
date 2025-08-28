@@ -1,3 +1,5 @@
+"""Support for Iungo sensors."""
+
 import logging
 
 from homeassistant.components.sensor import (
@@ -91,6 +93,8 @@ TARIFF_LABEL_MAP = {
 
 
 class IungoSensor(CoordinatorEntity, SensorEntity):
+    """Representation of an Iungo sensor."""
+
     def __init__(self, coordinator, unique_id, name, unit, object_id, object_name, object_type):
         super().__init__(coordinator)
         self._unique_id = unique_id
@@ -113,18 +117,22 @@ class IungoSensor(CoordinatorEntity, SensorEntity):
 
     @property
     def native_unit_of_measurement(self):
+        """Return the unit of measurement."""
         return self._unit
 
     @property
     def device_class(self):
+        """Return the device class."""
         return self._device_class
 
     @property
     def state_class(self):
+        """Return the state class."""
         return self._state_class
 
     @property
     def device_info(self):
+        """Return device information for this sensor."""
         return DeviceInfo(
             identifiers={(DOMAIN, self._object_id)},
             name=self._object_name,
@@ -134,6 +142,7 @@ class IungoSensor(CoordinatorEntity, SensorEntity):
 
     @property
     def state(self):
+        """Return the state of the sensor."""
         object_id, prop_id = self._unique_id.split("_", 1)
         object_values = self.coordinator.data.get("object_values", {})
         value = object_values.get(object_id, {}).get(prop_id)
@@ -141,6 +150,7 @@ class IungoSensor(CoordinatorEntity, SensorEntity):
 
 
 class IungoBreakoutEnergySensor(IungoSensor):
+    """Special sensor for calculated energy from breakout device."""
     def __init__(self, coordinator, object_id, object_name):
         unique_id = f"{object_id}_calculated_energy"
         name = "Calculated Energy"
@@ -158,6 +168,7 @@ class IungoBreakoutEnergySensor(IungoSensor):
 
     @property
     def state(self):
+        """Return the calculated energy state."""
         object_values = self.coordinator.data.get("object_values", {})
         obj = object_values.get(self._object_id, {})
         try:
@@ -172,6 +183,7 @@ class IungoBreakoutEnergySensor(IungoSensor):
 
 
 class IungoBreakoutWaterSensor(IungoSensor):
+    """Special sensor for calculated water from breakout_water device."""
     def __init__(self, coordinator, object_id, object_name):
         unique_id = f"{object_id}_calculated_water"
         name = "Calculated Water"
@@ -190,10 +202,12 @@ class IungoBreakoutWaterSensor(IungoSensor):
 
     @property
     def device_class(self):
+        """Return the device class."""
         return self._device_class
 
     @property
     def state(self):
+        """Return the calculated water state."""
         object_values = self.coordinator.data.get("object_values", {})
         obj = object_values.get(self._object_id, {})
         try:
@@ -207,11 +221,8 @@ class IungoBreakoutWaterSensor(IungoSensor):
             return None
 
 
-async def async_setup_entry(
-    hass: HomeAssistant,
-    entry: ConfigEntry,
-    async_add_entities: AddEntitiesCallback,
-) -> None:
+async def async_setup_entry(hass: HomeAssistant,entry: ConfigEntry,async_add_entities: AddEntitiesCallback) -> None:
+    """Set up Iungo sensors based on a config entry."""
     data_coordinator: IungoDataUpdateCoordinator = hass.data[DOMAIN][entry.entry_id]["data"]
     object_info = data_coordinator.data.get("object_info", {})
     sensor_defs = extract_sensors_from_object_info(object_info)

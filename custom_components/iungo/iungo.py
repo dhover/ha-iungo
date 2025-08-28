@@ -1,3 +1,5 @@
+""""Support for Iungo devices."""
+
 import aiohttp
 import asyncio
 import logging
@@ -144,7 +146,7 @@ def extract_sensors_from_object_info(object_info: dict):
                 continue  # Skip duplicate
             seen_ids.add(prop_id)
             # Only add properties with type 'number' or log == True
-            if prop.get("type") == "number" and prop.get("unit", None) != None:
+            if prop.get("type") == "number" and prop.get("unit", None) is not None:
                 sensor = {
                     "object_id": obj_id,
                     "object_type": obj_type,

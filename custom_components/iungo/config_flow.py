@@ -1,3 +1,5 @@
+"""Config flow for Iungo integration."""
+
 from homeassistant import config_entries
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
 import voluptuous as vol
@@ -12,6 +14,8 @@ class IungoConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
     VERSION = 1
 
     async def async_step_user(self, user_input=None):
+        """Handle the initial step."""
+
         errors = {}
         if user_input is not None:
             session = async_get_clientsession(self.hass)
@@ -38,4 +42,3 @@ class IungoConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
         return self.async_show_form(
             step_id="user", data_schema=data_schema, errors=errors
         )
-

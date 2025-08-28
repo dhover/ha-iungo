@@ -1,3 +1,5 @@
+"""Data coordinators for the iungo integration."""
+
 from datetime import timedelta
 import logging
 
@@ -22,6 +24,8 @@ _LOGGER = logging.getLogger(__name__)
 
 
 class IungoDataUpdateCoordinator(DataUpdateCoordinator):
+    """Data update coordinator for Iungo data."""
+
     def __init__(self, hass: HomeAssistant, entry: ConfigEntry):
         super().__init__(
             hass,
@@ -33,6 +37,8 @@ class IungoDataUpdateCoordinator(DataUpdateCoordinator):
         self.object_info = None
 
     async def async_initialize(self):
+        """Initialize the coordinator by fetching object info."""
+
         host = self.entry.data.get(CONF_HOST)
         if not host:
             raise ConfigEntryNotReady("No host configured for Iungo integration")
@@ -44,6 +50,8 @@ class IungoDataUpdateCoordinator(DataUpdateCoordinator):
             raise ConfigEntryNotReady from err
 
     async def _async_update_data(self):
+        """Fetch data from the Iungo API."""
+
         host = self.entry.data.get(CONF_HOST)
         if not host:
             raise UpdateFailed("No host configured for Iungo integration")
@@ -63,6 +71,8 @@ class IungoDataUpdateCoordinator(DataUpdateCoordinator):
 
 
 class IungoFirmwareUpdateCoordinator(DataUpdateCoordinator):
+    """Data update coordinator for Iungo firmware info."""
+
     def __init__(self, hass: HomeAssistant, entry: ConfigEntry):
         super().__init__(
             hass,
@@ -73,6 +83,8 @@ class IungoFirmwareUpdateCoordinator(DataUpdateCoordinator):
         self.entry = entry
 
     async def _async_update_data(self):
+        """Fetch firmware info from the Iungo API."""
+        
         host = self.entry.data.get(CONF_HOST)
         if not host:
             raise UpdateFailed("No host configured for Iungo integration")

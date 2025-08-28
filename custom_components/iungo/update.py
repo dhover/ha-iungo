@@ -1,3 +1,5 @@
+"""Support for Iungo firmware updates."""
+
 from homeassistant.components.update import UpdateEntity
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
@@ -10,7 +12,7 @@ from .const import DOMAIN
 from .coordinator import IungoFirmwareUpdateCoordinator
 
 async def async_setup_entry(
-    hass: HomeAssistant,
+     hass: HomeAssistant,
     entry: ConfigEntry,
     async_add_entities: AddEntitiesCallback,
 ) -> None:
@@ -81,8 +83,10 @@ class IungoUpdateEntity(CoordinatorEntity, UpdateEntity):
 
 
 class IungoFirmwareVersionSensor(SensorEntity):
+    """Sensor for the current firmware version."""
 
     def __init__(self, coordinator: IungoFirmwareUpdateCoordinator):
+        """Initialize the sensor."""
         super().__init__()
         self.coordinator = coordinator
         self._attr_name = "Iungo Firmware Version"
@@ -91,11 +95,13 @@ class IungoFirmwareVersionSensor(SensorEntity):
 
     @property
     def native_value(self):
+        """Return the current firmware version."""
         version = self.coordinator.data.get("sysinfo", {}).get("version", {}) if self.coordinator.data else {}
         return version.get("version")
 
     @property
     def device_info(self):
+        """Return device information for this sensor."""
         return {
             "identifiers": {(DOMAIN, self.coordinator.entry.entry_id)},
             "name": "Iungo Hub",
@@ -105,8 +111,10 @@ class IungoFirmwareVersionSensor(SensorEntity):
 
 
 class IungoLatestFirmwareVersionSensor(SensorEntity):
+    """Sensor for the latest firmware version available."""
 
     def __init__(self, coordinator: IungoFirmwareUpdateCoordinator):
+        """Initialize the sensor."""
         super().__init__()
         self.coordinator = coordinator
         self._attr_name = "Iungo Latest Firmware Version"
@@ -115,11 +123,13 @@ class IungoLatestFirmwareVersionSensor(SensorEntity):
 
     @property
     def native_value(self):
+        """Return the latest firmware version available."""
         version = self.coordinator.data.get("latest_version", {}).get("fw", {}) if self.coordinator.data else {}
         return version.get("version")
 
     @property
     def device_info(self):
+        """Return device information for this sensor."""
         return {
             "identifiers": {(DOMAIN, self.coordinator.entry.entry_id)},
             "name": "Iungo Hub",

@@ -1,3 +1,5 @@
+"""Constants for the iungo integration."""
+
 DOMAIN = "iungo"
 
 CONF_HOST = "host"
