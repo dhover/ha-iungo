@@ -141,7 +141,7 @@ class IungoSensor(CoordinatorEntity, SensorEntity):
         )
 
     @property
-    def state(self):
+    def native_value(self):
         """Return the state of the sensor."""
         object_id, prop_id = self._unique_id.split("_", 1)
         object_values = self.coordinator.data.get("object_values", {})
@@ -151,6 +151,7 @@ class IungoSensor(CoordinatorEntity, SensorEntity):
 
 class IungoBreakoutEnergySensor(IungoSensor):
     """Special sensor for calculated energy from breakout device."""
+
     def __init__(self, coordinator, object_id, object_name):
         unique_id = f"{object_id}_calculated_energy"
         name = "Calculated Energy"
@@ -184,6 +185,7 @@ class IungoBreakoutEnergySensor(IungoSensor):
 
 class IungoBreakoutWaterSensor(IungoSensor):
     """Special sensor for calculated water from breakout_water device."""
+
     def __init__(self, coordinator, object_id, object_name):
         unique_id = f"{object_id}_calculated_water"
         name = "Calculated Water"
@@ -221,7 +223,7 @@ class IungoBreakoutWaterSensor(IungoSensor):
             return None
 
 
-async def async_setup_entry(hass: HomeAssistant,entry: ConfigEntry,async_add_entities: AddEntitiesCallback) -> None:
+async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry, async_add_entities: AddEntitiesCallback) -> None:
     """Set up Iungo sensors based on a config entry."""
     data_coordinator: IungoDataUpdateCoordinator = hass.data[DOMAIN][entry.entry_id]["data"]
     object_info = data_coordinator.data.get("object_info", {})
@@ -231,8 +233,6 @@ async def async_setup_entry(hass: HomeAssistant,entry: ConfigEntry,async_add_ent
     breakout_energy_added = False
     breakout_water_added = False
 
-
-
     for sensor_def in sensor_defs:
         unique_id = f"{sensor_def['object_id']}_{sensor_def['prop_id']}"
         obj_val = object_values.get(sensor_def['object_id'], {})
@@ -241,8 +241,10 @@ async def async_setup_entry(hass: HomeAssistant,entry: ConfigEntry,async_add_ent
         name = TARIFF_LABEL_MAP.get(prop_label, prop_label)
         unit = sensor_def['unit']
         if unit:
-            unit = unit.replace("¤", "€").replace("m3", "m³").replace("m2", "m²")
-        value = object_values.get(sensor_def['object_id'], {}).get(sensor_def['prop_id'])
+            unit = unit.replace("¤", "€").replace(
+                "m3", "m³").replace("m2", "m²")
+        value = object_values.get(
+            sensor_def['object_id'], {}).get(sensor_def['prop_id'])
         if value is None or value == "unknown":
             continue
         sensors.append(
