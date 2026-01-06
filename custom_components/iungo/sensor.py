@@ -99,7 +99,7 @@ class IungoSensor(CoordinatorEntity, SensorEntity):
         super().__init__(coordinator)
         self._unique_id = unique_id
         self._unit = unit.replace("¤", "€").replace(
-            "m3", "m³").replace("m2", "m²") if unit else None
+            "m3", "m³").replace("m2", "m²").replace("l/min", "L/min") if unit else None
         self._object_id = object_id
         self._object_name = object_name
         self._object_type = object_type
