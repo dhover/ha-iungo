@@ -57,7 +57,7 @@ class IungoUpdateEntity(CoordinatorEntity, UpdateEntity):
         return version.get("version")
 
     @property
-    def device_info(self) -> DeviceInfo:
+    def device_info(self) -> DeviceInfo | None:
         """Return device information."""
         if not self.coordinator.data:
             return None

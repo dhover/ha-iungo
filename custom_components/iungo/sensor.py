@@ -249,10 +249,6 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry, async_add_e
         if unit:
             unit = unit.replace("¤", "€").replace(
                 "m3", "m³").replace("m2", "m²")
-        value = object_values.get(
-            sensor_def['object_id'], {}).get(sensor_def['prop_id'])
-        if value is None or value == "unknown":
-            continue
         sensors.append(
             IungoSensor(
                 data_coordinator,
@@ -273,7 +269,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry, async_add_e
                 )
             )
             breakout_energy_added = True
-        if sensor_def["object_type"] == "water" and not breakout_water_added:
+        if sensor_def["object_type"] == "breakout_water" and not breakout_water_added:
             sensors.append(
                 IungoBreakoutWaterSensor(
                     data_coordinator,
