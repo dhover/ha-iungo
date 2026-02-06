@@ -1,6 +1,6 @@
 """Support for Iungo sensors."""
 
-# import logging
+import logging
 
 from homeassistant.components.sensor import (
     SensorDeviceClass,
@@ -18,7 +18,7 @@ from .coordinator import IungoDataUpdateCoordinator
 from .coordinator import IungoFirmwareUpdateCoordinator
 from .iungo import extract_sensors_from_object_info
 
-# _LOGGER = logging.getLogger(__name__)
+_LOGGER = logging.getLogger(__name__)
 
 # Simple mapping for device_class and state_class based on unit/label/id
 DEVICE_CLASS_MAP = {
@@ -310,13 +310,26 @@ async def async_setup_entry(
             )
             breakout_water_added = True
 
+    def _get_object_name(obj_id: str) -> str:
+        obj = object_info.get(obj_id, {})
+        info = obj.get("info", {})
+        driver = info.get("driver", {})
+        return driver.get("name", obj_id)
+
+    def _props_have_ids(props: dict, *prop_ids: str) -> bool:
+        if not props:
+            return False
+        ids = set()
+        for prop in props.values():
+            if isinstance(prop, dict) and "id" in prop:
+                ids.add(prop["id"])
+        return all(pid in ids for pid in prop_ids)
+
     if not breakout_energy_added or not breakout_water_added:
         for obj_id, obj in object_info.items():
             info = obj.get("info", {})
             obj_type = info.get("type", "unknown")
-            driver = info.get("driver", {})
-            obj_name = driver.get("name", obj_id)
-            friendly_name = _get_friendly_name(obj_id, obj_name)
+            friendly_name = _get_friendly_name(obj_id, _get_object_name(obj_id))
             if obj_type == "breakout" and not breakout_energy_added:
                 sensors.append(
                     IungoBreakoutEnergySensor(
@@ -328,6 +341,7 @@ async def async_setup_entry(
                 )
                 breakout_energy_added = True
             if obj_type == "breakout_water" and not breakout_water_added:
+                _LOGGER.debug("Adding calculated water sensor from object_info (type breakout_water): %s", obj_id)
                 sensors.append(
                     IungoBreakoutWaterSensor(
                         data_coordinator,
@@ -337,6 +351,43 @@ async def async_setup_entry(
                     )
                 )
                 breakout_water_added = True
+
+    if not breakout_water_added:
+        for obj_id, obj_val in object_values.items():
+            if "kfact" not in obj_val or "pulstotal" not in obj_val:
+                continue
+            friendly_name = _get_friendly_name(obj_id, _get_object_name(obj_id))
+            _LOGGER.debug("Adding calculated water sensor from object_values (kfact/pulstotal): %s", obj_id)
+            sensors.append(
+                IungoBreakoutWaterSensor(
+                    data_coordinator,
+                    obj_id,
+                    friendly_name,
+                    entry.entry_id,
+                )
+            )
+            breakout_water_added = True
+            break
+
+    if not breakout_water_added:
+        for obj_id, obj in object_info.items():
+            info = obj.get("info", {})
+            driver = info.get("driver", {})
+            props = driver.get("props", {})
+            if not _props_have_ids(props, "kfact", "pulstotal"):
+                continue
+            friendly_name = _get_friendly_name(obj_id, _get_object_name(obj_id))
+            _LOGGER.debug("Adding calculated water sensor from object_info props: %s", obj_id)
+            sensors.append(
+                IungoBreakoutWaterSensor(
+                    data_coordinator,
+                    obj_id,
+                    friendly_name,
+                    entry.entry_id,
+                )
+            )
+            breakout_water_added = True
+            break
 
     sensors.append(
         IungoFirmwareVersionSensor(firmware_coordinator, entry.entry_id)
