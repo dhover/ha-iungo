@@ -261,10 +261,15 @@ async def async_setup_entry(
     breakout_energy_added = False
     breakout_water_added = False
 
+    def _get_friendly_name(obj_id: str, fallback: str) -> str:
+        obj_val = object_values.get(obj_id, {})
+        return obj_val.get("name") or fallback
+
     for sensor_def in sensor_defs:
         unique_id = f"{sensor_def['object_id']}_{sensor_def['prop_id']}"
-        obj_val = object_values.get(sensor_def['object_id'], {})
-        friendly_name = obj_val.get("name") or sensor_def['object_name']
+        friendly_name = _get_friendly_name(
+            sensor_def["object_id"], sensor_def["object_name"]
+        )
         prop_label = sensor_def['prop_label']
         name = TARIFF_LABEL_MAP.get(prop_label, prop_label)
         unit = sensor_def['unit']
@@ -304,6 +309,34 @@ async def async_setup_entry(
                 )
             )
             breakout_water_added = True
+
+    if not breakout_energy_added or not breakout_water_added:
+        for obj_id, obj in object_info.items():
+            info = obj.get("info", {})
+            obj_type = info.get("type", "unknown")
+            driver = info.get("driver", {})
+            obj_name = driver.get("name", obj_id)
+            friendly_name = _get_friendly_name(obj_id, obj_name)
+            if obj_type == "breakout" and not breakout_energy_added:
+                sensors.append(
+                    IungoBreakoutEnergySensor(
+                        data_coordinator,
+                        obj_id,
+                        friendly_name,
+                        entry.entry_id,
+                    )
+                )
+                breakout_energy_added = True
+            if obj_type == "breakout_water" and not breakout_water_added:
+                sensors.append(
+                    IungoBreakoutWaterSensor(
+                        data_coordinator,
+                        obj_id,
+                        friendly_name,
+                        entry.entry_id,
+                    )
+                )
+                breakout_water_added = True
 
     sensors.append(
         IungoFirmwareVersionSensor(firmware_coordinator, entry.entry_id)
