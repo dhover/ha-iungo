@@ -96,13 +96,14 @@ TARIFF_LABEL_MAP = {
 class IungoSensor(CoordinatorEntity, SensorEntity):
     """Representation of an Iungo sensor."""
 
-    def __init__(self, coordinator, unique_id, name, unit, object_id, object_name, object_type):
+    def __init__(self, coordinator, unique_id, name, unit, object_id, object_name, object_type, prop_id):
         super().__init__(coordinator)
         self._unique_id = unique_id
         self._unit = unit
         self._object_id = object_id
         self._object_name = object_name
         self._object_type = object_type
+        self._prop_id = prop_id
         # Default mapping
         self._device_class = DEVICE_CLASS_MAP.get(unit)
         # Override for water meters
@@ -143,9 +144,8 @@ class IungoSensor(CoordinatorEntity, SensorEntity):
     @property
     def native_value(self):
         """Return the state of the sensor."""
-        object_id, prop_id = self._unique_id.split("_", 1)
         object_values = self.coordinator.data.get("object_values", {})
-        value = object_values.get(object_id, {}).get(prop_id)
+        value = object_values.get(self._object_id, {}).get(self._prop_id)
         if isinstance(value, str):
             try:
                 return float(value)
@@ -168,6 +168,7 @@ class IungoBreakoutEnergySensor(IungoSensor):
             object_id,
             object_name,
             "breakout",
+            "calculated_energy",
         )
         self._attr_has_entity_name = True
         self._attr_suggested_display_precision = 3
@@ -202,6 +203,7 @@ class IungoBreakoutWaterSensor(IungoSensor):
             object_id,
             object_name,
             "breakout_water",
+            "calculated_water",
         )
         self._device_class = SensorDeviceClass.WATER
         self._attr_has_entity_name = True
@@ -258,6 +260,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry, async_add_e
                 sensor_def['object_id'],
                 friendly_name,
                 sensor_def['object_type'],
+                sensor_def['prop_id'],
             )
         )
         if sensor_def["object_type"] == "breakout" and not breakout_energy_added:
