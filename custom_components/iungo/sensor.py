@@ -31,7 +31,7 @@ DEVICE_CLASS_MAP = {
     "%": SensorDeviceClass.HUMIDITY,
     "hPa": SensorDeviceClass.PRESSURE,
     "mm/h": SensorDeviceClass.PRECIPITATION_INTENSITY,
-    "l/min": SensorDeviceClass.VOLUME_FLOW_RATE,
+    "L/min": SensorDeviceClass.VOLUME_FLOW_RATE,
     "W/m²": SensorDeviceClass.IRRADIANCE,
     "m/s": SensorDeviceClass.WIND_SPEED,
     "°": SensorDeviceClass.WIND_DIRECTION,
@@ -48,7 +48,7 @@ STATE_CLASS_MAP = {
     "%": SensorStateClass.MEASUREMENT,
     "hPa": SensorStateClass.MEASUREMENT,
     "mm/h": SensorStateClass.MEASUREMENT,
-    "l/min": SensorStateClass.MEASUREMENT,
+    "L/min": SensorStateClass.MEASUREMENT,
     "W/m²": SensorStateClass.MEASUREMENT,
     "m/s": SensorStateClass.MEASUREMENT,
     "°": SensorStateClass.MEASUREMENT_ANGLE,
@@ -65,7 +65,7 @@ DISPLAY_PRECISION_MAP = {
     "%": 0,
     "hPa": 1,
     "mm/h": 1,
-    "l/min": 3,
+    "L/min": 3,
     "puls/kWh": 0,
     "puls": 0,
     "x": 0,
@@ -98,8 +98,7 @@ class IungoSensor(CoordinatorEntity, SensorEntity):
     def __init__(self, coordinator, unique_id, name, unit, object_id, object_name, object_type):
         super().__init__(coordinator)
         self._unique_id = unique_id
-        self._unit = unit.replace("¤", "€").replace(
-            "m3", "m³").replace("m2", "m²").replace("l/min", "L/min") if unit else None
+        self._unit = unit
         self._object_id = object_id
         self._object_name = object_name
         self._object_type = object_type
@@ -146,6 +145,11 @@ class IungoSensor(CoordinatorEntity, SensorEntity):
         object_id, prop_id = self._unique_id.split("_", 1)
         object_values = self.coordinator.data.get("object_values", {})
         value = object_values.get(object_id, {}).get(prop_id)
+        if isinstance(value, str):
+            try:
+                return float(value)
+            except ValueError:
+                return value
         return value
 
 
@@ -168,7 +172,7 @@ class IungoBreakoutEnergySensor(IungoSensor):
         self._attr_suggested_display_precision = 3
 
     @property
-    def state(self):
+    def native_value(self):
         """Return the calculated energy state."""
         object_values = self.coordinator.data.get("object_values", {})
         obj = object_values.get(self._object_id, {})
@@ -208,7 +212,7 @@ class IungoBreakoutWaterSensor(IungoSensor):
         return self._device_class
 
     @property
-    def state(self):
+    def native_value(self):
         """Return the calculated water state."""
         object_values = self.coordinator.data.get("object_values", {})
         obj = object_values.get(self._object_id, {})
