@@ -15,6 +15,7 @@ from homeassistant.helpers.update_coordinator import CoordinatorEntity
 
 from .const import DOMAIN
 from .coordinator import IungoDataUpdateCoordinator
+from .coordinator import IungoFirmwareUpdateCoordinator
 from .iungo import extract_sensors_from_object_info
 
 _LOGGER = logging.getLogger(__name__)
@@ -230,6 +231,7 @@ class IungoBreakoutWaterSensor(IungoSensor):
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry, async_add_entities: AddEntitiesCallback) -> None:
     """Set up Iungo sensors based on a config entry."""
     data_coordinator: IungoDataUpdateCoordinator = hass.data[DOMAIN][entry.entry_id]["data"]
+    firmware_coordinator: IungoFirmwareUpdateCoordinator = hass.data[DOMAIN][entry.entry_id]["firmware"]
     object_info = data_coordinator.data.get("object_info", {})
     sensor_defs = extract_sensors_from_object_info(object_info)
     sensors = []
@@ -281,4 +283,66 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry, async_add_e
             )
             breakout_water_added = True
 
+    sensors.append(
+        IungoFirmwareVersionSensor(firmware_coordinator, entry.entry_id)
+    )
+    sensors.append(
+        IungoLatestFirmwareVersionSensor(firmware_coordinator, entry.entry_id)
+    )
     async_add_entities(sensors)
+
+
+class IungoFirmwareVersionSensor(CoordinatorEntity, SensorEntity):
+    """Sensor for the current firmware version."""
+
+    def __init__(self, coordinator: IungoFirmwareUpdateCoordinator, entry_id: str):
+        """Initialize the sensor."""
+        super().__init__(coordinator)
+        self._entry_id = entry_id
+        self._attr_name = "Iungo Firmware Version"
+        self._attr_unique_id = f"{entry_id}_firmware_version"
+        self._attr_icon = "mdi:tag"
+
+    @property
+    def native_value(self):
+        """Return the current firmware version."""
+        version = self.coordinator.data.get("sysinfo", {}).get("version", {}) if self.coordinator.data else {}
+        return version.get("version")
+
+    @property
+    def device_info(self):
+        """Return device information for this sensor."""
+        return {
+            "identifiers": {(DOMAIN, self._entry_id)},
+            "name": "Iungo Hub",
+            "manufacturer": "Iungo",
+            "model": "Iungo",
+        }
+
+
+class IungoLatestFirmwareVersionSensor(CoordinatorEntity, SensorEntity):
+    """Sensor for the latest firmware version available."""
+
+    def __init__(self, coordinator: IungoFirmwareUpdateCoordinator, entry_id: str):
+        """Initialize the sensor."""
+        super().__init__(coordinator)
+        self._entry_id = entry_id
+        self._attr_name = "Iungo Latest Firmware Version"
+        self._attr_unique_id = f"{entry_id}_latest_firmware_version"
+        self._attr_icon = "mdi:tag-arrow-up"
+
+    @property
+    def native_value(self):
+        """Return the latest firmware version available."""
+        version = self.coordinator.data.get("latest_version", {}).get("fw", {}) if self.coordinator.data else {}
+        return version.get("version")
+
+    @property
+    def device_info(self):
+        """Return device information for this sensor."""
+        return {
+            "identifiers": {(DOMAIN, self._entry_id)},
+            "name": "Iungo Hub",
+            "manufacturer": "Iungo",
+            "model": "Iungo",
+        }
