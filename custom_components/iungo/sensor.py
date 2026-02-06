@@ -1,6 +1,6 @@
 """Support for Iungo sensors."""
 
-import logging
+# import logging
 
 from homeassistant.components.sensor import (
     SensorDeviceClass,
@@ -18,7 +18,7 @@ from .coordinator import IungoDataUpdateCoordinator
 from .coordinator import IungoFirmwareUpdateCoordinator
 from .iungo import extract_sensors_from_object_info
 
-_LOGGER = logging.getLogger(__name__)
+# _LOGGER = logging.getLogger(__name__)
 
 # Simple mapping for device_class and state_class based on unit/label/id
 DEVICE_CLASS_MAP = {
@@ -96,7 +96,18 @@ TARIFF_LABEL_MAP = {
 class IungoSensor(CoordinatorEntity, SensorEntity):
     """Representation of an Iungo sensor."""
 
-    def __init__(self, coordinator, unique_id, name, unit, object_id, object_name, object_type, prop_id):
+    def __init__(
+        self,
+        coordinator,
+        unique_id,
+        name,
+        unit,
+        object_id,
+        object_name,
+        object_type,
+        prop_id,
+        entry_id,
+    ):
         super().__init__(coordinator)
         self._unique_id = unique_id
         self._unit = unit
@@ -104,6 +115,7 @@ class IungoSensor(CoordinatorEntity, SensorEntity):
         self._object_name = object_name
         self._object_type = object_type
         self._prop_id = prop_id
+        self._entry_id = entry_id
         # Default mapping
         self._device_class = DEVICE_CLASS_MAP.get(unit)
         # Override for water meters
@@ -139,6 +151,7 @@ class IungoSensor(CoordinatorEntity, SensorEntity):
             name=self._object_name,
             manufacturer="Iungo",
             model=self._object_type,
+            via_device=(DOMAIN, self._entry_id),
         )
 
     @property
@@ -157,7 +170,7 @@ class IungoSensor(CoordinatorEntity, SensorEntity):
 class IungoBreakoutEnergySensor(IungoSensor):
     """Special sensor for calculated energy from breakout device."""
 
-    def __init__(self, coordinator, object_id, object_name):
+    def __init__(self, coordinator, object_id, object_name, entry_id):
         unique_id = f"{object_id}_calculated_energy"
         name = "Calculated Energy"
         super().__init__(
@@ -169,6 +182,7 @@ class IungoBreakoutEnergySensor(IungoSensor):
             object_name,
             "breakout",
             "calculated_energy",
+            entry_id,
         )
         self._attr_has_entity_name = True
         self._attr_suggested_display_precision = 3
@@ -192,7 +206,7 @@ class IungoBreakoutEnergySensor(IungoSensor):
 class IungoBreakoutWaterSensor(IungoSensor):
     """Special sensor for calculated water from breakout_water device."""
 
-    def __init__(self, coordinator, object_id, object_name):
+    def __init__(self, coordinator, object_id, object_name, entry_id):
         unique_id = f"{object_id}_calculated_water"
         name = "Calculated Water"
         super().__init__(
@@ -204,6 +218,7 @@ class IungoBreakoutWaterSensor(IungoSensor):
             object_name,
             "breakout_water",
             "calculated_water",
+            entry_id,
         )
         self._device_class = SensorDeviceClass.WATER
         self._attr_has_entity_name = True
@@ -230,10 +245,15 @@ class IungoBreakoutWaterSensor(IungoSensor):
             return None
 
 
-async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry, async_add_entities: AddEntitiesCallback) -> None:
+async def async_setup_entry(
+    hass: HomeAssistant,
+    entry: ConfigEntry,
+    async_add_entities: AddEntitiesCallback
+) -> None:
     """Set up Iungo sensors based on a config entry."""
     data_coordinator: IungoDataUpdateCoordinator = hass.data[DOMAIN][entry.entry_id]["data"]
-    firmware_coordinator: IungoFirmwareUpdateCoordinator = hass.data[DOMAIN][entry.entry_id]["firmware"]
+    firmware_coordinator: IungoFirmwareUpdateCoordinator = hass.data[
+        DOMAIN][entry.entry_id]["firmware"]
     object_info = data_coordinator.data.get("object_info", {})
     sensor_defs = extract_sensors_from_object_info(object_info)
     sensors = []
@@ -261,6 +281,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry, async_add_e
                 friendly_name,
                 sensor_def['object_type'],
                 sensor_def['prop_id'],
+                entry.entry_id,
             )
         )
         if sensor_def["object_type"] == "breakout" and not breakout_energy_added:
@@ -269,6 +290,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry, async_add_e
                     data_coordinator,
                     sensor_def["object_id"],
                     friendly_name,
+                    entry.entry_id,
                 )
             )
             breakout_energy_added = True
@@ -278,6 +300,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry, async_add_e
                     data_coordinator,
                     sensor_def["object_id"],
                     friendly_name,
+                    entry.entry_id,
                 )
             )
             breakout_water_added = True
@@ -305,7 +328,8 @@ class IungoFirmwareVersionSensor(CoordinatorEntity, SensorEntity):
     @property
     def native_value(self):
         """Return the current firmware version."""
-        version = self.coordinator.data.get("sysinfo", {}).get("version", {}) if self.coordinator.data else {}
+        version = self.coordinator.data.get("sysinfo", {}).get(
+            "version", {}) if self.coordinator.data else {}
         return version.get("version")
 
     @property
@@ -333,7 +357,8 @@ class IungoLatestFirmwareVersionSensor(CoordinatorEntity, SensorEntity):
     @property
     def native_value(self):
         """Return the latest firmware version available."""
-        version = self.coordinator.data.get("latest_version", {}).get("fw", {}) if self.coordinator.data else {}
+        version = self.coordinator.data.get("latest_version", {}).get(
+            "fw", {}) if self.coordinator.data else {}
         return version.get("version")
 
     @property
