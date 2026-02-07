@@ -139,13 +139,6 @@ def extract_sensors_from_object_info(object_info: dict):
         obj_type = info.get("type", "unknown")
         obj_name = driver.get("name", obj_id)
         obj_description = driver.get("description", None)
-        unit = prop.get("unit")
-        if unit:
-            unit = unit.replace(
-                "l/min", UnitOfVolumeFlowRate.LITERS_PER_MINUTE)
-            unit = unit.replace("m3", UnitOfVolume.CUBIC_METERS)
-            unit = unit.replace("m2", UnitOfArea.SQUARE_METERS)
-            unit = unit.replace("¤/kWh", "€/kWh")
         seen_ids = set()
         for prop_key, prop in props.items():
             # Skip numeric keys (only use named keys)
@@ -156,7 +149,16 @@ def extract_sensors_from_object_info(object_info: dict):
                 continue  # Skip duplicate
             seen_ids.add(prop_id)
             # Only add properties with type 'number' or log == True
-            if prop.get("type") == "number" and prop.get("unit", None) is not None:
+
+            unit = prop.get("unit", None)
+            if unit is not None:
+                unit = unit.replace(
+                    "l/min", UnitOfVolumeFlowRate.LITERS_PER_MINUTE)
+                unit = unit.replace("m3", UnitOfVolume.CUBIC_METERS)
+                unit = unit.replace("m2", UnitOfArea.SQUARE_METERS)
+                unit = unit.replace("¤/kWh", "€/kWh")
+
+            if prop.get("type") == "number" and unit is not None:
                 sensor = {
                     "object_id": obj_id,
                     "object_type": obj_type,
@@ -164,8 +166,7 @@ def extract_sensors_from_object_info(object_info: dict):
                     "object_description": obj_description,
                     "prop_id": prop_id,
                     "prop_label": prop.get("label", prop_key),
-                    "unit": prop.get("unit").replace("l/min",
-                                                     UnitOfVolumeFlowRate.LITERS_PER_MINUTE) if prop.get("unit") else None,
+                    "unit": unit,
                 }
                 sensors.append(sensor)
     return sensors
