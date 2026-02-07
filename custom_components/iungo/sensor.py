@@ -289,6 +289,10 @@ async def async_setup_entry(
                 entry.entry_id,
             )
         )
+
+        _LOGGER.debug("object_id: %s - %s - %s - %s",
+                      sensor_def['object_id'], sensor_def["object_type"], sensor_def['prop_id'], sensor_def['unit'])
+
         if sensor_def["object_type"] == "breakout" and not breakout_energy_added:
             sensors.append(
                 IungoBreakoutEnergySensor(
@@ -329,7 +333,8 @@ async def async_setup_entry(
         for obj_id, obj in object_info.items():
             info = obj.get("info", {})
             obj_type = info.get("type", "unknown")
-            friendly_name = _get_friendly_name(obj_id, _get_object_name(obj_id))
+            friendly_name = _get_friendly_name(
+                obj_id, _get_object_name(obj_id))
             if obj_type == "breakout" and not breakout_energy_added:
                 sensors.append(
                     IungoBreakoutEnergySensor(
@@ -341,7 +346,8 @@ async def async_setup_entry(
                 )
                 breakout_energy_added = True
             if obj_type == "breakout_water" and not breakout_water_added:
-                _LOGGER.debug("Adding calculated water sensor from object_info (type breakout_water): %s", obj_id)
+                _LOGGER.debug(
+                    "Adding calculated water sensor from object_info (type breakout_water): %s", obj_id)
                 sensors.append(
                     IungoBreakoutWaterSensor(
                         data_coordinator,
@@ -356,8 +362,10 @@ async def async_setup_entry(
         for obj_id, obj_val in object_values.items():
             if "kfact" not in obj_val or "pulstotal" not in obj_val:
                 continue
-            friendly_name = _get_friendly_name(obj_id, _get_object_name(obj_id))
-            _LOGGER.debug("Adding calculated water sensor from object_values (kfact/pulstotal): %s", obj_id)
+            friendly_name = _get_friendly_name(
+                obj_id, _get_object_name(obj_id))
+            _LOGGER.debug(
+                "Adding calculated water sensor from object_values (kfact/pulstotal): %s", obj_id)
             sensors.append(
                 IungoBreakoutWaterSensor(
                     data_coordinator,
@@ -376,8 +384,10 @@ async def async_setup_entry(
             props = driver.get("props", {})
             if not _props_have_ids(props, "kfact", "pulstotal"):
                 continue
-            friendly_name = _get_friendly_name(obj_id, _get_object_name(obj_id))
-            _LOGGER.debug("Adding calculated water sensor from object_info props: %s", obj_id)
+            friendly_name = _get_friendly_name(
+                obj_id, _get_object_name(obj_id))
+            _LOGGER.debug(
+                "Adding calculated water sensor from object_info props: %s", obj_id)
             sensors.append(
                 IungoBreakoutWaterSensor(
                     data_coordinator,
