@@ -1,0 +1,2559 @@
+{
+    "ok": true,
+    "type": "response",
+    "time": 0.0020313791465014,
+    "rv": {
+        "20fa6711": {
+            "info": {
+                "type": "alert",
+                "driver": {
+                    "del": null,
+                    "type": "alert",
+                    "description": "syslog alerts",
+                    "name": "alert-log",
+                    "ports": {
+                    },
+                    "new": null,
+                    "discover": null,
+                    "props": {
+                        "1": {
+                            "type": "string",
+                            "label": "Name",
+                            "id": "name",
+                            "writable": true,
+                            "persistent": true
+                        },
+                        "2": {
+                            "type": "boolean",
+                            "label": "Enable",
+                            "id": "enable",
+                            "writable": true,
+                            "persistent": true
+                        },
+                        "name": {
+                            "type": "string",
+                            "label": "Name",
+                            "id": "name",
+                            "writable": true,
+                            "persistent": true
+                        },
+                        "enable": {
+                            "type": "boolean",
+                            "label": "Enable",
+                            "id": "enable",
+                            "writable": true,
+                            "persistent": true
+                        }
+                    }
+                },
+                "uid": "log alerts"
+            }
+        },
+        "86218d46": {
+            "info": {
+                "type": "solar",
+                "driver": {
+                    "type": "solar",
+                    "description": "Modbus solar SDM220 Modbus",
+                    "ports": {
+                        "1": {
+                            "id": "modbus",
+                            "type": "modbus",
+                            "fn_recv": null,
+                            "position": "bottom"
+                        },
+                        "modbus": {
+                            "id": "modbus",
+                            "type": "modbus",
+                            "fn_recv": null,
+                            "position": "bottom"
+                        }
+                    },
+                    "name": "energy-solar-sdm220-modbus",
+                    "new": null,
+                    "props": {
+                        "1": {
+                            "type": "string",
+                            "label": "Name",
+                            "id": "name",
+                            "writable": true,
+                            "persistent": true
+                        },
+                        "2": {
+                            "type": "number",
+                            "label": "Energy output",
+                            "id": "solar",
+                            "log": true,
+                            "unit": "W"
+                        },
+                        "3": {
+                            "type": "number",
+                            "label": "Voltage",
+                            "id": "voltage",
+                            "log": true,
+                            "unit": "V"
+                        },
+                        "4": {
+                            "type": "number",
+                            "label": "import",
+                            "id": "import",
+                            "writable": false,
+                            "persistent": true,
+                            "unit": "kWh",
+                            "default": 0,
+                            "log": true,
+                            "cumulative": true
+                        },
+                        "5": {
+                            "type": "number",
+                            "label": "export",
+                            "id": "export",
+                            "writable": false,
+                            "persistent": true,
+                            "unit": "kWh",
+                            "default": 0,
+                            "log": true,
+                            "cumulative": true
+                        },
+                        "6": {
+                            "type": "boolean",
+                            "default": false,
+                            "label": "inverted",
+                            "id": "inverted",
+                            "writable": true,
+                            "persistent": true
+                        },
+                        "7": {
+                            "type": "enum",
+                            "default": "solar",
+                            "label": "Functiongroup",
+                            "id": "functiongroup",
+                            "writable": true,
+                            "range": "solar,wind",
+                            "persistent": true
+                        },
+                        "export": {
+                            "type": "number",
+                            "label": "export",
+                            "id": "export",
+                            "writable": false,
+                            "persistent": true,
+                            "unit": "kWh",
+                            "default": 0,
+                            "log": true,
+                            "cumulative": true
+                        },
+                        "name": {
+                            "type": "string",
+                            "label": "Name",
+                            "id": "name",
+                            "writable": true,
+                            "persistent": true
+                        },
+                        "inverted": {
+                            "type": "boolean",
+                            "default": false,
+                            "label": "inverted",
+                            "id": "inverted",
+                            "writable": true,
+                            "persistent": true
+                        },
+                        "functiongroup": {
+                            "type": "enum",
+                            "default": "solar",
+                            "label": "Functiongroup",
+                            "id": "functiongroup",
+                            "writable": true,
+                            "range": "solar,wind",
+                            "persistent": true
+                        },
+                        "solar": {
+                            "type": "number",
+                            "label": "Energy output",
+                            "id": "solar",
+                            "log": true,
+                            "unit": "W"
+                        },
+                        "import": {
+                            "type": "number",
+                            "label": "import",
+                            "id": "import",
+                            "writable": false,
+                            "persistent": true,
+                            "unit": "kWh",
+                            "default": 0,
+                            "log": true,
+                            "cumulative": true
+                        },
+                        "voltage": {
+                            "type": "number",
+                            "label": "Voltage",
+                            "id": "voltage",
+                            "log": true,
+                            "unit": "V"
+                        }
+                    }
+                },
+                "uid": "3"
+            }
+        },
+        "bef04aef": {
+            "info": {
+                "type": "solar",
+                "driver": {
+                    "type": "solar",
+                    "description": "Modbus solar SDM220 Modbus",
+                    "ports": {
+                        "1": {
+                            "id": "modbus",
+                            "type": "modbus",
+                            "fn_recv": null,
+                            "position": "bottom"
+                        },
+                        "modbus": {
+                            "id": "modbus",
+                            "type": "modbus",
+                            "fn_recv": null,
+                            "position": "bottom"
+                        }
+                    },
+                    "name": "energy-solar-sdm220-modbus",
+                    "new": null,
+                    "props": {
+                        "1": {
+                            "type": "string",
+                            "label": "Name",
+                            "id": "name",
+                            "writable": true,
+                            "persistent": true
+                        },
+                        "2": {
+                            "type": "number",
+                            "label": "Energy output",
+                            "id": "solar",
+                            "log": true,
+                            "unit": "W"
+                        },
+                        "3": {
+                            "type": "number",
+                            "label": "Voltage",
+                            "id": "voltage",
+                            "log": true,
+                            "unit": "V"
+                        },
+                        "4": {
+                            "type": "number",
+                            "label": "import",
+                            "id": "import",
+                            "writable": false,
+                            "persistent": true,
+                            "unit": "kWh",
+                            "default": 0,
+                            "log": true,
+                            "cumulative": true
+                        },
+                        "5": {
+                            "type": "number",
+                            "label": "export",
+                            "id": "export",
+                            "writable": false,
+                            "persistent": true,
+                            "unit": "kWh",
+                            "default": 0,
+                            "log": true,
+                            "cumulative": true
+                        },
+                        "6": {
+                            "type": "boolean",
+                            "default": false,
+                            "label": "inverted",
+                            "id": "inverted",
+                            "writable": true,
+                            "persistent": true
+                        },
+                        "7": {
+                            "type": "enum",
+                            "default": "solar",
+                            "label": "Functiongroup",
+                            "id": "functiongroup",
+                            "writable": true,
+                            "range": "solar,wind",
+                            "persistent": true
+                        },
+                        "export": {
+                            "type": "number",
+                            "label": "export",
+                            "id": "export",
+                            "writable": false,
+                            "persistent": true,
+                            "unit": "kWh",
+                            "default": 0,
+                            "log": true,
+                            "cumulative": true
+                        },
+                        "name": {
+                            "type": "string",
+                            "label": "Name",
+                            "id": "name",
+                            "writable": true,
+                            "persistent": true
+                        },
+                        "inverted": {
+                            "type": "boolean",
+                            "default": false,
+                            "label": "inverted",
+                            "id": "inverted",
+                            "writable": true,
+                            "persistent": true
+                        },
+                        "functiongroup": {
+                            "type": "enum",
+                            "default": "solar",
+                            "label": "Functiongroup",
+                            "id": "functiongroup",
+                            "writable": true,
+                            "range": "solar,wind",
+                            "persistent": true
+                        },
+                        "solar": {
+                            "type": "number",
+                            "label": "Energy output",
+                            "id": "solar",
+                            "log": true,
+                            "unit": "W"
+                        },
+                        "import": {
+                            "type": "number",
+                            "label": "import",
+                            "id": "import",
+                            "writable": false,
+                            "persistent": true,
+                            "unit": "kWh",
+                            "default": 0,
+                            "log": true,
+                            "cumulative": true
+                        },
+                        "voltage": {
+                            "type": "number",
+                            "label": "Voltage",
+                            "id": "voltage",
+                            "log": true,
+                            "unit": "V"
+                        }
+                    }
+                },
+                "uid": "2"
+            }
+        },
+        "7bbf70c3": {
+            "info": {
+                "type": "energy",
+                "driver": {
+                    "type": "energy",
+                    "description": "HEM P1 energy monitoring",
+                    "ports": {
+                        "1": {
+                            "id": "serial",
+                            "type": "stream",
+                            "fn_recv": null,
+                            "position": "bottom"
+                        },
+                        "serial": {
+                            "id": "serial",
+                            "type": "stream",
+                            "fn_recv": null,
+                            "position": "bottom"
+                        }
+                    },
+                    "name": "energy-kamstrup",
+                    "new": null,
+                    "props": {
+                        "1": {
+                            "type": "string",
+                            "label": "Name",
+                            "id": "name",
+                            "writable": true,
+                            "persistent": true
+                        },
+                        "2": {
+                            "type": "number",
+                            "label": "Energy usage",
+                            "id": "usage",
+                            "log": true,
+                            "unit": "W"
+                        },
+                        "3": {
+                            "type": "number",
+                            "label": "T1",
+                            "id": "T1",
+                            "log": true,
+                            "cumulative": true,
+                            "unit": "kWh"
+                        },
+                        "4": {
+                            "type": "number",
+                            "label": "T2",
+                            "id": "T2",
+                            "log": true,
+                            "cumulative": true,
+                            "unit": "kWh"
+                        },
+                        "5": {
+                            "type": "number",
+                            "label": "-T1",
+                            "id": "-T1",
+                            "log": true,
+                            "cumulative": true,
+                            "unit": "kWh"
+                        },
+                        "6": {
+                            "type": "number",
+                            "label": "-T2",
+                            "id": "-T2",
+                            "log": true,
+                            "cumulative": true,
+                            "unit": "kWh"
+                        },
+                        "7": {
+                            "type": "number",
+                            "label": "Tariff",
+                            "id": "c_tariff",
+                            "log": true,
+                            "unit": "x"
+                        },
+                        "8": {
+                            "type": "number",
+                            "label": "Gas usage",
+                            "id": "gas_usage",
+                            "log": true,
+                            "unit": "m³/h"
+                        },
+                        "9": {
+                            "type": "number",
+                            "label": "Gas total",
+                            "id": "gas",
+                            "log": true,
+                            "cumulative": true,
+                            "unit": "m³"
+                        },
+                        "10": {
+                            "log": true,
+                            "type": "number",
+                            "default": 0,
+                            "label": "€ T1",
+                            "id": "Cost-T1",
+                            "writable": true,
+                            "persistent": true,
+                            "unit": "¤/kWh"
+                        },
+                        "11": {
+                            "log": true,
+                            "type": "number",
+                            "default": 0,
+                            "label": "€ T2",
+                            "id": "Cost-T2",
+                            "writable": true,
+                            "persistent": true,
+                            "unit": "¤/kWh"
+                        },
+                        "12": {
+                            "log": true,
+                            "type": "number",
+                            "default": 0,
+                            "label": "€ -T1",
+                            "id": "Cost-nT1",
+                            "writable": true,
+                            "persistent": true,
+                            "unit": "¤/kWh"
+                        },
+                        "13": {
+                            "log": true,
+                            "type": "number",
+                            "default": 0,
+                            "label": "€ -T2",
+                            "id": "Cost-nT2",
+                            "writable": true,
+                            "persistent": true,
+                            "unit": "¤/kWh"
+                        },
+                        "14": {
+                            "type": "enum",
+                            "default": "off",
+                            "label": "netting",
+                            "id": "netting",
+                            "writable": true,
+                            "range": "off,tgroup,hi-low",
+                            "persistent": true
+                        },
+                        "15": {
+                            "type": "number",
+                            "default": 0,
+                            "label": "compensation",
+                            "id": "Cost-net-comp",
+                            "writable": true,
+                            "persistent": true,
+                            "unit": "¤/kWh"
+                        },
+                        "16": {
+                            "log": true,
+                            "type": "number",
+                            "default": 0,
+                            "label": "€ Gas",
+                            "id": "Cost-gas",
+                            "writable": true,
+                            "persistent": true,
+                            "unit": "¤/m3"
+                        },
+                        "17": {
+                            "type": "number",
+                            "default": 3600,
+                            "label": "Gas interval",
+                            "id": "Gas-interval",
+                            "writable": true,
+                            "persistent": true,
+                            "unit": "sec"
+                        },
+                        "18": {
+                            "type": "string",
+                            "default": "",
+                            "label": "Client-blob",
+                            "id": "Client-blob",
+                            "writable": true,
+                            "persistent": true,
+                            "hidden": true
+                        },
+                        "19": {
+                            "type": "boolean",
+                            "label": "Available",
+                            "id": "available",
+                            "writable": false,
+                            "log": false
+                        },
+                        "T2": {
+                            "type": "number",
+                            "label": "T2",
+                            "id": "T2",
+                            "log": true,
+                            "cumulative": true,
+                            "unit": "kWh"
+                        },
+                        "Cost-nT1": {
+                            "log": true,
+                            "type": "number",
+                            "default": 0,
+                            "label": "€ -T1",
+                            "id": "Cost-nT1",
+                            "writable": true,
+                            "persistent": true,
+                            "unit": "¤/kWh"
+                        },
+                        "-T2": {
+                            "type": "number",
+                            "label": "-T2",
+                            "id": "-T2",
+                            "log": true,
+                            "cumulative": true,
+                            "unit": "kWh"
+                        },
+                        "Cost-nT2": {
+                            "log": true,
+                            "type": "number",
+                            "default": 0,
+                            "label": "€ -T2",
+                            "id": "Cost-nT2",
+                            "writable": true,
+                            "persistent": true,
+                            "unit": "¤/kWh"
+                        },
+                        "Cost-T1": {
+                            "log": true,
+                            "type": "number",
+                            "default": 0,
+                            "label": "€ T1",
+                            "id": "Cost-T1",
+                            "writable": true,
+                            "persistent": true,
+                            "unit": "¤/kWh"
+                        },
+                        "gas_usage": {
+                            "type": "number",
+                            "label": "Gas usage",
+                            "id": "gas_usage",
+                            "log": true,
+                            "unit": "m³/h"
+                        },
+                        "available": {
+                            "type": "boolean",
+                            "label": "Available",
+                            "id": "available",
+                            "writable": false,
+                            "log": false
+                        },
+                        "usage": {
+                            "type": "number",
+                            "label": "Energy usage",
+                            "id": "usage",
+                            "log": true,
+                            "unit": "W"
+                        },
+                        "gas": {
+                            "type": "number",
+                            "label": "Gas total",
+                            "id": "gas",
+                            "log": true,
+                            "cumulative": true,
+                            "unit": "m³"
+                        },
+                        "Cost-gas": {
+                            "log": true,
+                            "type": "number",
+                            "default": 0,
+                            "label": "€ Gas",
+                            "id": "Cost-gas",
+                            "writable": true,
+                            "persistent": true,
+                            "unit": "¤/m3"
+                        },
+                        "T1": {
+                            "type": "number",
+                            "label": "T1",
+                            "id": "T1",
+                            "log": true,
+                            "cumulative": true,
+                            "unit": "kWh"
+                        },
+                        "Cost-net-comp": {
+                            "type": "number",
+                            "default": 0,
+                            "label": "compensation",
+                            "id": "Cost-net-comp",
+                            "writable": true,
+                            "persistent": true,
+                            "unit": "¤/kWh"
+                        },
+                        "netting": {
+                            "type": "enum",
+                            "default": "off",
+                            "label": "netting",
+                            "id": "netting",
+                            "writable": true,
+                            "range": "off,tgroup,hi-low",
+                            "persistent": true
+                        },
+                        "name": {
+                            "type": "string",
+                            "label": "Name",
+                            "id": "name",
+                            "writable": true,
+                            "persistent": true
+                        },
+                        "Gas-interval": {
+                            "type": "number",
+                            "default": 3600,
+                            "label": "Gas interval",
+                            "id": "Gas-interval",
+                            "writable": true,
+                            "persistent": true,
+                            "unit": "sec"
+                        },
+                        "Cost-T2": {
+                            "log": true,
+                            "type": "number",
+                            "default": 0,
+                            "label": "€ T2",
+                            "id": "Cost-T2",
+                            "writable": true,
+                            "persistent": true,
+                            "unit": "¤/kWh"
+                        },
+                        "-T1": {
+                            "type": "number",
+                            "label": "-T1",
+                            "id": "-T1",
+                            "log": true,
+                            "cumulative": true,
+                            "unit": "kWh"
+                        },
+                        "Client-blob": {
+                            "type": "string",
+                            "default": "",
+                            "label": "Client-blob",
+                            "id": "Client-blob",
+                            "writable": true,
+                            "persistent": true,
+                            "hidden": true
+                        },
+                        "c_tariff": {
+                            "type": "number",
+                            "label": "Tariff",
+                            "id": "c_tariff",
+                            "log": true,
+                            "unit": "x"
+                        }
+                    }
+                },
+                "uid": "-"
+            }
+        },
+        "64fcd7dc": {
+            "info": {
+                "type": "bridge",
+                "driver": {
+                    "type": "bridge",
+                    "description": "GPIO port",
+                    "ports": {
+                        "1": {
+                            "id": "digio",
+                            "type": "stream",
+                            "fn_recv": null,
+                            "position": "top"
+                        },
+                        "digio": {
+                            "id": "digio",
+                            "type": "stream",
+                            "fn_recv": null,
+                            "position": "top"
+                        }
+                    },
+                    "del": null,
+                    "props": {
+                        "1": {
+                            "type": "string",
+                            "label": "Name",
+                            "id": "name",
+                            "writable": true,
+                            "persistent": true
+                        },
+                        "2": {
+                            "type": "boolean",
+                            "default": false,
+                            "label": "Available",
+                            "id": "available",
+                            "writable": false
+                        },
+                        "name": {
+                            "type": "string",
+                            "label": "Name",
+                            "id": "name",
+                            "writable": true,
+                            "persistent": true
+                        },
+                        "available": {
+                            "type": "boolean",
+                            "default": false,
+                            "label": "Available",
+                            "id": "available",
+                            "writable": false
+                        }
+                    },
+                    "stop": null,
+                    "start": null,
+                    "name": "bridge-gpio",
+                    "new": null
+                },
+                "uid": "57"
+            }
+        },
+        "b9cb127f": {
+            "info": {
+                "type": "bridge",
+                "driver": {
+                    "type": "bridge",
+                    "description": "Modbus-RTU bridge",
+                    "name": "bridge-modbus",
+                    "ports": {
+                        "1": {
+                            "id": "modbus",
+                            "type": "modbus",
+                            "fn_recv": null,
+                            "position": "top"
+                        },
+                        "2": {
+                            "fn_ready": null,
+                            "type": "stream",
+                            "position": "bottom",
+                            "id": "serial",
+                            "fn_recv": null
+                        },
+                        "serial": {
+                            "fn_ready": null,
+                            "type": "stream",
+                            "position": "bottom",
+                            "id": "serial",
+                            "fn_recv": null
+                        },
+                        "modbus": {
+                            "id": "modbus",
+                            "type": "modbus",
+                            "fn_recv": null,
+                            "position": "top"
+                        }
+                    },
+                    "new": null,
+                    "discover": null,
+                    "props": {
+                        "1": {
+                            "type": "string",
+                            "label": "Name",
+                            "id": "name",
+                            "writable": true,
+                            "persistent": true
+                        },
+                        "2": {
+                            "fn_set": null,
+                            "label": "Scan",
+                            "id": "scan",
+                            "range": "scan",
+                            "type": "command"
+                        },
+                        "3": {
+                            "id": "scan_status",
+                            "type": "string",
+                            "label": "Scan status"
+                        },
+                        "4": {
+                            "type": "string",
+                            "label": "raw msg",
+                            "id": "rawmsg",
+                            "writable": true,
+                            "unit": "add,fnc,start,len"
+                        },
+                        "5": {
+                            "type": "command",
+                            "label": "send raw",
+                            "id": "rawsend",
+                            "range": "send",
+                            "fn_set": null
+                        },
+                        "6": {
+                            "id": "rawrsp",
+                            "type": "string",
+                            "label": "raw resp 0x"
+                        },
+                        "rawmsg": {
+                            "type": "string",
+                            "label": "raw msg",
+                            "id": "rawmsg",
+                            "writable": true,
+                            "unit": "add,fnc,start,len"
+                        },
+                        "name": {
+                            "type": "string",
+                            "label": "Name",
+                            "id": "name",
+                            "writable": true,
+                            "persistent": true
+                        },
+                        "rawsend": {
+                            "type": "command",
+                            "label": "send raw",
+                            "id": "rawsend",
+                            "range": "send",
+                            "fn_set": null
+                        },
+                        "rawrsp": {
+                            "id": "rawrsp",
+                            "type": "string",
+                            "label": "raw resp 0x"
+                        },
+                        "scan_status": {
+                            "id": "scan_status",
+                            "type": "string",
+                            "label": "Scan status"
+                        },
+                        "scan": {
+                            "fn_set": null,
+                            "label": "Scan",
+                            "id": "scan",
+                            "range": "scan",
+                            "type": "command"
+                        }
+                    }
+                },
+                "uid": "via 1-1.2:1.0"
+            }
+        },
+        "b69a0f0d": {
+            "info": {
+                "type": "breakout",
+                "driver": {
+                    "hotplug": null,
+                    "type": "breakout",
+                    "description": "iungo breakout energy monitoring",
+                    "ports": {
+                        "1": {
+                            "id": "digio",
+                            "type": "stream",
+                            "fn_recv": null,
+                            "position": "bottom"
+                        },
+                        "digio": {
+                            "id": "digio",
+                            "type": "stream",
+                            "fn_recv": null,
+                            "position": "bottom"
+                        }
+                    },
+                    "del": null,
+                    "props": {
+                        "1": {
+                            "type": "string",
+                            "label": "Name",
+                            "id": "name",
+                            "writable": true,
+                            "persistent": true
+                        },
+                        "2": {
+                            "type": "number",
+                            "default": 0,
+                            "label": "Power",
+                            "id": "power",
+                            "log": true,
+                            "unit": "W"
+                        },
+                        "3": {
+                            "type": "number",
+                            "label": "totalImport",
+                            "id": "pulstotal",
+                            "writable": false,
+                            "persistent": true,
+                            "unit": "puls",
+                            "default": 0,
+                            "fn_edit": null,
+                            "log": true,
+                            "linkoppid": "ppkwh",
+                            "cumulative": true
+                        },
+                        "4": {
+                            "fn_set": null,
+                            "type": "number",
+                            "default": 1000,
+                            "label": "Pulses / kW·h",
+                            "id": "ppkwh",
+                            "writable": true,
+                            "persistent": true,
+                            "unit": "puls/kWh"
+                        },
+                        "5": {
+                            "logchange": true,
+                            "type": "number",
+                            "default": 0,
+                            "label": "offset",
+                            "id": "offset",
+                            "writable": true,
+                            "persistent": true,
+                            "unit": "kWh"
+                        },
+                        "6": {
+                            "type": "enum",
+                            "default": "misc",
+                            "label": "Functiongroup",
+                            "id": "functiongroup",
+                            "writable": true,
+                            "range": "misc,carcharger,heatpump",
+                            "persistent": true
+                        },
+                        "7": {
+                            "fn_set": null,
+                            "type": "enum",
+                            "default": "-",
+                            "label": "Connection",
+                            "id": "connection",
+                            "writable": true,
+                            "range": "-,breakout,breakout_ch2",
+                            "persistent": true
+                        },
+                        "offset": {
+                            "logchange": true,
+                            "type": "number",
+                            "default": 0,
+                            "label": "offset",
+                            "id": "offset",
+                            "writable": true,
+                            "persistent": true,
+                            "unit": "kWh"
+                        },
+                        "name": {
+                            "type": "string",
+                            "label": "Name",
+                            "id": "name",
+                            "writable": true,
+                            "persistent": true
+                        },
+                        "power": {
+                            "type": "number",
+                            "default": 0,
+                            "label": "Power",
+                            "id": "power",
+                            "log": true,
+                            "unit": "W"
+                        },
+                        "connection": {
+                            "fn_set": null,
+                            "type": "enum",
+                            "default": "-",
+                            "label": "Connection",
+                            "id": "connection",
+                            "writable": true,
+                            "range": "-,breakout,breakout_ch2",
+                            "persistent": true
+                        },
+                        "pulstotal": {
+                            "type": "number",
+                            "label": "totalImport",
+                            "id": "pulstotal",
+                            "writable": false,
+                            "persistent": true,
+                            "unit": "puls",
+                            "default": 0,
+                            "fn_edit": null,
+                            "log": true,
+                            "linkoppid": "ppkwh",
+                            "cumulative": true
+                        },
+                        "ppkwh": {
+                            "fn_set": null,
+                            "type": "number",
+                            "default": 1000,
+                            "label": "Pulses / kW·h",
+                            "id": "ppkwh",
+                            "writable": true,
+                            "persistent": true,
+                            "unit": "puls/kWh"
+                        },
+                        "functiongroup": {
+                            "type": "enum",
+                            "default": "misc",
+                            "label": "Functiongroup",
+                            "id": "functiongroup",
+                            "writable": true,
+                            "range": "misc,carcharger,heatpump",
+                            "persistent": true
+                        }
+                    },
+                    "name": "energy-breakout",
+                    "start": null,
+                    "new": null
+                },
+                "uid": "-"
+            }
+        },
+        "c430d9e0": {
+            "info": {
+                "type": "button",
+                "driver": {
+                    "type": "button",
+                    "description": "iungo button",
+                    "ports": {
+                        "1": {
+                            "fn_ready": null,
+                            "type": "stream",
+                            "position": "bottom",
+                            "id": "digio",
+                            "fn_recv": null
+                        },
+                        "2": {
+                            "id": "trigger",
+                            "type": "trigger",
+                            "position": "top"
+                        },
+                        "trigger": {
+                            "id": "trigger",
+                            "type": "trigger",
+                            "position": "top"
+                        },
+                        "digio": {
+                            "fn_ready": null,
+                            "type": "stream",
+                            "position": "bottom",
+                            "id": "digio",
+                            "fn_recv": null
+                        }
+                    },
+                    "del": null,
+                    "props": {
+                        "1": {
+                            "type": "string",
+                            "label": "Name",
+                            "id": "name",
+                            "writable": true,
+                            "persistent": true
+                        },
+                        "name": {
+                            "type": "string",
+                            "label": "Name",
+                            "id": "name",
+                            "writable": true,
+                            "persistent": true
+                        }
+                    },
+                    "name": "button-gpio",
+                    "start": null,
+                    "discover": null,
+                    "new": null
+                },
+                "uid": "button"
+            }
+        },
+        "ce9577e3": {
+            "info": {
+                "type": "clock",
+                "driver": {
+                    "type": "clock",
+                    "description": "System clock",
+                    "init": null,
+                    "ports": {
+                    },
+                    "del": null,
+                    "props": {
+                        "1": {
+                            "type": "string",
+                            "label": "Name",
+                            "id": "name",
+                            "writable": true,
+                            "persistent": true
+                        },
+                        "2": {
+                            "id": "time",
+                            "type": "string",
+                            "label": "Time"
+                        },
+                        "3": {
+                            "id": "date",
+                            "type": "string",
+                            "label": "Date"
+                        },
+                        "4": {
+                            "fn_set": null,
+                            "type": "enum",
+                            "default": "d-m-y",
+                            "label": "Date format",
+                            "id": "format",
+                            "writable": true,
+                            "range": "y-m-d,d-m-y",
+                            "persistent": true
+                        },
+                        "5": {
+                            "fn_set": null,
+                            "type": "enum",
+                            "default": "Europe/Amsterdam",
+                            "label": "Time zone",
+                            "id": "timezone",
+                            "writable": true,
+                            "range": "Africa/Abidjan,Africa/Accra,Africa/Addis_Ababa,Africa/Algiers,Africa/Asmara,Africa/Bamako,Africa/Bangui,Africa/Banjul,Africa/Bissau,Africa/Blantyre,Africa/Brazzaville,Africa/Bujumbura,Africa/Cairo,Africa/Casablanca,Africa/Ceuta,Africa/Conakry,Africa/Dakar,Africa/Dar_es_Salaam,Africa/Djibouti,Africa/Douala,Africa/El_Aaiun,Africa/Freetown,Africa/Gaborone,Africa/Harare,Africa/Johannesburg,Africa/Kampala,Africa/Khartoum,Africa/Kigali,Africa/Kinshasa,Africa/Lagos,Africa/Libreville,Africa/Lome,Africa/Luanda,Africa/Lubumbashi,Africa/Lusaka,Africa/Malabo,Africa/Maputo,Africa/Maseru,Africa/Mbabane,Africa/Mogadishu,Africa/Monrovia,Africa/Nairobi,Africa/Ndjamena,Africa/Niamey,Africa/Nouakchott,Africa/Ouagadougou,Africa/Porto-Novo,Africa/Sao_Tome,Africa/Tripoli,Africa/Tunis,Africa/Windhoek,America/Adak,America/Anchorage,America/Anguilla,America/Antigua,America/Araguaina,America/Argentina/Buenos_Aires,America/Argentina/Catamarca,America/Argentina/Cordoba,America/Argentina/Jujuy,America/Argentina/La_Rioja,America/Argentina/Mendoza,America/Argentina/Rio_Gallegos,America/Argentina/Salta,America/Argentina/San_Juan,America/Argentina/San_Luis,America/Argentina/Tucuman,America/Argentina/Ushuaia,America/Aruba,America/Asuncion,America/Atikokan,America/Bahia,America/Barbados,America/Belem,America/Belize,America/Blanc-Sablon,America/Boa_Vista,America/Bogota,America/Boise,America/Cambridge_Bay,America/Campo_Grande,America/Cancun,America/Caracas,America/Cayenne,America/Cayman,America/Chicago,America/Chihuahua,America/Costa_Rica,America/Cuiaba,America/Curacao,America/Danmarkshavn,America/Dawson,America/Dawson_Creek,America/Denver,America/Detroit,America/Dominica,America/Edmonton,America/Eirunepe,America/El_Salvador,America/Fortaleza,America/Glace_Bay,America/Godthab,America/Goose_Bay,America/Grand_Turk,America/Grenada,America/Guadeloupe,America/Guatemala,America/Guayaquil,America/Guyana,America/Halifax,America/Havana,America/Hermosillo,America/Indiana/Indianapolis,America/Indiana/Knox,America/Indiana/Marengo,America/Indiana/Petersburg,America/Indiana/Tell_City,America/Indiana/Vevay,America/Indiana/Vincennes,America/Indiana/Winamac,America/Inuvik,America/Iqaluit,America/Jamaica,America/Juneau,America/Kentucky/Louisville,America/Kentucky/Monticello,America/La_Paz,America/Lima,America/Los_Angeles,America/Maceio,America/Managua,America/Manaus,America/Marigot,America/Martinique,America/Mazatlan,America/Menominee,America/Merida,America/Mexico_City,America/Miquelon,America/Moncton,America/Monterrey,America/Montevideo,America/Montreal,America/Montserrat,America/Nassau,America/New_York,America/Nipigon,America/Nome,America/Noronha,America/North_Dakota/Center,America/North_Dakota/New_Salem,America/Panama,America/Pangnirtung,America/Paramaribo,America/Phoenix,America/Port-au-Prince,America/Port_of_Spain,America/Porto_Velho,America/Puerto_Rico,America/Rainy_River,America/Rankin_Inlet,America/Recife,America/Regina,America/Resolute,America/Rio_Branco,America/Santarem,America/Santiago,America/Santo_Domingo,America/Sao_Paulo,America/Scoresbysund,America/Shiprock,America/St_Barthelemy,America/St_Johns,America/St_Kitts,America/St_Lucia,America/St_Thomas,America/St_Vincent,America/Swift_Current,America/Tegucigalpa,America/Thule,America/Thunder_Bay,America/Tijuana,America/Toronto,America/Tortola,America/Vancouver,America/Whitehorse,America/Winnipeg,America/Yakutat,America/Yellowknife,Antarctica/Casey,Antarctica/Davis,Antarctica/DumontDUrville,Antarctica/Mawson,Antarctica/McMurdo,Antarctica/Palmer,Antarctica/Rothera,Antarctica/South_Pole,Antarctica/Syowa,Antarctica/Vostok,Arctic/Longyearbyen,Asia/Aden,Asia/Almaty,Asia/Amman,Asia/Anadyr,Asia/Aqtau,Asia/Aqtobe,Asia/Ashgabat,Asia/Baghdad,Asia/Bahrain,Asia/Baku,Asia/Bangkok,Asia/Beirut,Asia/Bishkek,Asia/Brunei,Asia/Choibalsan,Asia/Chongqing,Asia/Colombo,Asia/Damascus,Asia/Dhaka,Asia/Dili,Asia/Dubai,Asia/Dushanbe,Asia/Gaza,Asia/Harbin,Asia/Ho_Chi_Minh,Asia/Hong_Kong,Asia/Hovd,Asia/Irkutsk,Asia/Jakarta,Asia/Jayapura,Asia/Jerusalem,Asia/Kabul,Asia/Kamchatka,Asia/Karachi,Asia/Kashgar,Asia/Kathmandu,Asia/Kolkata,Asia/Krasnoyarsk,Asia/Kuala_Lumpur,Asia/Kuching,Asia/Kuwait,Asia/Macau,Asia/Magadan,Asia/Makassar,Asia/Manila,Asia/Muscat,Asia/Nicosia,Asia/Novosibirsk,Asia/Omsk,Asia/Oral,Asia/Phnom_Penh,Asia/Pontianak,Asia/Pyongyang,Asia/Qatar,Asia/Qyzylorda,Asia/Rangoon,Asia/Riyadh,Asia/Sakhalin,Asia/Samarkand,Asia/Seoul,Asia/Shanghai,Asia/Singapore,Asia/Taipei,Asia/Tashkent,Asia/Tbilisi,Asia/Tehran,Asia/Thimphu,Asia/Tokyo,Asia/Ulaanbaatar,Asia/Urumqi,Asia/Vientiane,Asia/Vladivostok,Asia/Yakutsk,Asia/Yekaterinburg,Asia/Yerevan,Atlantic/Azores,Atlantic/Bermuda,Atlantic/Canary,Atlantic/Cape_Verde,Atlantic/Faroe,Atlantic/Madeira,Atlantic/Reykjavik,Atlantic/South_Georgia,Atlantic/St_Helena,Atlantic/Stanley,Australia/Adelaide,Australia/Brisbane,Australia/Broken_Hill,Australia/Currie,Australia/Darwin,Australia/Eucla,Australia/Hobart,Australia/Lindeman,Australia/Lord_Howe,Australia/Melbourne,Australia/Perth,Australia/Sydney,Europe/Amsterdam,Europe/Andorra,Europe/Athens,Europe/Belgrade,Europe/Berlin,Europe/Bratislava,Europe/Brussels,Europe/Bucharest,Europe/Budapest,Europe/Chisinau,Europe/Copenhagen,Europe/Dublin,Europe/Gibraltar,Europe/Guernsey,Europe/Helsinki,Europe/Isle_of_Man,Europe/Istanbul,Europe/Jersey,Europe/Kaliningrad,Europe/Kiev,Europe/Lisbon,Europe/Ljubljana,Europe/London,Europe/Luxembourg,Europe/Madrid,Europe/Malta,Europe/Mariehamn,Europe/Minsk,Europe/Monaco,Europe/Moscow,Europe/Oslo,Europe/Paris,Europe/Podgorica,Europe/Prague,Europe/Riga,Europe/Rome,Europe/Samara,Europe/San_Marino,Europe/Sarajevo,Europe/Simferopol,Europe/Skopje,Europe/Sofia,Europe/Stockholm,Europe/Tallinn,Europe/Tirane,Europe/Uzhgorod,Europe/Vaduz,Europe/Vatican,Europe/Vienna,Europe/Vilnius,Europe/Volgograd,Europe/Warsaw,Europe/Zagreb,Europe/Zaporozhye,Europe/Zurich,Indian/Antananarivo,Indian/Chagos,Indian/Christmas,Indian/Cocos,Indian/Comoro,Indian/Kerguelen,Indian/Mahe,Indian/Maldives,Indian/Mauritius,Indian/Mayotte,Indian/Reunion,Pacific/Apia,Pacific/Auckland,Pacific/Chatham,Pacific/Easter,Pacific/Efate,Pacific/Enderbury,Pacific/Fakaofo,Pacific/Fiji,Pacific/Funafuti,Pacific/Galapagos,Pacific/Gambier,Pacific/Guadalcanal,Pacific/Guam,Pacific/Honolulu,Pacific/Johnston,Pacific/Kiritimati,Pacific/Kosrae,Pacific/Kwajalein,Pacific/Majuro,Pacific/Marquesas,Pacific/Midway,Pacific/Nauru,Pacific/Niue,Pacific/Norfolk,Pacific/Noumea,Pacific/Pago_Pago,Pacific/Palau,Pacific/Pitcairn,Pacific/Ponape,Pacific/Port_Moresby,Pacific/Rarotonga,Pacific/Saipan,Pacific/Tahiti,Pacific/Tarawa,Pacific/Tongatapu,Pacific/Truk,Pacific/Wake,Pacific/Wallis",
+                            "persistent": true
+                        },
+                        "6": {
+                            "type": "string",
+                            "default": "pool.ntp.org",
+                            "label": "NTP server",
+                            "id": "ntp_server",
+                            "writable": true,
+                            "persistent": true,
+                            "fn_set": null
+                        },
+                        "7": {
+                            "type": "string",
+                            "default": "",
+                            "label": "NTP status",
+                            "id": "ntp_status",
+                            "writable": false,
+                            "persistent": false
+                        },
+                        "ntp_status": {
+                            "type": "string",
+                            "default": "",
+                            "label": "NTP status",
+                            "id": "ntp_status",
+                            "writable": false,
+                            "persistent": false
+                        },
+                        "name": {
+                            "type": "string",
+                            "label": "Name",
+                            "id": "name",
+                            "writable": true,
+                            "persistent": true
+                        },
+                        "time": {
+                            "id": "time",
+                            "type": "string",
+                            "label": "Time"
+                        },
+                        "date": {
+                            "id": "date",
+                            "type": "string",
+                            "label": "Date"
+                        },
+                        "format": {
+                            "fn_set": null,
+                            "type": "enum",
+                            "default": "d-m-y",
+                            "label": "Date format",
+                            "id": "format",
+                            "writable": true,
+                            "range": "y-m-d,d-m-y",
+                            "persistent": true
+                        },
+                        "ntp_server": {
+                            "type": "string",
+                            "default": "pool.ntp.org",
+                            "label": "NTP server",
+                            "id": "ntp_server",
+                            "writable": true,
+                            "persistent": true,
+                            "fn_set": null
+                        },
+                        "timezone": {
+                            "fn_set": null,
+                            "type": "enum",
+                            "default": "Europe/Amsterdam",
+                            "label": "Time zone",
+                            "id": "timezone",
+                            "writable": true,
+                            "range": "Africa/Abidjan,Africa/Accra,Africa/Addis_Ababa,Africa/Algiers,Africa/Asmara,Africa/Bamako,Africa/Bangui,Africa/Banjul,Africa/Bissau,Africa/Blantyre,Africa/Brazzaville,Africa/Bujumbura,Africa/Cairo,Africa/Casablanca,Africa/Ceuta,Africa/Conakry,Africa/Dakar,Africa/Dar_es_Salaam,Africa/Djibouti,Africa/Douala,Africa/El_Aaiun,Africa/Freetown,Africa/Gaborone,Africa/Harare,Africa/Johannesburg,Africa/Kampala,Africa/Khartoum,Africa/Kigali,Africa/Kinshasa,Africa/Lagos,Africa/Libreville,Africa/Lome,Africa/Luanda,Africa/Lubumbashi,Africa/Lusaka,Africa/Malabo,Africa/Maputo,Africa/Maseru,Africa/Mbabane,Africa/Mogadishu,Africa/Monrovia,Africa/Nairobi,Africa/Ndjamena,Africa/Niamey,Africa/Nouakchott,Africa/Ouagadougou,Africa/Porto-Novo,Africa/Sao_Tome,Africa/Tripoli,Africa/Tunis,Africa/Windhoek,America/Adak,America/Anchorage,America/Anguilla,America/Antigua,America/Araguaina,America/Argentina/Buenos_Aires,America/Argentina/Catamarca,America/Argentina/Cordoba,America/Argentina/Jujuy,America/Argentina/La_Rioja,America/Argentina/Mendoza,America/Argentina/Rio_Gallegos,America/Argentina/Salta,America/Argentina/San_Juan,America/Argentina/San_Luis,America/Argentina/Tucuman,America/Argentina/Ushuaia,America/Aruba,America/Asuncion,America/Atikokan,America/Bahia,America/Barbados,America/Belem,America/Belize,America/Blanc-Sablon,America/Boa_Vista,America/Bogota,America/Boise,America/Cambridge_Bay,America/Campo_Grande,America/Cancun,America/Caracas,America/Cayenne,America/Cayman,America/Chicago,America/Chihuahua,America/Costa_Rica,America/Cuiaba,America/Curacao,America/Danmarkshavn,America/Dawson,America/Dawson_Creek,America/Denver,America/Detroit,America/Dominica,America/Edmonton,America/Eirunepe,America/El_Salvador,America/Fortaleza,America/Glace_Bay,America/Godthab,America/Goose_Bay,America/Grand_Turk,America/Grenada,America/Guadeloupe,America/Guatemala,America/Guayaquil,America/Guyana,America/Halifax,America/Havana,America/Hermosillo,America/Indiana/Indianapolis,America/Indiana/Knox,America/Indiana/Marengo,America/Indiana/Petersburg,America/Indiana/Tell_City,America/Indiana/Vevay,America/Indiana/Vincennes,America/Indiana/Winamac,America/Inuvik,America/Iqaluit,America/Jamaica,America/Juneau,America/Kentucky/Louisville,America/Kentucky/Monticello,America/La_Paz,America/Lima,America/Los_Angeles,America/Maceio,America/Managua,America/Manaus,America/Marigot,America/Martinique,America/Mazatlan,America/Menominee,America/Merida,America/Mexico_City,America/Miquelon,America/Moncton,America/Monterrey,America/Montevideo,America/Montreal,America/Montserrat,America/Nassau,America/New_York,America/Nipigon,America/Nome,America/Noronha,America/North_Dakota/Center,America/North_Dakota/New_Salem,America/Panama,America/Pangnirtung,America/Paramaribo,America/Phoenix,America/Port-au-Prince,America/Port_of_Spain,America/Porto_Velho,America/Puerto_Rico,America/Rainy_River,America/Rankin_Inlet,America/Recife,America/Regina,America/Resolute,America/Rio_Branco,America/Santarem,America/Santiago,America/Santo_Domingo,America/Sao_Paulo,America/Scoresbysund,America/Shiprock,America/St_Barthelemy,America/St_Johns,America/St_Kitts,America/St_Lucia,America/St_Thomas,America/St_Vincent,America/Swift_Current,America/Tegucigalpa,America/Thule,America/Thunder_Bay,America/Tijuana,America/Toronto,America/Tortola,America/Vancouver,America/Whitehorse,America/Winnipeg,America/Yakutat,America/Yellowknife,Antarctica/Casey,Antarctica/Davis,Antarctica/DumontDUrville,Antarctica/Mawson,Antarctica/McMurdo,Antarctica/Palmer,Antarctica/Rothera,Antarctica/South_Pole,Antarctica/Syowa,Antarctica/Vostok,Arctic/Longyearbyen,Asia/Aden,Asia/Almaty,Asia/Amman,Asia/Anadyr,Asia/Aqtau,Asia/Aqtobe,Asia/Ashgabat,Asia/Baghdad,Asia/Bahrain,Asia/Baku,Asia/Bangkok,Asia/Beirut,Asia/Bishkek,Asia/Brunei,Asia/Choibalsan,Asia/Chongqing,Asia/Colombo,Asia/Damascus,Asia/Dhaka,Asia/Dili,Asia/Dubai,Asia/Dushanbe,Asia/Gaza,Asia/Harbin,Asia/Ho_Chi_Minh,Asia/Hong_Kong,Asia/Hovd,Asia/Irkutsk,Asia/Jakarta,Asia/Jayapura,Asia/Jerusalem,Asia/Kabul,Asia/Kamchatka,Asia/Karachi,Asia/Kashgar,Asia/Kathmandu,Asia/Kolkata,Asia/Krasnoyarsk,Asia/Kuala_Lumpur,Asia/Kuching,Asia/Kuwait,Asia/Macau,Asia/Magadan,Asia/Makassar,Asia/Manila,Asia/Muscat,Asia/Nicosia,Asia/Novosibirsk,Asia/Omsk,Asia/Oral,Asia/Phnom_Penh,Asia/Pontianak,Asia/Pyongyang,Asia/Qatar,Asia/Qyzylorda,Asia/Rangoon,Asia/Riyadh,Asia/Sakhalin,Asia/Samarkand,Asia/Seoul,Asia/Shanghai,Asia/Singapore,Asia/Taipei,Asia/Tashkent,Asia/Tbilisi,Asia/Tehran,Asia/Thimphu,Asia/Tokyo,Asia/Ulaanbaatar,Asia/Urumqi,Asia/Vientiane,Asia/Vladivostok,Asia/Yakutsk,Asia/Yekaterinburg,Asia/Yerevan,Atlantic/Azores,Atlantic/Bermuda,Atlantic/Canary,Atlantic/Cape_Verde,Atlantic/Faroe,Atlantic/Madeira,Atlantic/Reykjavik,Atlantic/South_Georgia,Atlantic/St_Helena,Atlantic/Stanley,Australia/Adelaide,Australia/Brisbane,Australia/Broken_Hill,Australia/Currie,Australia/Darwin,Australia/Eucla,Australia/Hobart,Australia/Lindeman,Australia/Lord_Howe,Australia/Melbourne,Australia/Perth,Australia/Sydney,Europe/Amsterdam,Europe/Andorra,Europe/Athens,Europe/Belgrade,Europe/Berlin,Europe/Bratislava,Europe/Brussels,Europe/Bucharest,Europe/Budapest,Europe/Chisinau,Europe/Copenhagen,Europe/Dublin,Europe/Gibraltar,Europe/Guernsey,Europe/Helsinki,Europe/Isle_of_Man,Europe/Istanbul,Europe/Jersey,Europe/Kaliningrad,Europe/Kiev,Europe/Lisbon,Europe/Ljubljana,Europe/London,Europe/Luxembourg,Europe/Madrid,Europe/Malta,Europe/Mariehamn,Europe/Minsk,Europe/Monaco,Europe/Moscow,Europe/Oslo,Europe/Paris,Europe/Podgorica,Europe/Prague,Europe/Riga,Europe/Rome,Europe/Samara,Europe/San_Marino,Europe/Sarajevo,Europe/Simferopol,Europe/Skopje,Europe/Sofia,Europe/Stockholm,Europe/Tallinn,Europe/Tirane,Europe/Uzhgorod,Europe/Vaduz,Europe/Vatican,Europe/Vienna,Europe/Vilnius,Europe/Volgograd,Europe/Warsaw,Europe/Zagreb,Europe/Zaporozhye,Europe/Zurich,Indian/Antananarivo,Indian/Chagos,Indian/Christmas,Indian/Cocos,Indian/Comoro,Indian/Kerguelen,Indian/Mahe,Indian/Maldives,Indian/Mauritius,Indian/Mayotte,Indian/Reunion,Pacific/Apia,Pacific/Auckland,Pacific/Chatham,Pacific/Easter,Pacific/Efate,Pacific/Enderbury,Pacific/Fakaofo,Pacific/Fiji,Pacific/Funafuti,Pacific/Galapagos,Pacific/Gambier,Pacific/Guadalcanal,Pacific/Guam,Pacific/Honolulu,Pacific/Johnston,Pacific/Kiritimati,Pacific/Kosrae,Pacific/Kwajalein,Pacific/Majuro,Pacific/Marquesas,Pacific/Midway,Pacific/Nauru,Pacific/Niue,Pacific/Norfolk,Pacific/Noumea,Pacific/Pago_Pago,Pacific/Palau,Pacific/Pitcairn,Pacific/Ponape,Pacific/Port_Moresby,Pacific/Rarotonga,Pacific/Saipan,Pacific/Tahiti,Pacific/Tarawa,Pacific/Tongatapu,Pacific/Truk,Pacific/Wake,Pacific/Wallis",
+                            "persistent": true
+                        }
+                    },
+                    "name": "clock",
+                    "discover": null,
+                    "new": null
+                },
+                "uid": "system clock"
+            }
+        },
+        "82ec52ad": {
+            "info": {
+                "type": "water",
+                "driver": {
+                    "hotplug": null,
+                    "type": "water",
+                    "description": "iungo water flow monitoring",
+                    "ports": {
+                        "1": {
+                            "id": "digio",
+                            "type": "stream",
+                            "fn_recv": null,
+                            "position": "bottom"
+                        },
+                        "2": {
+                            "id": "count",
+                            "type": "count",
+                            "fn_recv": null,
+                            "position": "bottom"
+                        },
+                        "count": {
+                            "id": "count",
+                            "type": "count",
+                            "fn_recv": null,
+                            "position": "bottom"
+                        },
+                        "digio": {
+                            "id": "digio",
+                            "type": "stream",
+                            "fn_recv": null,
+                            "position": "bottom"
+                        }
+                    },
+                    "del": null,
+                    "props": {
+                        "1": {
+                            "type": "string",
+                            "label": "Name",
+                            "id": "name",
+                            "writable": true,
+                            "persistent": true
+                        },
+                        "2": {
+                            "type": "number",
+                            "default": 0,
+                            "label": "water flow",
+                            "id": "flow",
+                            "log": true,
+                            "unit": "l/min"
+                        },
+                        "3": {
+                            "type": "number",
+                            "label": "totalWater",
+                            "id": "pulstotal",
+                            "writable": false,
+                            "persistent": true,
+                            "unit": "puls",
+                            "default": 0,
+                            "fn_edit": null,
+                            "log": true,
+                            "linkoppid": "kfact",
+                            "cumulative": true
+                        },
+                        "4": {
+                            "type": "number",
+                            "label": "Pulses/m3",
+                            "id": "kfact",
+                            "writable": true,
+                            "persistent": true,
+                            "unit": "puls/m³",
+                            "min": 1,
+                            "default": 1000,
+                            "fn_set": null
+                        },
+                        "5": {
+                            "logchange": true,
+                            "type": "number",
+                            "default": 0,
+                            "label": "offset",
+                            "id": "offset",
+                            "writable": true,
+                            "persistent": true,
+                            "unit": "m³"
+                        },
+                        "6": {
+                            "log": true,
+                            "type": "number",
+                            "default": 0,
+                            "label": "Tariff",
+                            "id": "tariff",
+                            "writable": true,
+                            "persistent": true,
+                            "unit": "¤/m³"
+                        },
+                        "7": {
+                            "fn_set": null,
+                            "type": "enum",
+                            "default": "-",
+                            "label": "Connection",
+                            "id": "connection",
+                            "writable": true,
+                            "range": "-,breakout,breakout_ch2,counter",
+                            "persistent": true
+                        },
+                        "flow": {
+                            "type": "number",
+                            "default": 0,
+                            "label": "water flow",
+                            "id": "flow",
+                            "log": true,
+                            "unit": "l/min"
+                        },
+                        "name": {
+                            "type": "string",
+                            "label": "Name",
+                            "id": "name",
+                            "writable": true,
+                            "persistent": true
+                        },
+                        "connection": {
+                            "fn_set": null,
+                            "type": "enum",
+                            "default": "-",
+                            "label": "Connection",
+                            "id": "connection",
+                            "writable": true,
+                            "range": "-,breakout,breakout_ch2,counter",
+                            "persistent": true
+                        },
+                        "pulstotal": {
+                            "type": "number",
+                            "label": "totalWater",
+                            "id": "pulstotal",
+                            "writable": false,
+                            "persistent": true,
+                            "unit": "puls",
+                            "default": 0,
+                            "fn_edit": null,
+                            "log": true,
+                            "linkoppid": "kfact",
+                            "cumulative": true
+                        },
+                        "kfact": {
+                            "type": "number",
+                            "label": "Pulses/m3",
+                            "id": "kfact",
+                            "writable": true,
+                            "persistent": true,
+                            "unit": "puls/m³",
+                            "min": 1,
+                            "default": 1000,
+                            "fn_set": null
+                        },
+                        "offset": {
+                            "logchange": true,
+                            "type": "number",
+                            "default": 0,
+                            "label": "offset",
+                            "id": "offset",
+                            "writable": true,
+                            "persistent": true,
+                            "unit": "m³"
+                        },
+                        "tariff": {
+                            "log": true,
+                            "type": "number",
+                            "default": 0,
+                            "label": "Tariff",
+                            "id": "tariff",
+                            "writable": true,
+                            "persistent": true,
+                            "unit": "¤/m³"
+                        }
+                    },
+                    "name": "water-breakout",
+                    "start": null,
+                    "new": null
+                },
+                "uid": "2"
+            }
+        },
+        "3b4182e3": {
+            "info": {
+                "type": "bridge",
+                "driver": {
+                    "type": "bridge",
+                    "description": "GPIO port",
+                    "ports": {
+                        "1": {
+                            "id": "digio",
+                            "type": "stream",
+                            "fn_recv": null,
+                            "position": "top"
+                        },
+                        "digio": {
+                            "id": "digio",
+                            "type": "stream",
+                            "fn_recv": null,
+                            "position": "top"
+                        }
+                    },
+                    "del": null,
+                    "props": {
+                        "1": {
+                            "type": "string",
+                            "label": "Name",
+                            "id": "name",
+                            "writable": true,
+                            "persistent": true
+                        },
+                        "2": {
+                            "type": "boolean",
+                            "default": false,
+                            "label": "Available",
+                            "id": "available",
+                            "writable": false
+                        },
+                        "name": {
+                            "type": "string",
+                            "label": "Name",
+                            "id": "name",
+                            "writable": true,
+                            "persistent": true
+                        },
+                        "available": {
+                            "type": "boolean",
+                            "default": false,
+                            "label": "Available",
+                            "id": "available",
+                            "writable": false
+                        }
+                    },
+                    "stop": null,
+                    "start": null,
+                    "name": "bridge-gpio",
+                    "new": null
+                },
+                "uid": "60"
+            }
+        },
+        "db56c18e": {
+            "info": {
+                "type": "weather",
+                "driver": {
+                    "type": "weather",
+                    "description": "Buienradar current weather info",
+                    "name": "weather-buienradar",
+                    "ports": {
+                    },
+                    "new": null,
+                    "del": null,
+                    "props": {
+                        "1": {
+                            "type": "string",
+                            "label": "Name",
+                            "id": "name",
+                            "writable": true,
+                            "persistent": true
+                        },
+                        "2": {
+                            "id": "location",
+                            "type": "string",
+                            "writable": true,
+                            "label": "Location"
+                        },
+                        "3": {
+                            "type": "number",
+                            "label": "Current temperature",
+                            "id": "temp_current",
+                            "log": true,
+                            "unit": "°C"
+                        },
+                        "4": {
+                            "id": "prediction_class",
+                            "type": "string",
+                            "label": "Prediction classification"
+                        },
+                        "5": {
+                            "type": "number",
+                            "label": "Humidity",
+                            "id": "humidity",
+                            "log": true,
+                            "unit": "%"
+                        },
+                        "6": {
+                            "type": "number",
+                            "label": "Windspeed",
+                            "id": "windspeedMS",
+                            "log": true,
+                            "unit": "m/s"
+                        },
+                        "7": {
+                            "type": "number",
+                            "label": "Wind direction",
+                            "id": "winddirection",
+                            "log": true,
+                            "unit": "°"
+                        },
+                        "8": {
+                            "type": "number",
+                            "label": "Air pressure",
+                            "id": "airpressure",
+                            "log": true,
+                            "unit": "hPa"
+                        },
+                        "9": {
+                            "type": "number",
+                            "label": "Rain",
+                            "id": "rain",
+                            "log": true,
+                            "unit": "mm/h"
+                        },
+                        "10": {
+                            "type": "number",
+                            "label": "Solar intensity",
+                            "id": "solarintensity",
+                            "log": true,
+                            "unit": "W/m2"
+                        },
+                        "prediction_class": {
+                            "id": "prediction_class",
+                            "type": "string",
+                            "label": "Prediction classification"
+                        },
+                        "humidity": {
+                            "type": "number",
+                            "label": "Humidity",
+                            "id": "humidity",
+                            "log": true,
+                            "unit": "%"
+                        },
+                        "airpressure": {
+                            "type": "number",
+                            "label": "Air pressure",
+                            "id": "airpressure",
+                            "log": true,
+                            "unit": "hPa"
+                        },
+                        "solarintensity": {
+                            "type": "number",
+                            "label": "Solar intensity",
+                            "id": "solarintensity",
+                            "log": true,
+                            "unit": "W/m2"
+                        },
+                        "name": {
+                            "type": "string",
+                            "label": "Name",
+                            "id": "name",
+                            "writable": true,
+                            "persistent": true
+                        },
+                        "temp_current": {
+                            "type": "number",
+                            "label": "Current temperature",
+                            "id": "temp_current",
+                            "log": true,
+                            "unit": "°C"
+                        },
+                        "windspeedMS": {
+                            "type": "number",
+                            "label": "Windspeed",
+                            "id": "windspeedMS",
+                            "log": true,
+                            "unit": "m/s"
+                        },
+                        "rain": {
+                            "type": "number",
+                            "label": "Rain",
+                            "id": "rain",
+                            "log": true,
+                            "unit": "mm/h"
+                        },
+                        "location": {
+                            "id": "location",
+                            "type": "string",
+                            "writable": true,
+                            "label": "Location"
+                        },
+                        "winddirection": {
+                            "type": "number",
+                            "label": "Wind direction",
+                            "id": "winddirection",
+                            "log": true,
+                            "unit": "°"
+                        }
+                    }
+                },
+                "uid": "6290"
+            }
+        },
+        "ebbe39cd": {
+            "info": {
+                "type": "users",
+                "driver": {
+                    "type": "users",
+                    "description": "User Settings",
+                    "name": "users",
+                    "ports": {
+                    },
+                    "new": null,
+                    "discover": null,
+                    "props": {
+                        "1": {
+                            "type": "string",
+                            "label": "Name",
+                            "id": "name",
+                            "writable": true,
+                            "persistent": true
+                        },
+                        "2": {
+                            "type": "password",
+                            "label": "password",
+                            "id": "password",
+                            "writable": true,
+                            "persistent": true,
+                            "fn_set": null
+                        },
+                        "3": {
+                            "type": "boolean",
+                            "default": false,
+                            "label": "block user set",
+                            "id": "blockuset",
+                            "writable": true,
+                            "persistent": true
+                        },
+                        "4": {
+                            "id": "authenticated",
+                            "type": "boolean",
+                            "default": false,
+                            "label": "authenticated"
+                        },
+                        "5": {
+                            "type": "enum",
+                            "default": "nl",
+                            "label": "language",
+                            "id": "language",
+                            "writable": true,
+                            "range": "nl,be,en,de",
+                            "persistent": true
+                        },
+                        "6": {
+                            "type": "string",
+                            "label": "settings",
+                            "id": "settings",
+                            "writable": true,
+                            "persistent": true
+                        },
+                        "password": {
+                            "type": "password",
+                            "label": "password",
+                            "id": "password",
+                            "writable": true,
+                            "persistent": true,
+                            "fn_set": null
+                        },
+                        "authenticated": {
+                            "id": "authenticated",
+                            "type": "boolean",
+                            "default": false,
+                            "label": "authenticated"
+                        },
+                        "name": {
+                            "type": "string",
+                            "label": "Name",
+                            "id": "name",
+                            "writable": true,
+                            "persistent": true
+                        },
+                        "settings": {
+                            "type": "string",
+                            "label": "settings",
+                            "id": "settings",
+                            "writable": true,
+                            "persistent": true
+                        },
+                        "blockuset": {
+                            "type": "boolean",
+                            "default": false,
+                            "label": "block user set",
+                            "id": "blockuset",
+                            "writable": true,
+                            "persistent": true
+                        },
+                        "language": {
+                            "type": "enum",
+                            "default": "nl",
+                            "label": "language",
+                            "id": "language",
+                            "writable": true,
+                            "range": "nl,be,en,de",
+                            "persistent": true
+                        }
+                    }
+                },
+                "uid": "admin"
+            }
+        },
+        "b4286b84": {
+            "info": {
+                "type": "alert",
+                "driver": {
+                    "del": null,
+                    "type": "alert",
+                    "description": "e-mail alerts",
+                    "name": "alert-email",
+                    "ports": {
+                    },
+                    "new": null,
+                    "discover": null,
+                    "props": {
+                        "1": {
+                            "type": "string",
+                            "label": "Name",
+                            "id": "name",
+                            "writable": true,
+                            "persistent": true
+                        },
+                        "2": {
+                            "type": "boolean",
+                            "label": "Enable",
+                            "id": "enable",
+                            "writable": true,
+                            "persistent": true
+                        },
+                        "3": {
+                            "type": "string",
+                            "label": "SMTP server",
+                            "id": "server",
+                            "writable": true,
+                            "persistent": true
+                        },
+                        "4": {
+                            "type": "boolean",
+                            "default": false,
+                            "label": "Use SMTPS protocol",
+                            "id": "smtps",
+                            "writable": true,
+                            "persistent": true
+                        },
+                        "5": {
+                            "type": "boolean",
+                            "default": false,
+                            "label": "Use authentication",
+                            "id": "auth",
+                            "writable": true,
+                            "persistent": true
+                        },
+                        "6": {
+                            "type": "string",
+                            "label": "SMTP username",
+                            "id": "username",
+                            "writable": true,
+                            "persistent": true
+                        },
+                        "7": {
+                            "type": "password",
+                            "label": "SMTP password",
+                            "id": "password",
+                            "writable": true,
+                            "persistent": true
+                        },
+                        "8": {
+                            "type": "string",
+                            "default": "alert@iungo.nl",
+                            "label": "From address",
+                            "id": "from",
+                            "writable": true,
+                            "persistent": true
+                        },
+                        "9": {
+                            "type": "string",
+                            "label": "Recipient address",
+                            "id": "rcpt",
+                            "writable": true,
+                            "persistent": true
+                        },
+                        "10": {
+                            "type": "command",
+                            "label": "Send test e-mail",
+                            "id": "test",
+                            "writable": true,
+                            "range": "test",
+                            "fn_set": null
+                        },
+                        "11": {
+                            "id": "status",
+                            "type": "string",
+                            "label": "Status"
+                        },
+                        "rcpt": {
+                            "type": "string",
+                            "label": "Recipient address",
+                            "id": "rcpt",
+                            "writable": true,
+                            "persistent": true
+                        },
+                        "enable": {
+                            "type": "boolean",
+                            "label": "Enable",
+                            "id": "enable",
+                            "writable": true,
+                            "persistent": true
+                        },
+                        "smtps": {
+                            "type": "boolean",
+                            "default": false,
+                            "label": "Use SMTPS protocol",
+                            "id": "smtps",
+                            "writable": true,
+                            "persistent": true
+                        },
+                        "password": {
+                            "type": "password",
+                            "label": "SMTP password",
+                            "id": "password",
+                            "writable": true,
+                            "persistent": true
+                        },
+                        "status": {
+                            "id": "status",
+                            "type": "string",
+                            "label": "Status"
+                        },
+                        "name": {
+                            "type": "string",
+                            "label": "Name",
+                            "id": "name",
+                            "writable": true,
+                            "persistent": true
+                        },
+                        "from": {
+                            "type": "string",
+                            "default": "alert@iungo.nl",
+                            "label": "From address",
+                            "id": "from",
+                            "writable": true,
+                            "persistent": true
+                        },
+                        "test": {
+                            "type": "command",
+                            "label": "Send test e-mail",
+                            "id": "test",
+                            "writable": true,
+                            "range": "test",
+                            "fn_set": null
+                        },
+                        "username": {
+                            "type": "string",
+                            "label": "SMTP username",
+                            "id": "username",
+                            "writable": true,
+                            "persistent": true
+                        },
+                        "auth": {
+                            "type": "boolean",
+                            "default": false,
+                            "label": "Use authentication",
+                            "id": "auth",
+                            "writable": true,
+                            "persistent": true
+                        },
+                        "server": {
+                            "type": "string",
+                            "label": "SMTP server",
+                            "id": "server",
+                            "writable": true,
+                            "persistent": true
+                        }
+                    }
+                },
+                "uid": "e-mail alerts"
+            }
+        },
+        "b7bae611": {
+            "info": {
+                "type": "bridge",
+                "driver": {
+                    "type": "bridge",
+                    "description": "GPIO port",
+                    "ports": {
+                        "1": {
+                            "id": "digio",
+                            "type": "stream",
+                            "fn_recv": null,
+                            "position": "top"
+                        },
+                        "digio": {
+                            "id": "digio",
+                            "type": "stream",
+                            "fn_recv": null,
+                            "position": "top"
+                        }
+                    },
+                    "del": null,
+                    "props": {
+                        "1": {
+                            "type": "string",
+                            "label": "Name",
+                            "id": "name",
+                            "writable": true,
+                            "persistent": true
+                        },
+                        "2": {
+                            "type": "boolean",
+                            "default": false,
+                            "label": "Available",
+                            "id": "available",
+                            "writable": false
+                        },
+                        "name": {
+                            "type": "string",
+                            "label": "Name",
+                            "id": "name",
+                            "writable": true,
+                            "persistent": true
+                        },
+                        "available": {
+                            "type": "boolean",
+                            "default": false,
+                            "label": "Available",
+                            "id": "available",
+                            "writable": false
+                        }
+                    },
+                    "stop": null,
+                    "start": null,
+                    "name": "bridge-gpio",
+                    "new": null
+                },
+                "uid": "39"
+            }
+        },
+        "6108a7f0": {
+            "info": {
+                "type": "modbusenergy",
+                "driver": {
+                    "type": "modbusenergy",
+                    "description": "Modbus energy monitor (SDM220 Modbus)",
+                    "ports": {
+                        "1": {
+                            "id": "modbus",
+                            "type": "modbus",
+                            "fn_recv": null,
+                            "position": "bottom"
+                        },
+                        "modbus": {
+                            "id": "modbus",
+                            "type": "modbus",
+                            "fn_recv": null,
+                            "position": "bottom"
+                        }
+                    },
+                    "name": "energymeter-sdm220-modbus",
+                    "new": null,
+                    "props": {
+                        "1": {
+                            "type": "string",
+                            "label": "Name",
+                            "id": "name",
+                            "writable": true,
+                            "persistent": true
+                        },
+                        "2": {
+                            "type": "number",
+                            "label": "Power",
+                            "id": "usage",
+                            "log": true,
+                            "unit": "W"
+                        },
+                        "3": {
+                            "type": "number",
+                            "label": "T1",
+                            "id": "T1",
+                            "log": true,
+                            "cumulative": true,
+                            "unit": "kWh"
+                        },
+                        "4": {
+                            "type": "number",
+                            "label": "-T1",
+                            "id": "-T1",
+                            "log": true,
+                            "cumulative": true,
+                            "unit": "kWh"
+                        },
+                        "5": {
+                            "type": "number",
+                            "label": "L Volt",
+                            "id": "L1U",
+                            "log": true,
+                            "unit": "V"
+                        },
+                        "6": {
+                            "type": "boolean",
+                            "default": false,
+                            "label": "log phase voltage",
+                            "id": "logu",
+                            "writable": true,
+                            "persistent": true
+                        },
+                        "7": {
+                            "logchange": true,
+                            "type": "number",
+                            "default": 0,
+                            "label": "€ T1",
+                            "id": "Cost-T1",
+                            "writable": true,
+                            "persistent": true,
+                            "unit": "¤/kWh"
+                        },
+                        "8": {
+                            "logchange": true,
+                            "type": "number",
+                            "default": 0,
+                            "label": "€ -T1",
+                            "id": "Cost-nT1",
+                            "writable": true,
+                            "persistent": true,
+                            "unit": "¤/kWh"
+                        },
+                        "9": {
+                            "type": "number",
+                            "label": "Sumgroup",
+                            "id": "sumgroup",
+                            "writable": true,
+                            "persistent": true
+                        },
+                        "10": {
+                            "type": "enum",
+                            "default": "misc",
+                            "label": "Functiongroup",
+                            "id": "functiongroup",
+                            "writable": true,
+                            "range": "misc,carcharger,heatpump,device,waterboiler,floorheating,airco,oven,stove,fridge,dishwasher,heating,ventilation,aux,ehelp,laundryroom,carwash,irpanel,groupByName",
+                            "persistent": true
+                        },
+                        "11": {
+                            "type": "string",
+                            "default": "",
+                            "label": "Client-blob",
+                            "id": "Client-blob",
+                            "writable": true,
+                            "persistent": true,
+                            "hidden": true
+                        },
+                        "12": {
+                            "type": "boolean",
+                            "default": false,
+                            "label": "Hidden",
+                            "id": "hidden",
+                            "writable": true,
+                            "persistent": true
+                        },
+                        "13": {
+                            "type": "boolean",
+                            "label": "Available",
+                            "id": "available",
+                            "writable": false,
+                            "log": false
+                        },
+                        "Cost-T1": {
+                            "logchange": true,
+                            "type": "number",
+                            "default": 0,
+                            "label": "€ T1",
+                            "id": "Cost-T1",
+                            "writable": true,
+                            "persistent": true,
+                            "unit": "¤/kWh"
+                        },
+                        "sumgroup": {
+                            "type": "number",
+                            "label": "Sumgroup",
+                            "id": "sumgroup",
+                            "writable": true,
+                            "persistent": true
+                        },
+                        "functiongroup": {
+                            "type": "enum",
+                            "default": "misc",
+                            "label": "Functiongroup",
+                            "id": "functiongroup",
+                            "writable": true,
+                            "range": "misc,carcharger,heatpump,device,waterboiler,floorheating,airco,oven,stove,fridge,dishwasher,heating,ventilation,aux,ehelp,laundryroom,carwash,irpanel,groupByName",
+                            "persistent": true
+                        },
+                        "T1": {
+                            "type": "number",
+                            "label": "T1",
+                            "id": "T1",
+                            "log": true,
+                            "cumulative": true,
+                            "unit": "kWh"
+                        },
+                        "hidden": {
+                            "type": "boolean",
+                            "default": false,
+                            "label": "Hidden",
+                            "id": "hidden",
+                            "writable": true,
+                            "persistent": true
+                        },
+                        "Cost-nT1": {
+                            "logchange": true,
+                            "type": "number",
+                            "default": 0,
+                            "label": "€ -T1",
+                            "id": "Cost-nT1",
+                            "writable": true,
+                            "persistent": true,
+                            "unit": "¤/kWh"
+                        },
+                        "Client-blob": {
+                            "type": "string",
+                            "default": "",
+                            "label": "Client-blob",
+                            "id": "Client-blob",
+                            "writable": true,
+                            "persistent": true,
+                            "hidden": true
+                        },
+                        "name": {
+                            "type": "string",
+                            "label": "Name",
+                            "id": "name",
+                            "writable": true,
+                            "persistent": true
+                        },
+                        "available": {
+                            "type": "boolean",
+                            "label": "Available",
+                            "id": "available",
+                            "writable": false,
+                            "log": false
+                        },
+                        "logu": {
+                            "type": "boolean",
+                            "default": false,
+                            "label": "log phase voltage",
+                            "id": "logu",
+                            "writable": true,
+                            "persistent": true
+                        },
+                        "-T1": {
+                            "type": "number",
+                            "label": "-T1",
+                            "id": "-T1",
+                            "log": true,
+                            "cumulative": true,
+                            "unit": "kWh"
+                        },
+                        "L1U": {
+                            "type": "number",
+                            "label": "L Volt",
+                            "id": "L1U",
+                            "log": true,
+                            "unit": "V"
+                        },
+                        "usage": {
+                            "type": "number",
+                            "label": "Power",
+                            "id": "usage",
+                            "log": true,
+                            "unit": "W"
+                        }
+                    }
+                },
+                "uid": "4"
+            }
+        },
+        "c8284b4d": {
+            "info": {
+                "type": "bus",
+                "driver": {
+                    "hotplug": null,
+                    "type": "bus",
+                    "description": "mosquitto MQTT driver ",
+                    "ports": {
+                    },
+                    "del": null,
+                    "props": {
+                        "1": {
+                            "type": "string",
+                            "label": "Name",
+                            "id": "name",
+                            "writable": true,
+                            "persistent": true
+                        },
+                        "2": {
+                            "type": "string",
+                            "default": "0.0.0.0",
+                            "label": "Broker address",
+                            "id": "broker",
+                            "writable": true,
+                            "persistent": true,
+                            "fn_set": null
+                        },
+                        "3": {
+                            "type": "boolean",
+                            "default": false,
+                            "label": "retain",
+                            "id": "retain",
+                            "writable": true,
+                            "persistent": true,
+                            "fn_set": null
+                        },
+                        "4": {
+                            "type": "string",
+                            "default": "guest",
+                            "label": "user",
+                            "id": "user",
+                            "writable": true,
+                            "persistent": true,
+                            "fn_set": null
+                        },
+                        "5": {
+                            "type": "password",
+                            "default": "guest",
+                            "label": "pass",
+                            "id": "pw",
+                            "writable": true,
+                            "persistent": true,
+                            "fn_set": null
+                        },
+                        "6": {
+                            "type": "string",
+                            "default": "",
+                            "label": "publish",
+                            "id": "publish",
+                            "writable": true,
+                            "fn_set": null
+                        },
+                        "7": {
+                            "type": "string",
+                            "label": "published",
+                            "id": "published",
+                            "persistent": true,
+                            "fn_set": null
+                        },
+                        "8": {
+                            "type": "boolean",
+                            "default": true,
+                            "label": "filter enable",
+                            "id": "filter",
+                            "writable": true,
+                            "persistent": true,
+                            "fn_set": null
+                        },
+                        "pw": {
+                            "type": "password",
+                            "default": "guest",
+                            "label": "pass",
+                            "id": "pw",
+                            "writable": true,
+                            "persistent": true,
+                            "fn_set": null
+                        },
+                        "filter": {
+                            "type": "boolean",
+                            "default": true,
+                            "label": "filter enable",
+                            "id": "filter",
+                            "writable": true,
+                            "persistent": true,
+                            "fn_set": null
+                        },
+                        "name": {
+                            "type": "string",
+                            "label": "Name",
+                            "id": "name",
+                            "writable": true,
+                            "persistent": true
+                        },
+                        "broker": {
+                            "type": "string",
+                            "default": "0.0.0.0",
+                            "label": "Broker address",
+                            "id": "broker",
+                            "writable": true,
+                            "persistent": true,
+                            "fn_set": null
+                        },
+                        "published": {
+                            "type": "string",
+                            "label": "published",
+                            "id": "published",
+                            "persistent": true,
+                            "fn_set": null
+                        },
+                        "publish": {
+                            "type": "string",
+                            "default": "",
+                            "label": "publish",
+                            "id": "publish",
+                            "writable": true,
+                            "fn_set": null
+                        },
+                        "user": {
+                            "type": "string",
+                            "default": "guest",
+                            "label": "user",
+                            "id": "user",
+                            "writable": true,
+                            "persistent": true,
+                            "fn_set": null
+                        },
+                        "retain": {
+                            "type": "boolean",
+                            "default": false,
+                            "label": "retain",
+                            "id": "retain",
+                            "writable": true,
+                            "persistent": true,
+                            "fn_set": null
+                        }
+                    },
+                    "name": "bus-mqtt",
+                    "initdone": null,
+                    "new": null
+                },
+                "uid": ""
+            }
+        },
+        "36c1fc52": {
+            "info": {
+                "type": "bridge",
+                "driver": {
+                    "type": "bridge",
+                    "description": "Serial port",
+                    "ports": {
+                        "1": {
+                            "id": "serial",
+                            "type": "stream",
+                            "fn_recv": null,
+                            "position": "top"
+                        },
+                        "serial": {
+                            "id": "serial",
+                            "type": "stream",
+                            "fn_recv": null,
+                            "position": "top"
+                        }
+                    },
+                    "del": null,
+                    "props": {
+                        "1": {
+                            "type": "string",
+                            "label": "Name",
+                            "id": "name",
+                            "writable": true,
+                            "persistent": true
+                        },
+                        "2": {
+                            "type": "boolean",
+                            "default": false,
+                            "label": "Available",
+                            "id": "available",
+                            "writable": false
+                        },
+                        "3": {
+                            "fn_set": null,
+                            "type": "enum",
+                            "default": "-",
+                            "label": "Metertype",
+                            "id": "metertype",
+                            "writable": true,
+                            "range": "-,Smart P1,Smart P1 DSMR 4,S1,IEC,analog,demo,modbus,gas only,Smart P1 SMR,DSMR double gas,dummy",
+                            "persistent": true
+                        },
+                        "4": {
+                            "id": "bytes_rx",
+                            "type": "number",
+                            "writable": false,
+                            "label": "Bytes received"
+                        },
+                        "5": {
+                            "id": "bytes_tx",
+                            "type": "number",
+                            "writable": false,
+                            "label": "Bytes transmitted"
+                        },
+                        "6": {
+                            "type": "command",
+                            "label": "Firmware",
+                            "id": "fw-upgrade",
+                            "writable": true,
+                            "range": "upgrade",
+                            "fn_set": null
+                        },
+                        "7": {
+                            "id": "message",
+                            "type": "string",
+                            "writable": false,
+                            "label": "message"
+                        },
+                        "message": {
+                            "id": "message",
+                            "type": "string",
+                            "writable": false,
+                            "label": "message"
+                        },
+                        "name": {
+                            "type": "string",
+                            "label": "Name",
+                            "id": "name",
+                            "writable": true,
+                            "persistent": true
+                        },
+                        "available": {
+                            "type": "boolean",
+                            "default": false,
+                            "label": "Available",
+                            "id": "available",
+                            "writable": false
+                        },
+                        "bytes_tx": {
+                            "id": "bytes_tx",
+                            "type": "number",
+                            "writable": false,
+                            "label": "Bytes transmitted"
+                        },
+                        "fw-upgrade": {
+                            "type": "command",
+                            "label": "Firmware",
+                            "id": "fw-upgrade",
+                            "writable": true,
+                            "range": "upgrade",
+                            "fn_set": null
+                        },
+                        "metertype": {
+                            "fn_set": null,
+                            "type": "enum",
+                            "default": "-",
+                            "label": "Metertype",
+                            "id": "metertype",
+                            "writable": true,
+                            "range": "-,Smart P1,Smart P1 DSMR 4,S1,IEC,analog,demo,modbus,gas only,Smart P1 SMR,DSMR double gas,dummy",
+                            "persistent": true
+                        },
+                        "bytes_rx": {
+                            "id": "bytes_rx",
+                            "type": "number",
+                            "writable": false,
+                            "label": "Bytes received"
+                        }
+                    },
+                    "name": "smartbridge-uart",
+                    "start": null,
+                    "discover": null,
+                    "initdone": null,
+                    "new": null
+                },
+                "uid": "/dev/ttyAPP:9600:e71"
+            }
+        },
+        "0cbea738": {
+            "info": {
+                "type": "bridge",
+                "driver": {
+                    "name": "bridge-usbuart",
+                    "type": "bridge",
+                    "description": "Serial port",
+                    "new": null,
+                    "ports": {
+                        "1": {
+                            "id": "serial",
+                            "type": "stream",
+                            "fn_recv": null,
+                            "position": "top"
+                        },
+                        "serial": {
+                            "id": "serial",
+                            "type": "stream",
+                            "fn_recv": null,
+                            "position": "top"
+                        }
+                    },
+                    "start": null,
+                    "del": null,
+                    "props": {
+                        "1": {
+                            "type": "string",
+                            "label": "Name",
+                            "id": "name",
+                            "writable": true,
+                            "persistent": true
+                        },
+                        "2": {
+                            "type": "boolean",
+                            "default": false,
+                            "label": "Available",
+                            "id": "available",
+                            "writable": false
+                        },
+                        "3": {
+                            "type": "string",
+                            "default": "",
+                            "label": "iSerial",
+                            "id": "iSerial",
+                            "writable": false,
+                            "persistent": true
+                        },
+                        "iSerial": {
+                            "type": "string",
+                            "default": "",
+                            "label": "iSerial",
+                            "id": "iSerial",
+                            "writable": false,
+                            "persistent": true
+                        },
+                        "name": {
+                            "type": "string",
+                            "label": "Name",
+                            "id": "name",
+                            "writable": true,
+                            "persistent": true
+                        },
+                        "available": {
+                            "type": "boolean",
+                            "default": false,
+                            "label": "Available",
+                            "id": "available",
+                            "writable": false
+                        }
+                    }
+                },
+                "uid": "1-1.2:1.0;9600"
+            }
+        }
+    },
+    "systime": 1770452993,
+    "seq": 1,
+    "error": false
+}

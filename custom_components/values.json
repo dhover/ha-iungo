@@ -1,0 +1,571 @@
+{
+    "ok": true,
+    "type": "response",
+    "time": 0.016688566189259,
+    "rv": {
+        "objects": [
+            {
+                "driver": "alert-log",
+                "name": "-",
+                "oid": "20fa6711",
+                "propsval": [
+                    {
+                        "id": "enable",
+                        "value": false
+                    }
+                ],
+                "uid": "log alerts",
+                "type": "alert"
+            },
+            {
+                "driver": "energy-solar-sdm220-modbus",
+                "name": "Fronius omvormer",
+                "oid": "86218d46",
+                "propsval": [
+                    {
+                        "id": "name",
+                        "value": "Fronius omvormer"
+                    },
+                    {
+                        "id": "solar",
+                        "value": 310.701
+                    },
+                    {
+                        "id": "voltage",
+                        "value": 230.8
+                    },
+                    {
+                        "id": "import",
+                        "value": 113.041
+                    },
+                    {
+                        "id": "export",
+                        "value": 4152.151
+                    },
+                    {
+                        "id": "inverted",
+                        "value": false
+                    },
+                    {
+                        "id": "functiongroup",
+                        "value": "solar"
+                    }
+                ],
+                "uid": "3",
+                "type": "solar"
+            },
+            {
+                "driver": "energy-solar-sdm220-modbus",
+                "name": "SolarEdge omvormer",
+                "oid": "bef04aef",
+                "propsval": [
+                    {
+                        "id": "name",
+                        "value": "SolarEdge omvormer"
+                    },
+                    {
+                        "id": "solar",
+                        "value": 699.701
+                    },
+                    {
+                        "id": "voltage",
+                        "value": 232.399
+                    },
+                    {
+                        "id": "import",
+                        "value": 89.511
+                    },
+                    {
+                        "id": "export",
+                        "value": 24537.359
+                    },
+                    {
+                        "id": "inverted",
+                        "value": false
+                    },
+                    {
+                        "id": "functiongroup",
+                        "value": "solar"
+                    }
+                ],
+                "uid": "2",
+                "type": "solar"
+            },
+            {
+                "driver": "energy-kamstrup",
+                "name": "Slimme meter",
+                "oid": "7bbf70c3",
+                "propsval": [
+                    {
+                        "id": "name",
+                        "value": "Slimme meter"
+                    },
+                    {
+                        "id": "usage",
+                        "value": 500
+                    },
+                    {
+                        "id": "T1",
+                        "value": 35315.582
+                    },
+                    {
+                        "id": "T2",
+                        "value": 36980.868
+                    },
+                    {
+                        "id": "-T1",
+                        "value": 6737.093
+                    },
+                    {
+                        "id": "-T2",
+                        "value": 15546.145
+                    },
+                    {
+                        "id": "c_tariff",
+                        "value": 1
+                    },
+                    {
+                        "id": "gas_usage",
+                        "value": 0
+                    },
+                    {
+                        "id": "gas",
+                        "value": 23400.705
+                    },
+                    {
+                        "id": "Cost-T1",
+                        "value": 0.218661
+                    },
+                    {
+                        "id": "Cost-T2",
+                        "value": 0.245281
+                    },
+                    {
+                        "id": "Cost-nT1",
+                        "value": 0.218661
+                    },
+                    {
+                        "id": "Cost-nT2",
+                        "value": 0.245281
+                    },
+                    {
+                        "id": "netting",
+                        "value": "hi-low"
+                    },
+                    {
+                        "id": "Cost-net-comp",
+                        "value": 0.03
+                    },
+                    {
+                        "id": "Cost-gas",
+                        "value": 1.179703
+                    },
+                    {
+                        "id": "Gas-interval",
+                        "value": 3600
+                    },
+                    {
+                        "id": "Client-blob",
+                        "value": ""
+                    },
+                    {
+                        "id": "available",
+                        "value": true
+                    }
+                ],
+                "uid": "-",
+                "type": "energy"
+            },
+            {
+                "driver": "bridge-gpio",
+                "name": "-",
+                "oid": "64fcd7dc",
+                "propsval": [
+                    {
+                        "id": "available",
+                        "value": false
+                    }
+                ],
+                "uid": "57",
+                "type": "bridge"
+            },
+            {
+                "driver": "bridge-modbus",
+                "name": "-",
+                "oid": "b9cb127f",
+                "propsval": [
+                    {
+                        "id": "scan_status",
+                        "value": "{\"state\":\"idle\",\"results\":{}}"
+                    }
+                ],
+                "uid": "via 1-1.2:1.0",
+                "type": "bridge"
+            },
+            {
+                "driver": "energy-breakout",
+                "name": "Airconditioning",
+                "oid": "b69a0f0d",
+                "propsval": [
+                    {
+                        "id": "name",
+                        "value": "Airconditioning"
+                    },
+                    {
+                        "id": "power",
+                        "value": 949.47
+                    },
+                    {
+                        "id": "pulstotal",
+                        "value": 3376432
+                    },
+                    {
+                        "id": "ppkwh",
+                        "value": 1000
+                    },
+                    {
+                        "id": "offset",
+                        "value": 0
+                    },
+                    {
+                        "id": "functiongroup",
+                        "value": "misc"
+                    },
+                    {
+                        "id": "connection",
+                        "value": "breakout"
+                    }
+                ],
+                "uid": "-",
+                "type": "breakout"
+            },
+            {
+                "driver": "button-gpio",
+                "name": "-",
+                "oid": "c430d9e0",
+                "propsval": {
+                },
+                "uid": "button",
+                "type": "button"
+            },
+            {
+                "driver": "clock",
+                "name": "-",
+                "oid": "ce9577e3",
+                "propsval": [
+                    {
+                        "id": "time",
+                        "value": "11:39"
+                    },
+                    {
+                        "id": "date",
+                        "value": "07-02-2026"
+                    },
+                    {
+                        "id": "format",
+                        "value": "d-m-y"
+                    },
+                    {
+                        "id": "timezone",
+                        "value": "Europe/Amsterdam"
+                    },
+                    {
+                        "id": "ntp_server",
+                        "value": "pool.ntp.org"
+                    },
+                    {
+                        "id": "ntp_status",
+                        "value": "ok, peer \"185.51.192.61\""
+                    }
+                ],
+                "uid": "system clock",
+                "type": "clock"
+            },
+            {
+                "driver": "water-breakout",
+                "name": "Watermeter",
+                "oid": "82ec52ad",
+                "propsval": [
+                    {
+                        "id": "name",
+                        "value": "Watermeter"
+                    },
+                    {
+                        "id": "flow",
+                        "value": 0
+                    },
+                    {
+                        "id": "pulstotal",
+                        "value": 445190
+                    },
+                    {
+                        "id": "kfact",
+                        "value": 1000
+                    },
+                    {
+                        "id": "offset",
+                        "value": 1403.6
+                    },
+                    {
+                        "id": "tariff",
+                        "value": 1.01
+                    },
+                    {
+                        "id": "connection",
+                        "value": "breakout_ch2"
+                    }
+                ],
+                "uid": "2",
+                "type": "water"
+            },
+            {
+                "driver": "bridge-gpio",
+                "name": "-",
+                "oid": "3b4182e3",
+                "propsval": [
+                    {
+                        "id": "available",
+                        "value": false
+                    }
+                ],
+                "uid": "60",
+                "type": "bridge"
+            },
+            {
+                "driver": "weather-buienradar",
+                "name": "Weer Twente",
+                "oid": "db56c18e",
+                "propsval": [
+                    {
+                        "id": "name",
+                        "value": "Weer Twente"
+                    },
+                    {
+                        "id": "location",
+                        "value": "Twente"
+                    },
+                    {
+                        "id": "temp_current",
+                        "value": 9.7
+                    },
+                    {
+                        "id": "prediction_class",
+                        "value": "Zwaar bewolkt"
+                    },
+                    {
+                        "id": "humidity",
+                        "value": 89
+                    },
+                    {
+                        "id": "windspeedMS",
+                        "value": 2.2
+                    },
+                    {
+                        "id": "winddirection",
+                        "value": 195
+                    },
+                    {
+                        "id": "airpressure",
+                        "value": 1003.2
+                    },
+                    {
+                        "id": "rain",
+                        "value": 0.1
+                    },
+                    {
+                        "id": "solarintensity",
+                        "value": 355
+                    }
+                ],
+                "uid": "6290",
+                "type": "weather"
+            },
+            {
+                "driver": "users",
+                "name": "-",
+                "oid": "ebbe39cd",
+                "propsval": [
+                    {
+                        "id": "blockuset",
+                        "value": false
+                    },
+                    {
+                        "id": "authenticated",
+                        "value": false
+                    },
+                    {
+                        "id": "language",
+                        "value": "nl"
+                    }
+                ],
+                "uid": "admin",
+                "type": "users"
+            },
+            {
+                "driver": "alert-email",
+                "name": "-",
+                "oid": "b4286b84",
+                "propsval": [
+                    {
+                        "id": "smtps",
+                        "value": false
+                    },
+                    {
+                        "id": "auth",
+                        "value": false
+                    },
+                    {
+                        "id": "from",
+                        "value": "alert@iungo.nl"
+                    }
+                ],
+                "uid": "e-mail alerts",
+                "type": "alert"
+            },
+            {
+                "driver": "bridge-gpio",
+                "name": "-",
+                "oid": "b7bae611",
+                "propsval": [
+                    {
+                        "id": "available",
+                        "value": false
+                    }
+                ],
+                "uid": "39",
+                "type": "bridge"
+            },
+            {
+                "driver": "energymeter-sdm220-modbus",
+                "name": "Warmtepomp",
+                "oid": "6108a7f0",
+                "propsval": [
+                    {
+                        "id": "name",
+                        "value": "Warmtepomp"
+                    },
+                    {
+                        "id": "usage",
+                        "value": 20.1
+                    },
+                    {
+                        "id": "T1",
+                        "value": 1831.708
+                    },
+                    {
+                        "id": "-T1",
+                        "value": 0
+                    },
+                    {
+                        "id": "logu",
+                        "value": false
+                    },
+                    {
+                        "id": "Cost-T1",
+                        "value": 0
+                    },
+                    {
+                        "id": "Cost-nT1",
+                        "value": 0
+                    },
+                    {
+                        "id": "functiongroup",
+                        "value": "heatpump"
+                    },
+                    {
+                        "id": "Client-blob",
+                        "value": ""
+                    },
+                    {
+                        "id": "hidden",
+                        "value": false
+                    }
+                ],
+                "uid": "4",
+                "type": "modbusenergy"
+            },
+            {
+                "driver": "bus-mqtt",
+                "name": "Mosquitto",
+                "oid": "c8284b4d",
+                "propsval": [
+                    {
+                        "id": "name",
+                        "value": "Mosquitto"
+                    },
+                    {
+                        "id": "broker",
+                        "value": ""
+                    },
+                    {
+                        "id": "retain",
+                        "value": false
+                    },
+                    {
+                        "id": "user",
+                        "value": "mqtt"
+                    },
+                    {
+                        "id": "publish",
+                        "value": ""
+                    },
+                    {
+                        "id": "published",
+                        "value": "{}"
+                    },
+                    {
+                        "id": "filter",
+                        "value": false
+                    }
+                ],
+                "uid": "",
+                "type": "bus"
+            },
+            {
+                "driver": "smartbridge-uart",
+                "name": "-",
+                "oid": "36c1fc52",
+                "propsval": [
+                    {
+                        "id": "available",
+                        "value": true
+                    },
+                    {
+                        "id": "metertype",
+                        "value": "Smart P1"
+                    },
+                    {
+                        "id": "bytes_rx",
+                        "value": 74273763
+                    },
+                    {
+                        "id": "bytes_tx",
+                        "value": 0
+                    }
+                ],
+                "uid": "/dev/ttyAPP:9600:e71",
+                "type": "bridge"
+            },
+            {
+                "driver": "bridge-usbuart",
+                "name": "-",
+                "oid": "0cbea738",
+                "propsval": [
+                    {
+                        "id": "available",
+                        "value": false
+                    },
+                    {
+                        "id": "iSerial",
+                        "value": "DO5O05TN"
+                    }
+                ],
+                "uid": "1-1.2:1.0;9600",
+                "type": "bridge"
+            }
+        ]
+    },
+    "systime": 1770460759,
+    "seq": 1,
+    "error": false
+}
