@@ -274,9 +274,7 @@ async def async_setup_entry(
         prop_label = sensor_def['prop_label']
         name = TARIFF_LABEL_MAP.get(prop_label, prop_label)
         unit = sensor_def['unit']
-        if unit:
-            unit = unit.replace("¤", "€").replace(
-                "m3", "m³").replace("m2", "m²")
+
         sensors.append(
             IungoSensor(
                 data_coordinator,
