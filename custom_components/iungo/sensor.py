@@ -291,10 +291,11 @@ async def async_setup_entry(
             )
         )
 
-        _LOGGER.warning("object_id: %s - %s - %s - %s - %s",
+        _LOGGER.warning("object_id: %s - %s - %s - %s - %s - %s",
                         sensor_def['object_id'],
                         sensor_def["object_type"],
                         sensor_def["object_name"],
+                        sensor_def["unit"],
                         sensor_def['prop_id'], sensor_def['unit'])
 
         if sensor_def["object_name"] == "energy-breakout" and not breakout_energy_added:

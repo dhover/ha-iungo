@@ -3,6 +3,8 @@
 import logging
 import asyncio
 import aiohttp
+
+from homeassistant.const import UnitOfVolumeFlowRate, UnitOfVolume, UnitOfArea
 from .const import OBJECT_INFO_URL, OBJECT_VALUES_URL, OBJECT_SYSINFO_URL
 from .const import OBJECT_HWINFO_URL, OBJECT_LATEST_VERSION
 
@@ -137,6 +139,13 @@ def extract_sensors_from_object_info(object_info: dict):
         obj_type = info.get("type", "unknown")
         obj_name = driver.get("name", obj_id)
         obj_description = driver.get("description", None)
+        unit = prop.get("unit")
+        if unit:
+            unit = unit.replace(
+                "l/min", UnitOfVolumeFlowRate.LITERS_PER_MINUTE)
+            unit = unit.replace("m3", UnitOfVolume.CUBIC_METERS)
+            unit = unit.replace("m2", UnitOfArea.SQUARE_METERS)
+            unit = unit.replace("¤/kWh", "€/kWh")
         seen_ids = set()
         for prop_key, prop in props.items():
             # Skip numeric keys (only use named keys)
@@ -155,7 +164,8 @@ def extract_sensors_from_object_info(object_info: dict):
                     "object_description": obj_description,
                     "prop_id": prop_id,
                     "prop_label": prop.get("label", prop_key),
-                    "unit": prop.get("unit"),
+                    "unit": prop.get("unit").replace("l/min",
+                                                     UnitOfVolumeFlowRate.LITERS_PER_MINUTE) if prop.get("unit") else None,
                 }
                 sensors.append(sensor)
     return sensors
