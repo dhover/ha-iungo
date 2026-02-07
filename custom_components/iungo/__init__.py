@@ -3,6 +3,7 @@
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import Platform
 from homeassistant.core import HomeAssistant
+from homeassistant.helpers import device_registry as dr
 from .const import DOMAIN
 from .coordinator import IungoDataUpdateCoordinator, IungoFirmwareUpdateCoordinator
 
@@ -12,6 +13,15 @@ PLATFORMS = [Platform.SENSOR, Platform.UPDATE]
 
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     """Set up a config entry for iungo."""
+    device_registry = dr.async_get(hass)
+    device_registry.async_get_or_create(
+        config_entry_id=entry.entry_id,
+        identifiers={(DOMAIN, entry.entry_id)},
+        name="Iungo Hub",
+        manufacturer="Iungo",
+        model="Iungo",
+    )
+
     data_coordinator = IungoDataUpdateCoordinator(hass, entry)
     firmware_coordinator = IungoFirmwareUpdateCoordinator(hass, entry)
 

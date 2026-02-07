@@ -151,6 +151,7 @@ class IungoSensor(CoordinatorEntity, SensorEntity):
             name=self._object_name,
             manufacturer="Iungo",
             model=self._object_type,
+            # Link child devices to the hub device created in __init__.py.
             via_device=(DOMAIN, self._entry_id),
         )
 
