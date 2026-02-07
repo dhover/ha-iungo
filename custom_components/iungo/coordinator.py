@@ -41,7 +41,8 @@ class IungoDataUpdateCoordinator(DataUpdateCoordinator):
 
         host = self.entry.data.get(CONF_HOST)
         if not host:
-            raise ConfigEntryNotReady("No host configured for Iungo integration")
+            raise ConfigEntryNotReady(
+                "No host configured for Iungo integration")
 
         session = async_get_clientsession(self.hass)
         try:
@@ -78,13 +79,14 @@ class IungoFirmwareUpdateCoordinator(DataUpdateCoordinator):
             hass,
             _LOGGER,
             name=f"{DOMAIN}_firmware",
-            update_interval=timedelta(seconds=DEFAULT_FIRMWARE_UPDATE_INTERVAL),
+            update_interval=timedelta(
+                seconds=DEFAULT_FIRMWARE_UPDATE_INTERVAL),
         )
         self.entry = entry
 
     async def _async_update_data(self):
         """Fetch firmware info from the Iungo API."""
-        
+
         host = self.entry.data.get(CONF_HOST)
         if not host:
             raise UpdateFailed("No host configured for Iungo integration")
