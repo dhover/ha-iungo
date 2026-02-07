@@ -4,7 +4,7 @@ import logging
 import asyncio
 import aiohttp
 
-from homeassistant.const import UnitOfVolumeFlowRate, UnitOfVolume, UnitOfArea
+from homeassistant.const import UnitOfVolumeFlowRate, UnitOfVolume, UnitOfArea, UnitOfTime
 from .const import OBJECT_INFO_URL, OBJECT_VALUES_URL, OBJECT_SYSINFO_URL
 from .const import OBJECT_HWINFO_URL, OBJECT_LATEST_VERSION
 
@@ -156,6 +156,7 @@ def extract_sensors_from_object_info(object_info: dict):
                     "l/min", UnitOfVolumeFlowRate.LITERS_PER_MINUTE)
                 unit = unit.replace("m3", UnitOfVolume.CUBIC_METERS)
                 unit = unit.replace("m2", UnitOfArea.SQUARE_METERS)
+                unit = unit.replace("sec", UnitOfTime.SECONDS)
                 unit = unit.replace("¤/kWh", "€/kWh")
 
             if prop.get("type") == "number" and unit is not None:
