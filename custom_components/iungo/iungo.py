@@ -158,6 +158,7 @@ def extract_sensors_from_object_info(object_info: dict):
                 unit = unit.replace("m2", UnitOfArea.SQUARE_METERS)
                 unit = unit.replace("sec", UnitOfTime.SECONDS)
                 unit = unit.replace("¤/kWh", "€/kWh")
+                unit = unit.replace("¤/m³", "€/m³")
 
             if prop.get("type") == "number" and unit is not None:
                 sensor = {
