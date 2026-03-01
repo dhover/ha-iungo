@@ -342,7 +342,9 @@ class IungoFirmwareVersionSensor(CoordinatorEntity, SensorEntity):
         """Return the current firmware version."""
         version = self.coordinator.data.get("sysinfo", {}).get(
             "version", {}) if self.coordinator.data else {}
-        return version.get("version")
+        v = version.get("version", "")
+        b = version.get("build", "")
+        return f"{v} build {b}".strip()
 
     @property
     def device_info(self):
@@ -369,9 +371,11 @@ class IungoLatestFirmwareVersionSensor(CoordinatorEntity, SensorEntity):
     @property
     def native_value(self):
         """Return the latest firmware version available."""
-        version = self.coordinator.data.get("latest_version", {}).get(
+        fw = self.coordinator.data.get("latest_version", {}).get(
             "fw", {}) if self.coordinator.data else {}
-        return version.get("version")
+        v = fw.get("version", "")
+        b = fw.get("build", "")
+        return f"{v} build {b}".strip()
 
     @property
     def device_info(self):
