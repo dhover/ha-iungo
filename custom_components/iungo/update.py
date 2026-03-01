@@ -28,7 +28,7 @@ async def async_setup_entry(
 class IungoUpdateEntity(CoordinatorEntity, UpdateEntity):
     """Defines an Iungo update entity."""
 
-    #_attr_supported_features = UpdateEntityFeature.LATEST_VERSION
+    # _attr_supported_features = UpdateEntityFeature.LATEST_VERSION
 
     def __init__(
         self,
@@ -46,15 +46,19 @@ class IungoUpdateEntity(CoordinatorEntity, UpdateEntity):
         if not self.coordinator.data or not self.coordinator.data.get("sysinfo"):
             return None
         version = self.coordinator.data["sysinfo"].get("version", {})
-        return version.get("version")
+        v = version.get("version", "")
+        b = version.get("build", "")
+        return f"{v} build {b}".strip()
 
     @property
     def latest_version(self) -> str | None:
         """Latest version available for install."""
         if not self.coordinator.data or not self.coordinator.data.get("latest_version"):
             return None
-        version = self.coordinator.data["latest_version"].get("fw", {})
-        return version.get("version")
+        fw = self.coordinator.data["latest_version"].get("fw", {})
+        v = fw.get("version", "")
+        b = fw.get("build", "")
+        return f"{v} build {b}".strip()
 
     @property
     def device_info(self) -> DeviceInfo | None:

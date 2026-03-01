@@ -1,0 +1,16 @@
+{
+    "ok": true,
+    "type": "response",
+    "time": 0.50693920399999,
+    "rv": {
+        "fw": {
+            "date": "Wed Jan 21 15:24:07 UTC 2026",
+            "status": "",
+            "version": "1.5",
+            "build": "4664"
+        }
+    },
+    "systime": 1772370616,
+    "seq": 1,
+    "error": false
+}

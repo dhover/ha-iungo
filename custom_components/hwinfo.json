@@ -1,0 +1,16 @@
+{
+    "ok": true,
+    "type": "response",
+    "time": 0.0030313809999711,
+    "rv": {
+        "hardware": {
+            "mac": "70:B3:D5:6F:39:24",
+            "revision": "1.1d",
+            "serial": "3924",
+            "board": "std"
+        }
+    },
+    "systime": 1772370581,
+    "seq": 1,
+    "error": false
+}
