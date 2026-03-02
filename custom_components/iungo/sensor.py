@@ -333,8 +333,8 @@ class IungoFirmwareVersionSensor(CoordinatorEntity, SensorEntity):
         """Initialize the sensor."""
         super().__init__(coordinator)
         self._entry_id = entry_id
-        self._attr_name = "Iungo Firmware Version"
-        self._attr_unique_id = f"{entry_id}_firmware_version"
+        self._attr_name = "Iungo Firmware Build
+        self._attr_unique_id = f"{entry_id}_firmware_build"
         self._attr_icon = "mdi:tag"
 
     @property
@@ -365,7 +365,7 @@ class IungoLatestFirmwareVersionSensor(CoordinatorEntity, SensorEntity):
         super().__init__(coordinator)
         self._entry_id = entry_id
         self._attr_name = "Iungo Latest Firmware Build"
-        self._attr_unique_id = f"{entry_id}_latest_firmware_version"
+        self._attr_unique_id = f"{entry_id}_latest_firmware_build"
         self._attr_icon = "mdi:tag-arrow-up"
 
     @property
