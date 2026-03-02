@@ -342,9 +342,9 @@ class IungoFirmwareVersionSensor(CoordinatorEntity, SensorEntity):
         """Return the current firmware version."""
         version = self.coordinator.data.get("sysinfo", {}).get(
             "version", {}) if self.coordinator.data else {}
-        v = version.get("version", "")
-        b = version.get("build", "")
-        return f"{v} build {b}".strip()
+        # v = version.get("version", "").strip()
+        # b = version.get("build", "").strip()
+        return version.get("build", "").strip()
 
     @property
     def device_info(self):
@@ -364,7 +364,7 @@ class IungoLatestFirmwareVersionSensor(CoordinatorEntity, SensorEntity):
         """Initialize the sensor."""
         super().__init__(coordinator)
         self._entry_id = entry_id
-        self._attr_name = "Iungo Latest Firmware Version"
+        self._attr_name = "Iungo Latest Firmware Build"
         self._attr_unique_id = f"{entry_id}_latest_firmware_version"
         self._attr_icon = "mdi:tag-arrow-up"
 
@@ -373,9 +373,9 @@ class IungoLatestFirmwareVersionSensor(CoordinatorEntity, SensorEntity):
         """Return the latest firmware version available."""
         fw = self.coordinator.data.get("latest_version", {}).get(
             "fw", {}) if self.coordinator.data else {}
-        v = fw.get("version", "")
-        b = fw.get("build", "")
-        return f"{v} build {b}".strip()
+        # v = fw.get("version", "").strip()
+        # b = fw.get("build", "").strip()
+        return fw.get("build", "").strip()
 
     @property
     def device_info(self):
