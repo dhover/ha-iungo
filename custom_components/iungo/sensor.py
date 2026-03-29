@@ -11,6 +11,7 @@ from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.device_registry import DeviceInfo
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
+from homeassistant.helpers.entity_registry import EntityCategory
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 
 from .const import DOMAIN
@@ -336,6 +337,7 @@ class IungoFirmwareVersionSensor(CoordinatorEntity, SensorEntity):
         self._attr_name = "Iungo Firmware Build"
         self._attr_unique_id = f"{entry_id}_firmware_build"
         self._attr_icon = "mdi:tag"
+        self._attr_entity_category = EntityCategory.DIAGNOSTIC
 
     @property
     def native_value(self):
@@ -367,6 +369,7 @@ class IungoLatestFirmwareVersionSensor(CoordinatorEntity, SensorEntity):
         self._attr_name = "Iungo Latest Firmware Build"
         self._attr_unique_id = f"{entry_id}_latest_firmware_build"
         self._attr_icon = "mdi:tag-arrow-up"
+        self._attr_entity_category = EntityCategory.DIAGNOSTIC
 
     @property
     def native_value(self):
