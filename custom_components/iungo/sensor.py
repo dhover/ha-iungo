@@ -11,13 +11,10 @@ from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.device_registry import DeviceInfo
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
-from homeassistant.helpers.entity_registry import EntityCategory
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 
-from . import _hub_configuration_url
-from .const import CONF_HOST, DOMAIN
+from .const import DOMAIN
 from .coordinator import IungoDataUpdateCoordinator
-from .coordinator import IungoFirmwareUpdateCoordinator
 from .iungo import extract_sensors_from_object_info
 
 _LOGGER = logging.getLogger(__name__)
@@ -266,8 +263,6 @@ async def async_setup_entry(
 ) -> None:
     """Set up Iungo sensors based on a config entry."""
     data_coordinator: IungoDataUpdateCoordinator = hass.data[DOMAIN][entry.entry_id]["data"]
-    firmware_coordinator: IungoFirmwareUpdateCoordinator = hass.data[
-        DOMAIN][entry.entry_id]["firmware"]
     object_info = data_coordinator.data.get("object_info", {})
     sensor_defs = extract_sensors_from_object_info(object_info)
     sensors = []
@@ -330,80 +325,4 @@ async def async_setup_entry(
             )
             breakout_water_added = True
 
-    sensors.append(
-        IungoFirmwareVersionSensor(firmware_coordinator, entry.entry_id)
-    )
-    sensors.append(
-        IungoLatestFirmwareVersionSensor(firmware_coordinator, entry.entry_id)
-    )
     async_add_entities(sensors)
-
-
-class IungoFirmwareVersionSensor(CoordinatorEntity, SensorEntity):
-    """Sensor for the current firmware version."""
-
-    def __init__(self, coordinator: IungoFirmwareUpdateCoordinator, entry_id: str):
-        """Initialize the sensor."""
-        super().__init__(coordinator)
-        self._entry_id = entry_id
-        self._attr_name = "Iungo Firmware Build"
-        self._attr_unique_id = f"{entry_id}_firmware_build"
-        self._attr_icon = "mdi:tag"
-        self._attr_entity_category = EntityCategory.DIAGNOSTIC
-
-    @property
-    def native_value(self):
-        """Return the current firmware version."""
-        version = self.coordinator.data.get("sysinfo", {}).get(
-            "version", {}) if self.coordinator.data else {}
-        # v = version.get("version", "").strip()
-        # b = version.get("build", "").strip()
-        return version.get("build", "").strip()
-
-    @property
-    def device_info(self):
-        """Return device information for this sensor."""
-        return {
-            "identifiers": {(DOMAIN, self._entry_id)},
-            "name": "Iungo Hub",
-            "manufacturer": "Iungo",
-            "model": "Iungo",
-            "configuration_url": _hub_configuration_url(
-                self.coordinator.entry.data.get(CONF_HOST)
-            ),
-        }
-
-
-class IungoLatestFirmwareVersionSensor(CoordinatorEntity, SensorEntity):
-    """Sensor for the latest firmware version available."""
-
-    def __init__(self, coordinator: IungoFirmwareUpdateCoordinator, entry_id: str):
-        """Initialize the sensor."""
-        super().__init__(coordinator)
-        self._entry_id = entry_id
-        self._attr_name = "Iungo Latest Firmware Build"
-        self._attr_unique_id = f"{entry_id}_latest_firmware_build"
-        self._attr_icon = "mdi:tag-arrow-up"
-        self._attr_entity_category = EntityCategory.DIAGNOSTIC
-
-    @property
-    def native_value(self):
-        """Return the latest firmware version available."""
-        fw = self.coordinator.data.get("latest_version", {}).get(
-            "fw", {}) if self.coordinator.data else {}
-        # v = fw.get("version", "").strip()
-        # b = fw.get("build", "").strip()
-        return fw.get("build", "").strip()
-
-    @property
-    def device_info(self):
-        """Return device information for this sensor."""
-        return {
-            "identifiers": {(DOMAIN, self._entry_id)},
-            "name": "Iungo Hub",
-            "manufacturer": "Iungo",
-            "model": "Iungo",
-            "configuration_url": _hub_configuration_url(
-                self.coordinator.entry.data.get(CONF_HOST)
-            ),
-        }
