@@ -48,7 +48,7 @@ class IungoUpdateEntity(CoordinatorEntity, UpdateEntity):
         version = self.coordinator.data["sysinfo"].get("version", {})
         v = version.get("version", "")
         b = version.get("build", "")
-        return f"{v} build {b}".strip()
+        return f"{v}.{b}".strip()
 
     @property
     def latest_version(self) -> str | None:
@@ -58,7 +58,7 @@ class IungoUpdateEntity(CoordinatorEntity, UpdateEntity):
         fw = self.coordinator.data["latest_version"].get("fw", {})
         v = fw.get("version", "")
         b = fw.get("build", "")
-        return f"{v} build {b}".strip()
+        return f"{v}.{b}".strip()
 
     @property
     def device_info(self) -> DeviceInfo | None:
