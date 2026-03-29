@@ -94,6 +94,15 @@ TARIFF_LABEL_MAP = {
 }
 
 
+def _has_euro_unit(unit: str | None) -> bool:
+    """Return True when the unit represents a euro-denominated value."""
+    if not unit:
+        return False
+
+    euro_tokens = ("€/", "¤/", "â‚¬/", "EUR/")
+    return any(token in unit for token in euro_tokens)
+
+
 class IungoSensor(CoordinatorEntity, SensorEntity):
     """Representation of an Iungo sensor."""
 
@@ -128,6 +137,8 @@ class IungoSensor(CoordinatorEntity, SensorEntity):
         self._attr_has_entity_name = True
         self._attr_suggested_display_precision = DISPLAY_PRECISION_MAP.get(
             unit, 2)
+        if _has_euro_unit(unit):
+            self._attr_icon = "mdi:currency-eur"
 
     @property
     def native_unit_of_measurement(self):
