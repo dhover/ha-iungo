@@ -4,22 +4,33 @@ from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import Platform
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers import device_registry as dr
-from .const import DOMAIN
+from .const import CONF_HOST, DOMAIN
 from .coordinator import IungoDataUpdateCoordinator, IungoFirmwareUpdateCoordinator
 
 
 PLATFORMS = [Platform.SENSOR, Platform.UPDATE]
 
 
+def _hub_configuration_url(host: str | None) -> str | None:
+    """Build the Iungo web interface URL from the configured host."""
+    if not host:
+        return None
+    if "://" in host:
+        return host
+    return f"http://{host}"
+
+
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     """Set up a config entry for iungo."""
     device_registry = dr.async_get(hass)
+    configuration_url = _hub_configuration_url(entry.data.get(CONF_HOST))
     device_registry.async_get_or_create(
         config_entry_id=entry.entry_id,
         identifiers={(DOMAIN, entry.entry_id)},
         name="Iungo Hub",
         manufacturer="Iungo",
         model="Iungo",
+        configuration_url=configuration_url,
     )
 
     data_coordinator = IungoDataUpdateCoordinator(hass, entry)

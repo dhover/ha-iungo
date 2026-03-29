@@ -7,7 +7,8 @@ from homeassistant.helpers.entity import DeviceInfo
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 
-from .const import DOMAIN
+from . import _hub_configuration_url
+from .const import CONF_HOST, DOMAIN
 from .coordinator import IungoFirmwareUpdateCoordinator
 
 
@@ -80,6 +81,9 @@ class IungoUpdateEntity(CoordinatorEntity, UpdateEntity):
             name="Iungo Hub",
             manufacturer="Iungo",
             model="Iungo",
+            configuration_url=_hub_configuration_url(
+                self.coordinator.entry.data.get(CONF_HOST)
+            ),
             hw_version=hardware.get("revision", ""),
             sw_version=f"{sw_version} build {build}".strip(),
             serial_number=serial_number,

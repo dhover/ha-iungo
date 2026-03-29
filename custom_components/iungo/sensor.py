@@ -14,7 +14,8 @@ from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from homeassistant.helpers.entity_registry import EntityCategory
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 
-from .const import DOMAIN
+from . import _hub_configuration_url
+from .const import CONF_HOST, DOMAIN
 from .coordinator import IungoDataUpdateCoordinator
 from .coordinator import IungoFirmwareUpdateCoordinator
 from .iungo import extract_sensors_from_object_info
@@ -367,6 +368,9 @@ class IungoFirmwareVersionSensor(CoordinatorEntity, SensorEntity):
             "name": "Iungo Hub",
             "manufacturer": "Iungo",
             "model": "Iungo",
+            "configuration_url": _hub_configuration_url(
+                self.coordinator.entry.data.get(CONF_HOST)
+            ),
         }
 
 
@@ -399,4 +403,7 @@ class IungoLatestFirmwareVersionSensor(CoordinatorEntity, SensorEntity):
             "name": "Iungo Hub",
             "manufacturer": "Iungo",
             "model": "Iungo",
+            "configuration_url": _hub_configuration_url(
+                self.coordinator.entry.data.get(CONF_HOST)
+            ),
         }
