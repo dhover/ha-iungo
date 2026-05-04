@@ -203,9 +203,11 @@ class IungoFirmwareSensor(CoordinatorEntity, SensorEntity):
             return None
 
         if self._version_key == "installed_version":
-            version = self.coordinator.data.get("sysinfo", {}).get("version", {})
+            version = self.coordinator.data.get(
+                "sysinfo", {}).get("version", {})
         else:
-            version = self.coordinator.data.get("latest_version", {}).get("fw", {})
+            version = self.coordinator.data.get(
+                "latest_version", {}).get("fw", {})
 
         if not isinstance(version, dict):
             return None
@@ -218,12 +220,14 @@ class IungoFirmwareSensor(CoordinatorEntity, SensorEntity):
     @property
     def device_info(self):
         """Return device information for the hub."""
-        sysinfo = self.coordinator.data.get("sysinfo", {}) if self.coordinator.data else {}
+        sysinfo = self.coordinator.data.get(
+            "sysinfo", {}) if self.coordinator.data else {}
         version = sysinfo.get("version", {})
         sw_version = version.get("version") or ""
         build = version.get("build") or ""
         serial_number = version.get("serial") or ""
-        hwinfo = self.coordinator.data.get("hwinfo", {}) if self.coordinator.data else {}
+        hwinfo = self.coordinator.data.get(
+            "hwinfo", {}) if self.coordinator.data else {}
         hardware = hwinfo.get("hardware", {})
 
         return DeviceInfo(
@@ -383,5 +387,23 @@ async def async_setup_entry(
                 )
             )
             breakout_water_added = True
+
+    firmware_coordinator = hass.data[DOMAIN][entry.entry_id]["firmware"]
+    sensors.extend(
+        [
+            IungoFirmwareSensor(
+                firmware_coordinator,
+                f"{entry.entry_id}_firmware_installed",
+                "Installed Version",
+                "installed_version",
+            ),
+            IungoFirmwareSensor(
+                firmware_coordinator,
+                f"{entry.entry_id}_firmware_latest",
+                "Latest Version",
+                "latest_version",
+            ),
+        ]
+    )
 
     async_add_entities(sensors)
