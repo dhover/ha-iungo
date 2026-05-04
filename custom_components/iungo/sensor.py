@@ -9,7 +9,7 @@ from homeassistant.components.sensor import (
 )
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
-from homeassistant.helpers.device_registry import DeviceInfo
+from homeassistant.helpers.entity import DeviceInfo, EntityCategory
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 
@@ -176,6 +176,65 @@ class IungoSensor(CoordinatorEntity, SensorEntity):
             except ValueError:
                 return value
         return value
+
+
+class IungoFirmwareSensor(CoordinatorEntity, SensorEntity):
+    """Representation of an Iungo firmware version sensor."""
+
+    def __init__(
+        self,
+        coordinator,
+        unique_id,
+        name,
+        version_key,
+    ):
+        super().__init__(coordinator)
+        self._attr_name = name
+        self._attr_unique_id = unique_id
+        self._version_key = version_key
+        self._attr_has_entity_name = True
+        self._attr_entity_category = EntityCategory.DIAGNOSTIC
+        self._attr_icon = "mdi:chip"
+
+    @property
+    def native_value(self):
+        """Return the firmware version state."""
+        if not self.coordinator.data:
+            return None
+
+        if self._version_key == "installed_version":
+            version = self.coordinator.data.get("sysinfo", {}).get("version", {})
+        else:
+            version = self.coordinator.data.get("latest_version", {}).get("fw", {})
+
+        if not isinstance(version, dict):
+            return None
+
+        v = version.get("version", "") or ""
+        b = version.get("build", "") or ""
+        version_string = f"{v}.{b}".strip(".")
+        return version_string or None
+
+    @property
+    def device_info(self):
+        """Return device information for the hub."""
+        sysinfo = self.coordinator.data.get("sysinfo", {}) if self.coordinator.data else {}
+        version = sysinfo.get("version", {})
+        sw_version = version.get("version") or ""
+        build = version.get("build") or ""
+        serial_number = version.get("serial") or ""
+        hwinfo = self.coordinator.data.get("hwinfo", {}) if self.coordinator.data else {}
+        hardware = hwinfo.get("hardware", {})
+
+        return DeviceInfo(
+            identifiers={(DOMAIN, self.coordinator.entry.entry_id)},
+            name="Iungo Hub",
+            manufacturer="Iungo",
+            model="Iungo",
+            hw_version=hardware.get("revision", ""),
+            sw_version=f"{sw_version} build {build}".strip(),
+            serial_number=serial_number,
+        )
 
 
 class IungoBreakoutEnergySensor(IungoSensor):
