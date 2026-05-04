@@ -15,7 +15,7 @@ from homeassistant.helpers.update_coordinator import CoordinatorEntity
 
 from . import _hub_configuration_url
 from .const import DOMAIN, CONF_HOST
-from .coordinator import IungoDataUpdateCoordinator
+from .coordinator import IungoDataUpdateCoordinator, IungoFirmwareUpdateCoordinator
 from .iungo import extract_sensors_from_object_info
 
 _LOGGER = logging.getLogger(__name__)
@@ -406,4 +406,3 @@ class IungoLatestFirmwareVersionSensor(CoordinatorEntity, SensorEntity):
                 self.coordinator.entry.data.get(CONF_HOST)
             ),
         }
-
