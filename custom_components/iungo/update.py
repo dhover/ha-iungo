@@ -18,7 +18,7 @@ async def async_setup_entry(
     async_add_entities: AddEntitiesCallback,
 ) -> None:
     """Set up the Iungo update entity."""
-    firmware_coordinator = hass.data[DOMAIN][entry.entry_id]["firmware"]
+    firmware_coordinator = entry.runtime_data.firmware
     async_add_entities(
         [
             IungoUpdateEntity(firmware_coordinator, entry),

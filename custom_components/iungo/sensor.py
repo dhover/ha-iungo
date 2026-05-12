@@ -263,9 +263,8 @@ async def async_setup_entry(
     async_add_entities: AddEntitiesCallback
 ) -> None:
     """Set up Iungo sensors based on a config entry."""
-    data_coordinator: IungoDataUpdateCoordinator = hass.data[DOMAIN][entry.entry_id]["data"]
-    firmware_coordinator: IungoFirmwareUpdateCoordinator = hass.data[
-        DOMAIN][entry.entry_id]["firmware"]
+    data_coordinator: IungoDataUpdateCoordinator = entry.runtime_data.data
+    firmware_coordinator: IungoFirmwareUpdateCoordinator = entry.runtime_data.firmware
     object_info = data_coordinator.data.get("object_info", {})
     sensor_defs = extract_sensors_from_object_info(object_info)
     sensors = []
