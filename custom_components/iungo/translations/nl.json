@@ -40,9 +40,9 @@
       },
       "cannot_connect": "Kan geen verbinding maken met het Iungo-apparaat.",
       "unknown": "Onverwachte fout, probeer het opnieuw."
+    },
+    "abort": {
+      "reconfigure_successful": "Iungo-configuratie succesvol bijgewerkt."
     }
-  },
-  "abort": {
-    "reconfigure_successful": "Iungo-configuratie succesvol bijgewerkt."
   }
 }
