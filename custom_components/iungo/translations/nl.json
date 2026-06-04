@@ -9,6 +9,10 @@
           "host": "Host"
         },
         "error": {
+          "base": {
+            "cannot_connect": "Kan geen verbinding maken met het Iungo-apparaat.",
+            "unknown": "Onverwachte fout, probeer het opnieuw."
+          },
           "cannot_connect": "Kan geen verbinding maken met het Iungo-apparaat.",
           "unknown": "Onverwachte fout, probeer het opnieuw."
         }
@@ -20,12 +24,20 @@
           "host": "Host"
         },
         "error": {
+          "base": {
+            "cannot_connect": "Kan geen verbinding maken met het Iungo-apparaat.",
+            "unknown": "Onverwachte fout, probeer het opnieuw."
+          },
           "cannot_connect": "Kan geen verbinding maken met het Iungo-apparaat.",
           "unknown": "Onverwachte fout, probeer het opnieuw."
         }
       }
     },
     "error": {
+      "base": {
+        "cannot_connect": "Kan geen verbinding maken met het Iungo-apparaat.",
+        "unknown": "Onverwachte fout, probeer het opnieuw."
+      },
       "cannot_connect": "Kan geen verbinding maken met het Iungo-apparaat.",
       "unknown": "Onverwachte fout, probeer het opnieuw."
     }

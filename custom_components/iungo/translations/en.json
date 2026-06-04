@@ -9,6 +9,10 @@
           "host": "Host"
         },
         "error": {
+          "base": {
+            "cannot_connect": "Unable to connect to the Iungo device.",
+            "unknown": "Unexpected error, please try again."
+          },
           "cannot_connect": "Unable to connect to the Iungo device.",
           "unknown": "Unexpected error, please try again."
         }
@@ -20,12 +24,20 @@
           "host": "Host"
         },
         "error": {
+          "base": {
+            "cannot_connect": "Unable to connect to the Iungo device.",
+            "unknown": "Unexpected error, please try again."
+          },
           "cannot_connect": "Unable to connect to the Iungo device.",
           "unknown": "Unexpected error, please try again."
         }
       }
     },
     "error": {
+      "base": {
+        "cannot_connect": "Unable to connect to the Iungo device.",
+        "unknown": "Unexpected error, please try again."
+      },
       "cannot_connect": "Unable to connect to the Iungo device.",
       "unknown": "Unexpected error, please try again."
     }
