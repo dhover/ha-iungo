@@ -66,7 +66,7 @@ class IungoConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
                     config_entry, data=user_input
                 )
                 await self.hass.config_entries.async_reload(config_entry.entry_id)
-                return self.async_abort_with_reason("reconfigure_successful")
+                return self.async_abort(reason="reconfigure_successful")
 
         data_schema = vol.Schema({
             vol.Required(CONF_HOST, default=config_entry.data.get(CONF_HOST)): str,
