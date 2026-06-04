@@ -5,7 +5,7 @@ from homeassistant.helpers.aiohttp_client import async_get_clientsession
 import voluptuous as vol
 
 from .const import DOMAIN, CONF_HOST, DEFAULT_HOST
-from .iungo import async_test_connection, CannotConnect
+from .iungo import async_validate_connection, CannotConnect
 
 
 class IungoConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
@@ -20,7 +20,7 @@ class IungoConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
         if user_input is not None:
             session = async_get_clientsession(self.hass)
             try:
-                can_connect = await async_test_connection(session, user_input[CONF_HOST])
+                can_connect = await async_validate_connection(session, user_input[CONF_HOST])
                 if not can_connect:
                     errors["base"] = "cannot_connect"
             except CannotConnect:
@@ -53,7 +53,7 @@ class IungoConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
         if user_input is not None:
             session = async_get_clientsession(self.hass)
             try:
-                can_connect = await async_test_connection(session, user_input[CONF_HOST])
+                can_connect = await async_validate_connection(session, user_input[CONF_HOST])
                 if not can_connect:
                     errors["base"] = "cannot_connect"
             except CannotConnect:

@@ -26,8 +26,8 @@ class InvalidAuth(IungoError):
     pass
 
 
-async def async_test_connection(session: aiohttp.ClientSession, host: str) -> bool:
-    """Test connection to the Iungo box."""
+async def async_validate_connection(session: aiohttp.ClientSession, host: str) -> bool:
+    """Validate connection to the Iungo box using sysinfo URL."""
     try:
         await async_get_sysinfo(session, host)
     except (CannotConnect, InvalidAuth):
