@@ -7,6 +7,10 @@
         "description": "Set the host name or IP address for your Iungo device.",
         "data": {
           "host": "Host"
+        },
+        "error": {
+          "cannot_connect": "Unable to connect to the Iungo device.",
+          "unknown": "Unexpected error, please try again."
         }
       },
       "reconfigure": {
@@ -14,6 +18,10 @@
         "description": "Update the host name or IP address for your Iungo device.",
         "data": {
           "host": "Host"
+        },
+        "error": {
+          "cannot_connect": "Unable to connect to the Iungo device.",
+          "unknown": "Unexpected error, please try again."
         }
       }
     },
