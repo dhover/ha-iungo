@@ -1,0 +1,28 @@
+{
+  "title": "Iungo",
+  "config": {
+    "step": {
+      "user": {
+        "title": "Iungo configureren",
+        "description": "Stel de hostnaam of het IP-adres van uw Iungo-apparaat in.",
+        "data": {
+          "host": "Host"
+        }
+      },
+      "reconfigure": {
+        "title": "Iungo opnieuw configureren",
+        "description": "Werk de hostnaam of het IP-adres van uw Iungo-apparaat bij.",
+        "data": {
+          "host": "Host"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Kan geen verbinding maken met het Iungo-apparaat.",
+      "unknown": "Onverwachte fout, probeer het opnieuw."
+    }
+  },
+  "abort": {
+    "reconfigure_successful": "Iungo-configuratie succesvol bijgewerkt."
+  }
+}
