@@ -63,7 +63,9 @@ class IungoConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
 
             if not errors:
                 self.hass.config_entries.async_update_entry(
-                    config_entry, data=user_input
+                    config_entry,
+                    data=user_input,
+                    title=user_input[CONF_HOST],
                 )
                 await self.hass.config_entries.async_reload(config_entry.entry_id)
                 return self.async_abort(reason="reconfigure_successful")
