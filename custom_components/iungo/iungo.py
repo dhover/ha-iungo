@@ -13,17 +13,14 @@ _LOGGER = logging.getLogger(__name__)
 
 class IungoError(Exception):
     """Base class for other exceptions"""
-    pass
 
 
 class CannotConnect(IungoError):
     """Raised when unable to connect to the Iungo box."""
-    pass
 
 
 class InvalidAuth(IungoError):
     """Raised when authentication fails."""
-    pass
 
 
 async def async_validate_connection(session: aiohttp.ClientSession, host: str) -> bool:
