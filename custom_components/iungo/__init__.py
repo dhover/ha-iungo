@@ -6,9 +6,9 @@ from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import Platform
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers import device_registry as dr
+
 from .const import CONF_HOST, DOMAIN
 from .coordinator import IungoDataUpdateCoordinator, IungoFirmwareUpdateCoordinator
-
 
 PLATFORMS = [Platform.SENSOR, Platform.UPDATE]
 
