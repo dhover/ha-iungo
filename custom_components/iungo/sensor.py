@@ -14,7 +14,7 @@ from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 
 from . import _hub_configuration_url
-from .const import DOMAIN, CONF_HOST
+from .const import CONF_HOST, DOMAIN
 from .coordinator import IungoDataUpdateCoordinator, IungoFirmwareUpdateCoordinator
 from .iungo import extract_sensors_from_object_info
 
