@@ -1,0 +1,3 @@
+pytest
+pytest-asyncio
+homeassistant==2025.2.5

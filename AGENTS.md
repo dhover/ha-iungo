@@ -27,7 +27,13 @@ This repository is a custom HACS integration for Home Assistant that connects to
 
 ## Validation
 
-There is no test suite or lint configuration in this repository. Before submitting Python changes, run:
+The test suite is under `tests/`; install `requirements_test.txt` in a development environment and run:
+
+```text
+python -m pytest -q
+```
+
+Before submitting Python changes, also run:
 
 ```text
 python -m compileall custom_components/iungo
