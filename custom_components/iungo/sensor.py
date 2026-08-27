@@ -9,7 +9,6 @@ from homeassistant.components.sensor import (
 )
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
-from homeassistant.helpers import device_registry as dr
 from homeassistant.helpers.entity import DeviceInfo, EntityCategory
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
@@ -275,11 +274,7 @@ async def async_setup_entry(
     """Set up Iungo sensors based on a config entry."""
     data_coordinator: IungoDataUpdateCoordinator = entry.runtime_data.data
     firmware_coordinator: IungoFirmwareUpdateCoordinator = entry.runtime_data.firmware
-    hub_device_id = dr.async_get_device_id_by_identifier(
-        hass,
-        (DOMAIN, entry.entry_id),
-        config_entry_id=entry.entry_id,
-    )
+    hub_device_id = entry.runtime_data.hub_device_id
     object_info = data_coordinator.data.get("object_info", {})
     sensor_defs = extract_sensors_from_object_info(object_info)
     sensors = []

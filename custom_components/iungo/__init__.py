@@ -19,6 +19,7 @@ class IungoRuntimeData:
 
     data: IungoDataUpdateCoordinator
     firmware: IungoFirmwareUpdateCoordinator
+    hub_device_id: str
 
 
 IungoConfigEntry = ConfigEntry[IungoRuntimeData]
@@ -37,7 +38,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     """Set up a config entry for iungo."""
     device_registry = dr.async_get(hass)
     configuration_url = _hub_configuration_url(entry.data.get(CONF_HOST))
-    device_registry.async_get_or_create(
+    hub_device = device_registry.async_get_or_create(
         config_entry_id=entry.entry_id,
         identifiers={(DOMAIN, entry.entry_id)},
         name="Iungo Hub",
@@ -57,6 +58,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     entry.runtime_data = IungoRuntimeData(
         data=data_coordinator,
         firmware=firmware_coordinator,
+        hub_device_id=hub_device.id,
     )
 
     await hass.config_entries.async_forward_entry_setups(entry, PLATFORMS)
