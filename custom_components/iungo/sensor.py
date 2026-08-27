@@ -9,6 +9,7 @@ from homeassistant.components.sensor import (
 )
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
+from homeassistant.helpers import device_registry as dr
 from homeassistant.helpers.entity import DeviceInfo, EntityCategory
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
@@ -116,11 +117,13 @@ class IungoSensor(CoordinatorEntity, SensorEntity):
         object_type,
         prop_id,
         entry_id,
+        hub_device_id=None,
     ):
         super().__init__(coordinator)
         self._unique_id = unique_id
         self._unit = unit
         self._object_id = object_id
+        self._hub_device_id = hub_device_id
         self._object_name = object_name
         self._object_type = object_type
         self._prop_id = prop_id
@@ -157,14 +160,15 @@ class IungoSensor(CoordinatorEntity, SensorEntity):
     @property
     def device_info(self):
         """Return device information for this sensor."""
-        return DeviceInfo(
+        device_info = DeviceInfo(
             identifiers={(DOMAIN, self._object_id)},
             name=self._object_name,
             manufacturer="Iungo",
             model=self._object_type,
-            # Link child devices to the hub device created in __init__.py.
-            via_device=(DOMAIN, self._entry_id),
         )
+        if self._hub_device_id:
+            device_info["via_device_id"] = self._hub_device_id
+        return device_info
 
     @property
     def native_value(self):
@@ -182,7 +186,9 @@ class IungoSensor(CoordinatorEntity, SensorEntity):
 class IungoBreakoutEnergySensor(IungoSensor):
     """Special sensor for calculated energy from breakout device."""
 
-    def __init__(self, coordinator, object_id, object_name, entry_id):
+    def __init__(
+        self, coordinator, object_id, object_name, entry_id, hub_device_id=None
+    ):
         unique_id = f"{object_id}_calculated_energy"
         name = "Calculated Energy"
         super().__init__(
@@ -195,6 +201,7 @@ class IungoBreakoutEnergySensor(IungoSensor):
             "breakout",
             "calculated_energy",
             entry_id,
+            hub_device_id,
         )
         self._attr_has_entity_name = True
         self._attr_suggested_display_precision = 3
@@ -218,7 +225,9 @@ class IungoBreakoutEnergySensor(IungoSensor):
 class IungoBreakoutWaterSensor(IungoSensor):
     """Special sensor for calculated water from breakout_water device."""
 
-    def __init__(self, coordinator, object_id, object_name, entry_id):
+    def __init__(
+        self, coordinator, object_id, object_name, entry_id, hub_device_id=None
+    ):
         unique_id = f"{object_id}_calculated_water"
         name = "Calculated Water"
         super().__init__(
@@ -231,6 +240,7 @@ class IungoBreakoutWaterSensor(IungoSensor):
             "breakout_water",
             "calculated_water",
             entry_id,
+            hub_device_id,
         )
         self._device_class = SensorDeviceClass.WATER
         self._attr_has_entity_name = True
@@ -265,6 +275,11 @@ async def async_setup_entry(
     """Set up Iungo sensors based on a config entry."""
     data_coordinator: IungoDataUpdateCoordinator = entry.runtime_data.data
     firmware_coordinator: IungoFirmwareUpdateCoordinator = entry.runtime_data.firmware
+    hub_device_id = dr.async_get_device_id_by_identifier(
+        hass,
+        (DOMAIN, entry.entry_id),
+        config_entry_id=entry.entry_id,
+    )
     object_info = data_coordinator.data.get("object_info", {})
     sensor_defs = extract_sensors_from_object_info(object_info)
     sensors = []
@@ -296,6 +311,7 @@ async def async_setup_entry(
                 sensor_def['object_type'],
                 sensor_def['prop_id'],
                 entry.entry_id,
+                hub_device_id,
             )
         )
 
@@ -313,6 +329,7 @@ async def async_setup_entry(
                     sensor_def["object_id"],
                     friendly_name,
                     entry.entry_id,
+                    hub_device_id,
                 )
             )
             breakout_energy_added = True
@@ -323,6 +340,7 @@ async def async_setup_entry(
                     sensor_def["object_id"],
                     friendly_name,
                     entry.entry_id,
+                    hub_device_id,
                 )
             )
             breakout_water_added = True
