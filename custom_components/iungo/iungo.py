@@ -5,6 +5,7 @@ import asyncio
 import aiohttp
 
 from homeassistant.const import UnitOfVolumeFlowRate, UnitOfVolume, UnitOfArea, UnitOfTime
+from .const import FW_UPDATE_STATUS_URL, FW_UPDATE_URL
 from .const import OBJECT_INFO_URL, OBJECT_VALUES_URL, OBJECT_SYSINFO_URL
 from .const import OBJECT_HWINFO_URL, OBJECT_LATEST_VERSION
 
@@ -105,6 +106,38 @@ async def async_get_latest_version(session: aiohttp.ClientSession, host: str) ->
             response.raise_for_status()
             data = await response.json(content_type=None)
             _LOGGER.debug("Fetched latest version: %s", data)
+            return data.get("rv", {})
+    except asyncio.TimeoutError as exc:
+        raise CannotConnect(f"Timeout while connecting to {url}") from exc
+    except aiohttp.ClientError as exc:
+        raise CannotConnect(f"Error connecting to {url}: {exc}") from exc
+
+
+async def async_start_firmware_update(session: aiohttp.ClientSession, host: str) -> dict:
+    """Start a firmware update on the Iungo."""
+    url = FW_UPDATE_URL.format(host=host)
+    try:
+        async with asyncio.timeout(10):
+            response = await session.get(url)
+            response.raise_for_status()
+            data = await response.json(content_type=None)
+            _LOGGER.debug("Started firmware update: %s", data)
+            return data.get("rv", {})
+    except asyncio.TimeoutError as exc:
+        raise CannotConnect(f"Timeout while connecting to {url}") from exc
+    except aiohttp.ClientError as exc:
+        raise CannotConnect(f"Error connecting to {url}: {exc}") from exc
+
+
+async def async_get_firmware_update_status(session: aiohttp.ClientSession, host: str) -> dict:
+    """Fetch the firmware update status from the Iungo."""
+    url = FW_UPDATE_STATUS_URL.format(host=host)
+    try:
+        async with asyncio.timeout(10):
+            response = await session.get(url)
+            response.raise_for_status()
+            data = await response.json(content_type=None)
+            _LOGGER.debug("Fetched firmware update status: %s", data)
             return data.get("rv", {})
     except asyncio.TimeoutError as exc:
         raise CannotConnect(f"Timeout while connecting to {url}") from exc
