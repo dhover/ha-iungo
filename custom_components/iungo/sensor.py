@@ -11,6 +11,7 @@ from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity import DeviceInfo, EntityCategory
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
+from homeassistant.helpers.typing import UNDEFINED
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 
 from . import _hub_configuration_url
@@ -159,14 +160,14 @@ class IungoSensor(CoordinatorEntity, SensorEntity):
     @property
     def device_info(self):
         """Return device information for this sensor."""
+        via_device_id = self._hub_device_id or UNDEFINED
         device_info = DeviceInfo(
             identifiers={(DOMAIN, self._object_id)},
             name=self._object_name,
             manufacturer="Iungo",
             model=self._object_type,
+            via_device_id=via_device_id
         )
-        if self._hub_device_id:
-            device_info.via_device_id = self._hub_device_id
         return device_info
 
     @property
@@ -314,7 +315,7 @@ async def async_setup_entry(
                       sensor_def['object_id'],
                       sensor_def["object_type"],
                       sensor_def["object_name"],
-                      sensor_def["unit"],
+                      sensor_def["prop_label"],
                       sensor_def['prop_id'], sensor_def['unit'])
 
         if sensor_def["object_name"] == "energy-breakout" and not breakout_energy_added:
