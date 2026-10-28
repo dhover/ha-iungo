@@ -247,11 +247,6 @@ class IungoBreakoutWaterSensor(IungoSensor):
         self._attr_suggested_display_precision = 3
 
     @property
-    def device_class(self):
-        """Return the device class."""
-        return self._device_class
-
-    @property
     def native_value(self):
         """Return the calculated water state."""
         object_values = self.coordinator.data.get("object_values", {})
