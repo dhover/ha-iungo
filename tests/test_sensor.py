@@ -84,6 +84,35 @@ def test_firmware_sensors_format_versions():
     [
         None,
         {},
+        {"sysinfo": {}},
+        {"sysinfo": {"version": {}}},
+        {"sysinfo": {"version": {"version": "1.5"}}},
+        {"sysinfo": {"version": {"build": "4664"}}},
+        {"sysinfo": {"version": {"version": None, "build": "4664"}}},
+        {"sysinfo": {"version": {"version": "1.5", "build": ""}}},
+        {"sysinfo": {"version": {"version": "1.5", "build": " "}}},
+    ],
+)
+def test_current_firmware_sensor_requires_complete_version(data):
+    sensor = IungoFirmwareVersionSensor(coordinator(data), "entry-id")
+
+    assert sensor.native_value is None
+
+
+def test_current_firmware_sensor_accepts_zero_build():
+    sensor = IungoFirmwareVersionSensor(
+        coordinator({"sysinfo": {"version": {"version": "1.5", "build": 0}}}),
+        "entry-id",
+    )
+
+    assert sensor.native_value == "1.5.0"
+
+
+@pytest.mark.parametrize(
+    "data",
+    [
+        None,
+        {},
         {"latest_version": {}},
         {"latest_version": {"fw": {}}},
         {"latest_version": {"fw": {"version": "1.6"}}},

@@ -103,6 +103,15 @@ def _has_euro_unit(unit: str | None) -> bool:
     return any(token in unit for token in euro_tokens)
 
 
+def _format_firmware_version(version: dict) -> str | None:
+    """Return a firmware version only when both version and build are present."""
+    v = version.get("version")
+    b = version.get("build")
+    if v is None or b is None or not str(v).strip() or not str(b).strip():
+        return None
+    return f"{v}.{b}".strip()
+
+
 class IungoSensor(CoordinatorEntity, SensorEntity):
     """Representation of an Iungo sensor."""
 
@@ -356,9 +365,7 @@ class IungoFirmwareVersionSensor(CoordinatorEntity, SensorEntity):
         if not self.coordinator.data or not self.coordinator.data.get("sysinfo"):
             return None
         version = self.coordinator.data["sysinfo"].get("version", {})
-        v = version.get("version", "")
-        b = version.get("build", "")
-        return f"{v}.{b}".strip()
+        return _format_firmware_version(version)
 
     @property
     def device_info(self):
@@ -391,11 +398,7 @@ class IungoLatestFirmwareVersionSensor(CoordinatorEntity, SensorEntity):
         """Return the latest firmware version available."""
         fw = self.coordinator.data.get("latest_version", {}).get(
             "fw", {}) if self.coordinator.data else {}
-        v = fw.get("version")
-        b = fw.get("build")
-        if v is None or b is None or not str(v).strip() or not str(b).strip():
-            return None
-        return f"{v}.{b}".strip()
+        return _format_firmware_version(fw)
 
     @property
     def device_info(self):
