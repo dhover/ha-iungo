@@ -5,7 +5,7 @@
     "@dhover"
   ],
   "categories": [
-    "energy.meters_monitoring"
+    "energy"
   ],
   "config_flow": true,
   "dependencies": [],
