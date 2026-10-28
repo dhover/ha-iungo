@@ -4,6 +4,9 @@
   "codeowners": [
     "@dhover"
   ],
+  "categories": [
+    "energy.meters_monitoring"
+  ],
   "config_flow": true,
   "dependencies": [],
   "documentation": "https://github.com/dhover/ha-iungo",

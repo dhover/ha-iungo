@@ -1,0 +1,13 @@
+add procedures to update the iungo
+
+release notes:
+https://atedec.com/iungo/releasenotes?ver=4721
+
+start update:
+http://{host}/iungo/api_request/fw_update
+{"ok":true,"type":"response","time":1.0542825656012,"rv":{},"systime":1789480648,"seq":1,"error":false}
+
+voortgang firmware update:
+http://{host}/iungo/api_request/fw_get_update_status
+{"ok":true,"type":"response","time":0.00040627457201481,"rv":{"in_progress":true,"phase":"9 of 9","success":false,"percentage":"89 "},"systime":1789480714,"seq":1,"error":false}
+
