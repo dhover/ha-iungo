@@ -166,7 +166,7 @@ class IungoSensor(CoordinatorEntity, SensorEntity):
             model=self._object_type,
         )
         if self._hub_device_id:
-            device_info["via_device_id"] = self._hub_device_id
+            device_info.via_device_id = self._hub_device_id
         return device_info
 
     @property
