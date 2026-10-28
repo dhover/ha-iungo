@@ -69,9 +69,19 @@ def test_firmware_sensors_format_versions():
         {"latest_version": {"fw": {"build": "5000"}}},
         {"latest_version": {"fw": {"version": None, "build": "5000"}}},
         {"latest_version": {"fw": {"version": "1.6", "build": ""}}},
+        {"latest_version": {"fw": {"version": "1.6", "build": " "}}},
     ],
 )
 def test_latest_firmware_sensor_requires_complete_version(data):
     sensor = IungoLatestFirmwareVersionSensor(coordinator(data), "entry-id")
 
     assert sensor.native_value is None
+
+
+def test_latest_firmware_sensor_accepts_zero_build():
+    sensor = IungoLatestFirmwareVersionSensor(
+        coordinator({"latest_version": {"fw": {"version": "1.6", "build": 0}}}),
+        "entry-id",
+    )
+
+    assert sensor.native_value == "1.6.0"
