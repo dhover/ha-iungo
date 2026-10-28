@@ -403,8 +403,10 @@ class IungoLatestFirmwareVersionSensor(CoordinatorEntity, SensorEntity):
         """Return the latest firmware version available."""
         fw = self.coordinator.data.get("latest_version", {}).get(
             "fw", {}) if self.coordinator.data else {}
-        v = fw.get("version", "")
-        b = fw.get("build", "")
+        v = fw.get("version")
+        b = fw.get("build")
+        if v is None or b is None or not str(v).strip() or not str(b).strip():
+            return None
         return f"{v}.{b}".strip()
 
     @property

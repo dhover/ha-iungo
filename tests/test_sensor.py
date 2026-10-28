@@ -1,5 +1,7 @@
 from types import SimpleNamespace
 
+import pytest
+
 from custom_components.iungo.sensor import (
     IungoBreakoutEnergySensor,
     IungoBreakoutWaterSensor,
@@ -54,3 +56,22 @@ def test_firmware_sensors_format_versions():
         firmware, "entry-id").native_value == "1.5.4664"
     assert IungoLatestFirmwareVersionSensor(
         firmware, "entry-id").native_value == "1.6.5000"
+
+
+@pytest.mark.parametrize(
+    "data",
+    [
+        None,
+        {},
+        {"latest_version": {}},
+        {"latest_version": {"fw": {}}},
+        {"latest_version": {"fw": {"version": "1.6"}}},
+        {"latest_version": {"fw": {"build": "5000"}}},
+        {"latest_version": {"fw": {"version": None, "build": "5000"}}},
+        {"latest_version": {"fw": {"version": "1.6", "build": ""}}},
+    ],
+)
+def test_latest_firmware_sensor_requires_complete_version(data):
+    sensor = IungoLatestFirmwareVersionSensor(coordinator(data), "entry-id")
+
+    assert sensor.native_value is None
