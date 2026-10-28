@@ -7,11 +7,30 @@ from custom_components.iungo.sensor import (
     IungoBreakoutWaterSensor,
     IungoFirmwareVersionSensor,
     IungoLatestFirmwareVersionSensor,
+    IungoSensor,
 )
 
 
 def coordinator(data):
     return SimpleNamespace(data=data)
+
+
+def test_sensor_preserves_value_and_hub_device():
+    sensor = IungoSensor(
+        coordinator({"object_values": {"meter": {"power": "42.5"}}}),
+        "meter_power",
+        "Power",
+        "W",
+        "meter",
+        "Meter",
+        "energy",
+        "power",
+        "hub-device-id",
+    )
+
+    assert sensor.native_value == 42.5
+    assert sensor.unique_id == "meter_power"
+    assert sensor.device_info["via_device_id"] == "hub-device-id"
 
 
 def test_breakout_energy_sensor_calculates_kwh():
@@ -23,11 +42,12 @@ def test_breakout_energy_sensor_calculates_kwh():
         }}}),
         "breakout",
         "energy-breakout",
-        "entry-id",
+        "hub-device-id",
     )
 
     assert sensor.native_value == 3.75
     assert sensor.native_unit_of_measurement == "kWh"
+    assert sensor.device_info["via_device_id"] == "hub-device-id"
 
 
 def test_breakout_water_sensor_returns_none_for_zero_factor():
@@ -39,10 +59,11 @@ def test_breakout_water_sensor_returns_none_for_zero_factor():
         }}}),
         "breakout",
         "water-breakout",
-        "entry-id",
+        "hub-device-id",
     )
 
     assert sensor.native_value is None
+    assert sensor.device_info["via_device_id"] == "hub-device-id"
 
 
 def test_firmware_sensors_format_versions():

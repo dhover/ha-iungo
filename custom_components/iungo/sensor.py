@@ -116,7 +116,6 @@ class IungoSensor(CoordinatorEntity, SensorEntity):
         object_name,
         object_type,
         prop_id,
-        entry_id,
         hub_device_id=None,
     ):
         super().__init__(coordinator)
@@ -127,7 +126,6 @@ class IungoSensor(CoordinatorEntity, SensorEntity):
         self._object_name = object_name
         self._object_type = object_type
         self._prop_id = prop_id
-        self._entry_id = entry_id
         # Default mapping
         self._device_class = DEVICE_CLASS_MAP.get(unit)
         # Override for water meters
@@ -187,7 +185,7 @@ class IungoBreakoutEnergySensor(IungoSensor):
     """Special sensor for calculated energy from breakout device."""
 
     def __init__(
-        self, coordinator, object_id, object_name, entry_id, hub_device_id=None
+        self, coordinator, object_id, object_name, hub_device_id=None
     ):
         unique_id = f"{object_id}_calculated_energy"
         name = "Calculated Energy"
@@ -200,7 +198,6 @@ class IungoBreakoutEnergySensor(IungoSensor):
             object_name,
             "breakout",
             "calculated_energy",
-            entry_id,
             hub_device_id,
         )
         self._attr_has_entity_name = True
@@ -226,7 +223,7 @@ class IungoBreakoutWaterSensor(IungoSensor):
     """Special sensor for calculated water from breakout_water device."""
 
     def __init__(
-        self, coordinator, object_id, object_name, entry_id, hub_device_id=None
+        self, coordinator, object_id, object_name, hub_device_id=None
     ):
         unique_id = f"{object_id}_calculated_water"
         name = "Calculated Water"
@@ -239,7 +236,6 @@ class IungoBreakoutWaterSensor(IungoSensor):
             object_name,
             "breakout_water",
             "calculated_water",
-            entry_id,
             hub_device_id,
         )
         self._device_class = SensorDeviceClass.WATER
@@ -301,7 +297,6 @@ async def async_setup_entry(
                 friendly_name,
                 sensor_def['object_type'],
                 sensor_def['prop_id'],
-                entry.entry_id,
                 hub_device_id,
             )
         )
@@ -319,7 +314,6 @@ async def async_setup_entry(
                     data_coordinator,
                     sensor_def["object_id"],
                     friendly_name,
-                    entry.entry_id,
                     hub_device_id,
                 )
             )
@@ -330,7 +324,6 @@ async def async_setup_entry(
                     data_coordinator,
                     sensor_def["object_id"],
                     friendly_name,
-                    entry.entry_id,
                     hub_device_id,
                 )
             )
